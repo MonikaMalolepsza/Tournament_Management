@@ -10,6 +10,7 @@ namespace Tournament_Management.Model
         private double _speed;
         private bool _active;
         private string _surname;
+        private int _age;
 
         #endregion
 
@@ -31,6 +32,7 @@ namespace Tournament_Management.Model
             get => _active;
             set => _active = value;
         }
+        public int Age { get => _age; set => _age = value; }
 
         #endregion
 

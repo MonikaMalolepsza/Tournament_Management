@@ -7,13 +7,13 @@ namespace Tournament_Management.Model
     {
         #region Attributes
 
-        private int _goal;
+        private int _goals;
 
         #endregion
 
         #region Properties
 
-        public int Goal { get => _goal; set => _goal = value; }
+        public int Goals { get => _goals; set => _goals = value; }
 
         #endregion
 
@@ -31,22 +31,21 @@ namespace Tournament_Management.Model
 
         public override void Update()
         {
-            MySqlConnection connection = new MySqlConnection("Server=127.0.0.1;Port=3307;Database=tournament;Uid=root;Pwd=example");
+            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
 
-            connection.Open();
-            MySqlTransaction transaction = connection.BeginTransaction();
+            con.Open();
+            MySqlTransaction transaction = con.BeginTransaction();
 
             try
             {
 
-                string updateFootballPlayer = $"UPDATE footballPlayer SET goals='{Goal}' WHERE player_id = (SELECT player_id FROM player WHERE participant_id = {Id})";
+                string updateFootballPlayer = $"UPDATE FOOTBALLPLAYER SET goals='{Goals}' WHERE player_id = (SELECT player_id FROM player WHERE participant_id = {Id})";
                 string updatePlayer = $"UPDATE player SET surname='{Surname}', speed='{Speed}', active='{Active}' WHERE participant_id='{Id}'";
                 string updateName = $"UPDATE participant SET name='{Name}' WHERE id='{Id}'";
 
-
                 MySqlCommand cmd = new MySqlCommand()
                 {
-                    Connection = connection,
+                    Connection = con,
                     Transaction = transaction
                 };
 
@@ -66,40 +65,35 @@ namespace Tournament_Management.Model
             }
             finally
             {
-                connection.Close();
+                con.Close();
 
             }
-
         }
 
         public override void Put()
         {
-            MySqlConnection connection = new MySqlConnection("Server=127.0.0.1;Port=3307;Database=tournament;Uid=root;Pwd=example");
+            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
 
-            connection.Open();
-            MySqlTransaction transaction = connection.BeginTransaction();
+            con.Open();
+            MySqlTransaction transaction = con.BeginTransaction();
 
             try
             {
 
-                string insertParticipant = $"INSERT INTO participant (name) VALUES ('{Name}')";
+                string insertParticipant = $"INSERT INTO PERSON P (name, surname, age, active) VALUES ('{Name}', '{Surname}', '{Age}', '{Active}')";
 
 
                 MySqlCommand cmd = new MySqlCommand()
                 {
-                    Connection = connection,
+                    Connection = con,
                     Transaction = transaction
                 };
 
                 cmd.CommandText = insertParticipant;
                 cmd.ExecuteNonQuery();
-                int participant_id = (int)cmd.LastInsertedId;
-                string insertPlayer = $"INSERT INTO player (participant_id, surname, speed, active) VALUES('{participant_id}','{Surname}', '{Speed}', '{Active}')";
+                int person_id = (int)cmd.LastInsertedId;
+                string insertPlayer = $"INSERT INTO FOOTBALLPLAYER (goals, speed, type_id, person_id, team_id) VALUES('{Goals}','{Speed}', '1', '{person_id}')";
                 cmd.CommandText = insertPlayer;
-                cmd.ExecuteNonQuery();
-                int player_id = (int)cmd.LastInsertedId;
-                string insertFootballPlayer = $"INSERT INTO footballPlayer (player_id, goals) VALUES('{player_id}', '{Goal}'))";
-                cmd.CommandText = insertFootballPlayer;
                 cmd.ExecuteNonQuery();
 
 
@@ -112,7 +106,7 @@ namespace Tournament_Management.Model
             }
             finally
             {
-                connection.Close();
+                con.Close();
 
             }
 
@@ -121,14 +115,14 @@ namespace Tournament_Management.Model
 
         public override void Delete()
         {
-            MySqlConnection connection = new MySqlConnection("Server=127.0.0.1;Port=3307;Database=tournament;Uid=root;Pwd=example");
+            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
 
             try
             {
-                connection.Open();
+                con.Open();
 
-                string query = $"DELETE FROM participant p WHERE p.id = {Id}";
-                MySqlCommand cmd = new MySqlCommand(query, connection);
+                string query = $"DELETE FROM PERSON P WHERE P.ID = {Id}";
+                MySqlCommand cmd = new MySqlCommand(query, con);
 
                 cmd.ExecuteNonQuery();
             }
@@ -138,7 +132,7 @@ namespace Tournament_Management.Model
             }
             finally
             {
-                connection.Close();
+                con.Close();
 
             }
 
@@ -146,13 +140,13 @@ namespace Tournament_Management.Model
 
         public override void Get(int id)
         {
-            MySqlConnection connection = new MySqlConnection("Server=127.0.0.1;Port=3307;Database=tournament;Uid=root;Pwd=example");
+            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
 
             try
             {
-                connection.Open();
-                string query = $"SELECT * FROM participant p JOIN player pl ON p.id = pl.participant_id JOIN footballPlayer fp ON pl.id = fp.player_id WHERE p.id = {id}";
-                MySqlCommand cmd = new MySqlCommand(query, connection);
+                con.Open();
+                string query = $"SELECT * FROM PERSON P JOIN FOOTBALLPLAYER FP ON P.ID = FP.PERSON_ID WHERE P.ID = {id}";
+                MySqlCommand cmd = new MySqlCommand(query, con);
                 MySqlDataReader reader = cmd.ExecuteReader();
 
                 while (reader.Read())
@@ -160,9 +154,10 @@ namespace Tournament_Management.Model
                     Id = reader.GetInt32("id");
                     Name = reader.GetString("name");
                     Surname = reader.GetString("surname");
-                    Goal = reader.GetInt32("goals");
+                    Goals = reader.GetInt32("goals");
                     Speed = reader.GetDouble("speed");
                     Active = reader.GetBoolean("active");
+                    Age = reader.GetInt32("age");
                 }
 
                 reader.Close();
@@ -174,8 +169,7 @@ namespace Tournament_Management.Model
             }
             finally
             {
-                connection.Close();
-
+                con.Close();
             }
         }
 

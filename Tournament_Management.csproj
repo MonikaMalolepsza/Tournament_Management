@@ -169,6 +169,10 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <EmbeddedResource Include="Resources\turnierverwaltung_schema.sql" />
+    <EmbeddedResource Include="Resources\CreateDatabase.sql" />
+    <EmbeddedResource Include="Resources\CreateTables.sql" />
+    <EmbeddedResource Include="Resources\InsertData.sql" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -221,6 +225,7 @@
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
     <Compile Include="ControllerNS\Controller.cs" />
+    <Compile Include="DBHelper\DBCreater.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

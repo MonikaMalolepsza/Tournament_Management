@@ -16,6 +16,7 @@ namespace Tournament_Management.ControllerNS
         private List<Referee> _referees;
         private List<Trainer> _trainers;
         private List<Physio> _physios;
+        private List<Participant> _participants;
 
         #endregion
 
@@ -26,6 +27,7 @@ namespace Tournament_Management.ControllerNS
         public List<Referee> Referees { get => _referees; set => _referees = value; }
         public List<Trainer> Trainers { get => _trainers; set => _trainers = value; }
         public List<Physio> Physios { get => _physios; set => _physios = value; }
+        public List<Participant> Participants { get => _participants; set => _participants = value; }
 
         #endregion
 
@@ -39,7 +41,9 @@ namespace Tournament_Management.ControllerNS
             Trainers = new List<Trainer>();
             Referees = new List<Referee>();
 
-            this.GetAllFootballPlayers();
+            Participants = new List<Participant>();
+
+            GetAllPeople();
 
         }
 
@@ -55,10 +59,74 @@ namespace Tournament_Management.ControllerNS
 
         #region Methods
 
+        public void GetAllPeople()
+        {
+            Participant p = null;
+            string sql = "SELECT P.ID," +
+                " case " +
+                "when((SELECT 1 from TRAINER T where T.PERSON_ID = P.id) is not null) then 'Trainer' " +
+                "when((SELECT 1 from FOOTBALLPLAYER FP where FP.PERSON_ID = P.id) is not null) then 'Footballplayer' " +
+                "when((SELECT 1 from HANDBALLPLAYER HP where HP.PERSON_ID = P.id) is not null) then 'Handballplayer' " +
+                "when((SELECT 1 from BASKETBALLPLAYER BP where BP.PERSON_ID = P.id) is not null) then 'Basketballplayer' " +
+                "when((SELECT 1 from PHYSIO PH where PH.PERSON_ID = P.id) is not null) then 'Physio' " +
+                "when((SELECT 1 from REFEREE R where R.PERSON_ID = P.id) is not null) then 'Referee' " +
+                "end as Profession " +
+                "FROM PERSON P";
+            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            try
+            {
+                con.Open();
+
+                MySqlCommand cmd = new MySqlCommand(sql, con);
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    switch (reader.GetString("Profession"))
+                    {
+                        case "Footballplayer":
+                            p = new FootballPlayer();
+                            break;
+                        //TODO: Implement other classes
+                        //case "Trainer":
+                        //    p = new FootballPlayer();
+                        //    break;
+                        //case "Handballplayer":
+                        //    p = new Physio();
+                        //    break;
+                        //case "Basketballplayer":
+                        //    p = new Physio();
+                        //    break;
+                        //case "Physio":
+                        //    p = new Physio();
+                        //    break;
+                        //case "Referee":
+                        //    p = new Physio();
+                        //    break;
+                        default: break;
+                    }
+                    if (p != null)
+                    {
+                        p.Get((int)reader.GetInt64("ID"));
+                        Participants.Add(p);
+                    }
+                    p = null;
+                }
+                reader.Close();
+            }
+            catch (Exception e)
+            {
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
         public void GetAllFootballPlayers()
         {
-            string query = "SELECT p.id FROM participant p JOIN player pl ON p.id = pl.participant_id JOIN footballPlayer fp ON pl.id = fp.player_id";
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Port=3307;Database=tournament;Uid=root;Pwd=example");
+            string query = "SELECT P.ID FROM PERSON P JOIN FOOTBALLPLAYER FP ON P.ID = FP.PERSON_ID";
+            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
 
             try
             {
@@ -72,7 +140,6 @@ namespace Tournament_Management.ControllerNS
                     FootballPlayer fp = new FootballPlayer();
                     fp.Get((int)rdr.GetInt64("id"));
                     Players.Add(fp);
-
                 }
 
                 rdr.Close();
@@ -82,20 +149,6 @@ namespace Tournament_Management.ControllerNS
                 con.Close();
             }
         }
-
-        /*
-        public void Test()
-        {
-            Player s = new Player("Jens", 70.5, true);
-            Trainer t = new Trainer("Thomas", 50);
-            Physio p = new Physio("Monika", 2);
-            Team m = new Team("FC Koeln");
-            m.NewMember(s);
-            m.NewMember(t);
-            m.NewMember(p);
-        }
-        */
-
         #endregion
     }
 }
