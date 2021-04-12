@@ -12,7 +12,7 @@ namespace Tournament_Management.ControllerNS
         #region Attributes
 
         private List<Team> _teams;
-        private List<Player> _players;
+        private List<Person> _players;
         private List<Referee> _referees;
         private List<Trainer> _trainers;
         private List<Physio> _physios;
@@ -23,7 +23,7 @@ namespace Tournament_Management.ControllerNS
         #region Properties
 
         public List<Team> Teams { get => _teams; set => _teams = value; }
-        public List<Player> Players { get => _players; set => _players = value; }
+        public List<Person> Players { get => _players; set => _players = value; }
         public List<Referee> Referees { get => _referees; set => _referees = value; }
         public List<Trainer> Trainers { get => _trainers; set => _trainers = value; }
         public List<Physio> Physios { get => _physios; set => _physios = value; }
@@ -36,18 +36,18 @@ namespace Tournament_Management.ControllerNS
         public Controller()
         {
             Teams = new List<Team>();
-            Players = new List<Player>();
+            Players = new List<Person>();
             Physios = new List<Physio>();
             Trainers = new List<Trainer>();
             Referees = new List<Referee>();
 
             Participants = new List<Participant>();
 
-            GetAllPeople();
+            //GetAllPeople();
 
         }
 
-        public Controller(List<Team> teams, List<Trainer> trainers, List<Referee> referees, List<Player> players, List<Physio> physios)
+        public Controller(List<Team> teams, List<Trainer> trainers, List<Referee> referees, List<Person> players, List<Physio> physios)
         {
             Teams = teams;
             Players = players;
@@ -91,9 +91,9 @@ namespace Tournament_Management.ControllerNS
                         //case "Trainer":
                         //    p = new FootballPlayer();
                         //    break;
-                        //case "Handballplayer":
-                        //    p = new Physio();
-                        //    break;
+                        case "Handballplayer":
+                            p = new HandballPlayer();
+                            break;
                         //case "Basketballplayer":
                         //    p = new Physio();
                         //    break;
@@ -139,7 +139,7 @@ namespace Tournament_Management.ControllerNS
                 {
                     FootballPlayer fp = new FootballPlayer();
                     fp.Get((int)rdr.GetInt64("id"));
-                    Players.Add(fp);
+                    Participants.Add(fp);
                 }
 
                 rdr.Close();

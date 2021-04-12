@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Tournament_Management.Model
 {
-    public class Physio : Participant
+    public class Physio : Person
     {
         #region Attributes
 

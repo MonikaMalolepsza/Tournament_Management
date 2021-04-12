@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Tournament_Management.Model
 {
-    public class Referee : Participant
+    public class Referee : Person
 
     {
         #region Attributes

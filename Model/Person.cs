@@ -3,7 +3,7 @@ using MySql.Data.MySqlClient;
 
 namespace Tournament_Management.Model
 {
-    public abstract class Player : Participant
+    public abstract class Person : Participant
     {
         #region Attributes
 
@@ -38,17 +38,17 @@ namespace Tournament_Management.Model
 
         #region Constructors
 
-        public Player()
+        public Person()
         {
             this.Speed = 0;
         }
 
-        public Player(string name) : base(name)
+        public Person(string name) : base(name)
         {
             this.Speed = 0;
         }
 
-        public Player(string name, double speed, bool active) : base(name)
+        public Person(string name, double speed, bool active) : base(name)
         {
             this.Speed = speed;
             this.Active = active;

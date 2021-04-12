@@ -1,34 +1,24 @@
-﻿using System;
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
 namespace Tournament_Management.Model
 {
-    public class FootballPlayer : Person
+    public class HandballPlayer : Person
     {
         #region Attributes
-
         private int _goals;
-
+        private string _position;
         #endregion
-
         #region Properties
-
         public int Goals { get => _goals; set => _goals = value; }
-
+        public string Position { get => _position; set => _position = value; }
         #endregion
-
         #region Constructors
-
-        public FootballPlayer()
-        {
-
-        }
-
         #endregion
-
-
         #region Methods
-
         public override void Update()
         {
             MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
@@ -38,10 +28,8 @@ namespace Tournament_Management.Model
 
             try
             {
-
-                string updateFootballPlayer = $"UPDATE FOOTBALLPLAYER SET goals='{Goals}' WHERE player_id = (SELECT player_id FROM player WHERE participant_id = {Id})";
-                string updatePlayer = $"UPDATE player SET surname='{Surname}', speed='{Speed}', active='{Active}' WHERE participant_id='{Id}'";
-                string updateName = $"UPDATE participant SET name='{Name}' WHERE id='{Id}'";
+                string updatePerson = $"UPDATE PERSON SET NAME='{Name}', SURNAME='{Surname}', ACTIVE='{Active}', AGE='{Age}' WHERE ID='{Id}'";
+                string updateHandballplayer = $"UPDATE HANDBALLPLAYER SET position='{Position}', goals='{Goals}' WHERE PERSON_ID='{Id}'";
 
                 MySqlCommand cmd = new MySqlCommand()
                 {
@@ -49,11 +37,9 @@ namespace Tournament_Management.Model
                     Transaction = transaction
                 };
 
-                cmd.CommandText = updateName;
+                cmd.CommandText = updatePerson;
                 cmd.ExecuteNonQuery();
-                cmd.CommandText = updatePlayer;
-                cmd.ExecuteNonQuery();
-                cmd.CommandText = updateFootballPlayer;
+                cmd.CommandText = updateHandballplayer;
                 cmd.ExecuteNonQuery();
 
                 transaction.Commit();
@@ -92,7 +78,7 @@ namespace Tournament_Management.Model
                 cmd.CommandText = insertParticipant;
                 cmd.ExecuteNonQuery();
                 int person_id = (int)cmd.LastInsertedId;
-                string insertPlayer = $"INSERT INTO FOOTBALLPLAYER (goals, speed, type_id, person_id, team_id) VALUES('{Goals}','{Speed}', '1', '{person_id}')";
+                string insertPlayer = $"INSERT INTO HANDBALLPLAYER (goals, speed, type_id, person_id, team_id, position) VALUES('{Goals}','{Speed}', '1', '{person_id}', '{Position}')";
                 cmd.CommandText = insertPlayer;
                 cmd.ExecuteNonQuery();
 
@@ -145,7 +131,7 @@ namespace Tournament_Management.Model
             try
             {
                 con.Open();
-                string query = $"SELECT * FROM PERSON P JOIN FOOTBALLPLAYER FP ON P.ID = FP.PERSON_ID WHERE P.ID = {id}";
+                string query = $"SELECT * FROM PERSON P JOIN HANDBALLPLAYER HP ON P.ID = HP.PERSON_ID WHERE P.ID = {id}";
                 MySqlCommand cmd = new MySqlCommand(query, con);
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -158,6 +144,7 @@ namespace Tournament_Management.Model
                     Speed = reader.GetDouble("speed");
                     Active = reader.GetBoolean("active");
                     Age = reader.GetInt32("age");
+                    Position = reader.GetString("position");
                 }
 
                 reader.Close();
@@ -172,9 +159,6 @@ namespace Tournament_Management.Model
                 con.Close();
             }
         }
-
-        #endregion
-
-
+        #endregion        
     }
 }
