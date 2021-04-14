@@ -71,7 +71,7 @@ namespace Tournament_Management.Model
         try
         {
             string updatePerson = $"UPDATE PERSON SET name='{Name}', age='{Age}' surname='{Surname}', active='{Active}' WHERE  ID='{Id}'";
-            string updateReferee = $"UPDATE REFEREE SET certificate='{Certificate}', type={Type}, type_id='{Type}' WHERE PERSON_ID= {Id}";
+            string updateReferee = $"UPDATE REFEREE SET certificate='{Certificate}', type_id='{Type}' WHERE PERSON_ID= {Id}";
 
             MySqlCommand cmd = new MySqlCommand()
             {
