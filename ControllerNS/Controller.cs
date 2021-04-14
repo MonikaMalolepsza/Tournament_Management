@@ -89,22 +89,21 @@ namespace Tournament_Management.ControllerNS
                         case "Footballplayer":
                             p = new FootballPlayer();
                             break;
-                        //TODO: Implement other classes
-                        //case "Trainer":
-                        //    p = new FootballPlayer();
-                        //    break;
+                        case "Trainer":
+                            p = new Trainer();
+                            break;
                         case "Handballplayer":
                             p = new HandballPlayer();
                             break;
-                        //case "Basketballplayer":
-                        //    p = new Physio();
-                        //    break;
-                        //case "Physio":
-                        //    p = new Physio();
-                        //    break;
-                        //case "Referee":
-                        //    p = new Physio();
-                        //    break;
+                        case "Basketballplayer":
+                            p = new BasketballPlayer();
+                            break;
+                        case "Physio":
+                            p = new Physio();
+                            break;
+                        case "Referee":
+                            p = new Referee();
+                            break;
                         default: break;
                     }
                     if (p != null)
@@ -128,6 +127,58 @@ namespace Tournament_Management.ControllerNS
         public void GetAllFootballPlayers()
         {
             string query = "SELECT P.ID FROM PERSON P JOIN FOOTBALLPLAYER FP ON P.ID = FP.PERSON_ID";
+            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+
+            try
+            {
+                con.Open();
+
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    FootballPlayer fp = new FootballPlayer();
+                    fp.Get((int)rdr.GetInt64("id"));
+                    Participants.Add(fp);
+                }
+
+                rdr.Close();
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+        public void GetAllBasketballPlayers()
+        {
+            string query = "SELECT P.ID FROM PERSON P JOIN BASKETBALLPLAYER BP ON P.ID = BP.PERSON_ID";
+            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+
+            try
+            {
+                con.Open();
+
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    FootballPlayer fp = new FootballPlayer();
+                    fp.Get((int)rdr.GetInt64("id"));
+                    Participants.Add(fp);
+                }
+
+                rdr.Close();
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+        public void GetAllHndballPlayers()
+        {
+            string query = "SELECT P.ID FROM PERSON P JOIN HANDBALLPLAYER HB ON P.ID = HB.PERSON_ID";
             MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
 
             try
