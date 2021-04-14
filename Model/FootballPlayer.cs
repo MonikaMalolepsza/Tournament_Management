@@ -8,6 +8,7 @@ namespace Tournament_Management.Model
         #region Attributes
 
         private int _goals;
+        private int _type;
         private double _speed;
 
         #endregion
@@ -16,6 +17,7 @@ namespace Tournament_Management.Model
 
         public int Goals { get => _goals; set => _goals = value; }
         public double Speed { get => _speed; set => _speed = value; }
+        public int Type { get => _type; set => _type = value; }
 
         #endregion
 
@@ -25,6 +27,7 @@ namespace Tournament_Management.Model
         {
             this.Goals = 0;
             this.Speed = 0;
+            this.Type = 0;
         }
 
         #endregion
@@ -42,7 +45,7 @@ namespace Tournament_Management.Model
             try
             {
                 string updatePlayer = $"UPDATE PERSON SET name='{Name}', age='{Age}' surname='{Surname}', active='{Active}' WHERE  ID='{Id}'";
-                string updateFootballPlayer = $"UPDATE FOOTBALLPLAYER SET goals='{Goals}', speed='{Speed}' WHERE PERSON_ID = {Id}";
+                string updateFootballPlayer = $"UPDATE FOOTBALLPLAYER SET goals='{Goals}', speed='{Speed}', type_id='{Type}' WHERE PERSON_ID = {Id}";
 
                 MySqlCommand cmd = new MySqlCommand()
                 {
@@ -102,7 +105,7 @@ namespace Tournament_Management.Model
                 cmd.CommandText = insertParticipant;
                 cmd.ExecuteNonQuery();
                 int person_id = (int)cmd.LastInsertedId;
-                string insertPlayer = $"INSERT INTO FOOTBALLPLAYER (goals, speed, type_id, person_id, team_id) VALUES('{Goals}','{Speed}', '1', '{person_id}', '1')";
+                string insertPlayer = $"INSERT INTO FOOTBALLPLAYER (goals, speed, type_id, person_id, team_id) VALUES('{Goals}','{Speed}', '{Type}', '{person_id}', '1')";
                 cmd.CommandText = insertPlayer;
                 cmd.ExecuteNonQuery();
 
@@ -165,6 +168,7 @@ namespace Tournament_Management.Model
                     Name = reader.GetString("name");
                     Surname = reader.GetString("surname");
                     Goals = reader.GetInt32("goals");
+                    Type = reader.GetInt32("type_id");
                     Speed = reader.GetDouble("speed");
                     Active = reader.GetBoolean("active");
                     Age = reader.GetInt32("age");

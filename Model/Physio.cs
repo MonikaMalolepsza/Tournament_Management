@@ -7,17 +7,13 @@ namespace Tournament_Management.Model
         #region Attributes
 
         private int _experience;
-
+        private int _type;
 
         #endregion
 
         #region Properties
 
-        public int Experience
-        {
-            get => _experience;
-            set => _experience = value;
-        }
+        public int Experience { get => _experience; set => _experience = value; }
 
         #endregion
 

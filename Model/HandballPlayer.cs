@@ -11,18 +11,23 @@ namespace Tournament_Management.Model
         #region Attributes
         private int _goals;
         private double _speed;
+        private int _type;
         private string _position;
+
         #endregion
         #region Properties
         public int Goals { get => _goals; set => _goals = value; }
         public string Position { get => _position; set => _position = value; }
         public double Speed { get => _speed; set => _speed = value; }
+        public int Type { get => _type; set => _type = value; }
+
         #endregion
         #region Constructors
         public HandballPlayer()
         {
             this.Goals = 0;
             this.Speed = 0;
+            this.Type = 0;
             this.Position = "";
         }
 
@@ -38,7 +43,7 @@ namespace Tournament_Management.Model
             try
             {
                 string updatePerson = $"UPDATE PERSON SET NAME='{Name}', SURNAME='{Surname}', ACTIVE='{Active}', AGE='{Age}' WHERE ID='{Id}'";
-                string updateHandballplayer = $"UPDATE HANDBALLPLAYER SET position='{Position}', goals='{Goals}', speed='{Speed}' WHERE PERSON_ID='{Id}'";
+                string updateHandballplayer = $"UPDATE HANDBALLPLAYER SET position='{Position}', goals='{Goals}', speed='{Speed}', type_id='{Type}' WHERE PERSON_ID='{Id}'";
 
                 MySqlCommand cmd = new MySqlCommand()
                 {
@@ -98,7 +103,7 @@ namespace Tournament_Management.Model
                 cmd.CommandText = insertParticipant;
                 cmd.ExecuteNonQuery();
                 int person_id = (int)cmd.LastInsertedId;
-                string insertPlayer = $"INSERT INTO HANDBALLPLAYER (goals, speed, type_id, person_id, team_id, position) VALUES('{Goals}','{Speed}', '1', '{person_id}', '{Position}')";
+                string insertPlayer = $"INSERT INTO HANDBALLPLAYER (goals, speed, type_id, person_id, team_id, position) VALUES('{Goals}','{Speed}', '{Type}', '{person_id}', '1', '{Position}')";
                 cmd.CommandText = insertPlayer;
                 cmd.ExecuteNonQuery();
                 transaction.Commit();
@@ -157,6 +162,7 @@ namespace Tournament_Management.Model
                 {
                     Id = reader.GetInt32("id");
                     Name = reader.GetString("name");
+                    Type = reader.GetInt32("type_id");
                     Surname = reader.GetString("surname");
                     Goals = reader.GetInt32("goals");
                     Speed = reader.GetDouble("speed");

@@ -9,6 +9,7 @@ namespace Tournament_Management.Model
 
         private int _fieldGoals;
         private int _height;
+        private int _type;
         private double _speed;
 
         #endregion
@@ -18,6 +19,7 @@ namespace Tournament_Management.Model
         public int Goals { get => _fieldGoals; set => _fieldGoals = value; }
         public int Height { get => _height; set => _height = value; }
         public double Speed { get => _speed; set => _speed = value; }
+        public int Type { get => _type; set => _type = value; }
 
         #endregion
 
@@ -27,6 +29,7 @@ namespace Tournament_Management.Model
         {
             this.Goals = 0;
             this.Speed = 0;
+            this.Type = 0;
             this.Height = 0;
         }
 
@@ -59,7 +62,7 @@ namespace Tournament_Management.Model
 
                  */
 
-                string updateBasketballplayer = $"UPDATE BASKETBALLPLAYER SET field_goal='{Goals}', speed='{Speed}', height='{Height}'  WHERE  PERSON_ID = {Id}";
+                string updateBasketballplayer = $"UPDATE BASKETBALLPLAYER SET field_goal='{Goals}', speed='{Speed}', height='{Height}', type={Type}  WHERE  PERSON_ID = {Id}";
                 string updatePlayer = $"UPDATE PERSON SET name='{Name}', age='{Age}' surname='{Surname}', active='{Active}' WHERE ID ='{Id}'";
 
 
@@ -122,7 +125,7 @@ namespace Tournament_Management.Model
                 cmd.CommandText = insertParticipant;
                 cmd.ExecuteNonQuery();
                 int person_id = (int)cmd.LastInsertedId;
-                string insertPlayer = $"INSERT INTO BASKETBALLPLAYER (field_goal, speed, type_id, person_id, team_id, height) VALUES('{Goals}','{Speed}', '1', '{person_id}', '1', '{Height}')";
+                string insertPlayer = $"INSERT INTO BASKETBALLPLAYER (field_goal, speed, type_id, person_id, team_id, height) VALUES('{Goals}','{Speed}', '{Type}', '{person_id}', '1', '{Height}')";
                 cmd.CommandText = insertPlayer;
                 cmd.ExecuteNonQuery();
 
@@ -185,6 +188,7 @@ namespace Tournament_Management.Model
                     Name = reader.GetString("name");
                     Surname = reader.GetString("surname");
                     Goals = reader.GetInt32("field_goal");
+                    Type = reader.GetInt32("type_id");
                     Speed = reader.GetDouble("speed");
                     Height = reader.GetInt32("height");
                     Active = reader.GetBoolean("active");

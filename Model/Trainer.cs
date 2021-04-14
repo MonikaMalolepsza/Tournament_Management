@@ -6,25 +6,13 @@ namespace Tournament_Management.Model
 
         #region Attributes
 
-        private string _surname;
-        private int _age;
-
+        private int _type;
 
         #endregion
 
         #region Properties
 
-        public int Age
-        {
-            get => _age;
-            set => _age = value;
-        }
-
-        public string Surname
-        {
-            get => _surname;
-            set => _surname = value;
-        }
+        public int Type { get => _type; set => _type = value; }
 
         #endregion
 
@@ -32,18 +20,18 @@ namespace Tournament_Management.Model
 
         public Trainer()
         {
-            this.Age = 0;
+            this.Type = 0;
         }
 
         public Trainer(string name) : base(name)
         {
-            this.Age = 0;
+            this.Type = 0;
 
         }
 
-        public Trainer(string name, int age) : base(name)
+        public Trainer(string name, int type) : base(name)
         {
-            this.Age = age;
+            this.Type = type;
         }
 
         #endregion
