@@ -11,5 +11,16 @@ namespace Tournament_Management.Helper
         {
             return value ? "Yes" : "No";
         }
+        public static bool GetTrueFalseString(this string value)
+        {
+            switch (value)
+            {
+                case "Yes":
+                    return true;
+                case "No":
+                    return false;
+                default: throw new Exception("Invalid Input!");
+            }
+        }
     }
 }

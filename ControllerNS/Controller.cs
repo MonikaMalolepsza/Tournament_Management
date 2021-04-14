@@ -17,6 +17,7 @@ namespace Tournament_Management.ControllerNS
         private List<Trainer> _trainers;
         private List<Physio> _physios;
         private List<Participant> _participants;
+        private Participant _newParticipant;
 
         #endregion
 
@@ -28,6 +29,7 @@ namespace Tournament_Management.ControllerNS
         public List<Trainer> Trainers { get => _trainers; set => _trainers = value; }
         public List<Physio> Physios { get => _physios; set => _physios = value; }
         public List<Participant> Participants { get => _participants; set => _participants = value; }
+        public Participant NewParticipant { get => _newParticipant; set => _newParticipant = value; }
 
         #endregion
 

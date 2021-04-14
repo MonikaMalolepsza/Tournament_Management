@@ -23,6 +23,8 @@ namespace Tournament_Management.View
 
         protected void btnConfirm_Click(object sender, EventArgs e)
         {
+            tblInput.Enabled = true;
+            btnSubmit.Enabled = true;
             //All
             if (rdbtnList1.Items[0].Selected)
             {
@@ -31,9 +33,45 @@ namespace Tournament_Management.View
             //Footballplayer
             else if (rdbtnList1.Items[1].Selected)
             {
-                Controller.GetAllFootballPlayers();                
+                Controller.GetAllFootballPlayers();
             }
             LoadPeople();
+            LoadInputFields();
+        }
+
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            //All
+            if (rdbtnList1.Items[0].Selected)
+            {
+
+            }
+            //Footballplayer
+            else if (rdbtnList1.Items[1].Selected)
+            {
+                FootballPlayer tmp = Controller.NewParticipant as FootballPlayer;
+                tmp.Name = Request.Form["txtName"];
+                tmp.Surname = Request.Form["txtSurname"];
+                tmp.Goals = Convert.ToInt32(Request.Form["txtGoals"]);
+                tmp.Speed = Convert.ToDouble(Request.Form["txtSpeed"]);
+                tmp.Age = Convert.ToInt32(Request.Form["txtAge"]);
+                tmp.Active = Request.Form["txtActive"].GetTrueFalseString();
+                tmp.Put();
+            }
+        }
+
+        private void LoadInputFields()
+        {
+            //All
+            if (rdbtnList1.Items[0].Selected)
+            {
+
+            }
+            //Footballplayer
+            else if (rdbtnList1.Items[1].Selected)
+            {
+                Controller.NewParticipant = new FootballPlayer();
+            }
         }
 
         private void LoadPeople()
@@ -73,7 +111,7 @@ namespace Tournament_Management.View
 
                     newCell = new TableCell();
                     newCell.Text = (pers as Person).Surname;
-                    newRow.Cells.Add(newCell);                    
+                    newRow.Cells.Add(newCell);
 
                     newCell = new TableCell();
                     newCell.Text = (pers as Person).Age.ToString();
@@ -147,10 +185,27 @@ namespace Tournament_Management.View
                     newCell.Text = (pers as FootballPlayer).Active.GetYesNoString();
                     newRow.Cells.Add(newCell);
 
+                    newCell = new TableCell();
+                    CheckBox cbChoose = new CheckBox();
+                    cbChoose.Checked = false;
+                    cbChoose.ID = "cbChoose$" + pers.Id;
+                    newCell.Controls.Add(cbChoose);
+                    newRow.Cells.Add(newCell);
+
                     tblPeople.Rows.Add(newRow);
                 }
             }
 
+        }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            foreach(TableRow tr in tblPeople.Rows)
+            {
+                if (tr.Cells[tr.Cells.Count - 1].Controls is CheckBox)
+                    if ((tr.Cells[tr.Cells.Count - 1].Controls[0] as CheckBox).Checked)
+                        Controller.Participants.First(x => x.Id == Convert.ToInt32((tr.Cells[tr.Cells.Count - 1].Controls[0] as CheckBox).ID.Split('$')[1])).Delete();
+            }
         }
     }
 }

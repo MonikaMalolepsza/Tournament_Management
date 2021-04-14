@@ -80,7 +80,7 @@ namespace Tournament_Management.Model
             try
             {
 
-                string insertParticipant = $"INSERT INTO PERSON P (name, surname, age, active) VALUES ('{Name}', '{Surname}', '{Age}', '{Active}')";
+                string insertParticipant = $"INSERT INTO PERSON (name, surname, age, active) VALUES ('{Name}', '{Surname}', '{Age}', '{Active}')";
 
 
                 MySqlCommand cmd = new MySqlCommand()
@@ -92,7 +92,7 @@ namespace Tournament_Management.Model
                 cmd.CommandText = insertParticipant;
                 cmd.ExecuteNonQuery();
                 int person_id = (int)cmd.LastInsertedId;
-                string insertPlayer = $"INSERT INTO FOOTBALLPLAYER (goals, speed, type_id, person_id, team_id) VALUES('{Goals}','{Speed}', '1', '{person_id}')";
+                string insertPlayer = $"INSERT INTO FOOTBALLPLAYER (goals, speed, type_id, person_id, team_id) VALUES('{Goals}','{Speed}', '1', '{person_id}', '1')";
                 cmd.CommandText = insertPlayer;
                 cmd.ExecuteNonQuery();
 
@@ -110,8 +110,8 @@ namespace Tournament_Management.Model
 
             }
 
-
         }
+
 
         public override void Delete()
         {
@@ -148,7 +148,7 @@ namespace Tournament_Management.Model
                 string query = $"SELECT * FROM PERSON P JOIN FOOTBALLPLAYER FP ON P.ID = FP.PERSON_ID WHERE P.ID = {id}";
                 MySqlCommand cmd = new MySqlCommand(query, con);
                 MySqlDataReader reader = cmd.ExecuteReader();
-
+                
                 while (reader.Read())
                 {
                     Id = reader.GetInt32("id");
