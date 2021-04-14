@@ -211,6 +211,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\ClassExtensions.cs" />
+    <Compile Include="Model\BasketballPlayer.cs" />
     <Compile Include="Model\FootballPlayer.cs" />
     <Compile Include="Model\HandballPlayer.cs" />
     <Compile Include="Model\Participant.cs" />

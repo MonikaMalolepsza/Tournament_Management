@@ -7,7 +7,6 @@ namespace Tournament_Management.Model
     {
         #region Attributes
 
-        private double _speed;
         private bool _active;
         private string _surname;
         private int _age;
@@ -16,11 +15,6 @@ namespace Tournament_Management.Model
 
         #region Properties
 
-        public double Speed
-        {
-            get => _speed;
-            set => _speed = value;
-        }
 
         public string Surname
         {
@@ -40,17 +34,16 @@ namespace Tournament_Management.Model
 
         public Person()
         {
-            this.Speed = 0;
+            this.Age = 0;
         }
 
         public Person(string name) : base(name)
         {
-            this.Speed = 0;
+            this.Age = 0;
         }
 
-        public Person(string name, double speed, bool active) : base(name)
+        public Person(string name, bool active) : base(name)
         {
-            this.Speed = speed;
             this.Active = active;
         }
 
@@ -70,7 +63,7 @@ namespace Tournament_Management.Model
 
         public override string GiveInfo()
         {
-            return base.GiveInfo() + $"{Surname}" + ", " + $"Speed: {Speed}" + ", " + $"{(Active ? "Ja" : "Nein")}";
+            return base.GiveInfo() + $"{Surname}" + ", " + $"{(Active ? "Ja" : "Nein")}";
         }
 
         public abstract override void Update();

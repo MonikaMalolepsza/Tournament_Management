@@ -3,28 +3,31 @@ using MySql.Data.MySqlClient;
 
 namespace Tournament_Management.Model
 {
-    public class FootballPlayer : Person
+    public class BasketballPlayer : Person
     {
         #region Attributes
 
-        private int _goals;
+        private int _fieldGoals;
+        private int _height;
         private double _speed;
 
         #endregion
 
         #region Properties
 
-        public int Goals { get => _goals; set => _goals = value; }
+        public int Goals { get => _fieldGoals; set => _fieldGoals = value; }
+        public int Height { get => _height; set => _height = value; }
         public double Speed { get => _speed; set => _speed = value; }
 
         #endregion
 
         #region Constructors
 
-        public FootballPlayer()
+        public BasketballPlayer()
         {
             this.Goals = 0;
             this.Speed = 0;
+            this.Height = 0;
         }
 
         #endregion
@@ -41,8 +44,24 @@ namespace Tournament_Management.Model
 
             try
             {
-                string updatePlayer = $"UPDATE PERSON SET name='{Name}', age='{Age}' surname='{Surname}', active='{Active}' WHERE  ID='{Id}'";
-                string updateFootballPlayer = $"UPDATE FOOTBALLPLAYER SET goals='{Goals}', speed='{Speed}' WHERE PERSON_ID = {Id}";
+                /*
+                INSERT INTO BASKETBALLPLAYER 
+                (field_goal, speed, type_id, person_id, team_id, height) VALUES('{Goals}','{Speed}','1','{person_id}','1','{Height}')
+                 
+                INSERT INTO PERSON 
+                (name, surname, age, active) VALUES ('{Name}', '{Surname}', '{Age}', '{Active}')
+
+                `id` INT(11) NOT NULL AUTO_INCREMENT,
+                `name` VARCHAR(50) NULL DEFAULT NULL,
+                `surname` VARCHAR(50) NULL DEFAULT NULL,
+                `age` INT NOT NULL,
+                `active` TINYINT(1) NULL
+
+                 */
+
+                string updateBasketballplayer = $"UPDATE BASKETBALLPLAYER SET field_goal='{Goals}', speed='{Speed}', height='{Height}'  WHERE  PERSON_ID = {Id}";
+                string updatePlayer = $"UPDATE PERSON SET name='{Name}', age='{Age}' surname='{Surname}', active='{Active}' WHERE ID ='{Id}'";
+
 
                 MySqlCommand cmd = new MySqlCommand()
                 {
@@ -52,7 +71,7 @@ namespace Tournament_Management.Model
 
                 cmd.CommandText = updatePlayer;
                 cmd.ExecuteNonQuery();
-                cmd.CommandText = updateFootballPlayer;
+                cmd.CommandText = updateBasketballplayer;
                 cmd.ExecuteNonQuery();
 
                 transaction.Commit();
@@ -89,9 +108,10 @@ namespace Tournament_Management.Model
                 };
 
                 /*
-                 * 
+
                 `id` INT(11) NOT NULL AUTO_INCREMENT,
-                `goals` INT NULL,
+                `height` INT(3) NULL DEFAULT NULL,
+                `field_goal` INT NULL,
                 `speed` INT NULL,
                 `type_id` INT(11) NULL DEFAULT NULL,
                 `person_id` INT(11) NULL DEFAULT NULL,
@@ -102,7 +122,7 @@ namespace Tournament_Management.Model
                 cmd.CommandText = insertParticipant;
                 cmd.ExecuteNonQuery();
                 int person_id = (int)cmd.LastInsertedId;
-                string insertPlayer = $"INSERT INTO FOOTBALLPLAYER (goals, speed, type_id, person_id, team_id) VALUES('{Goals}','{Speed}', '1', '{person_id}', '1')";
+                string insertPlayer = $"INSERT INTO BASKETBALLPLAYER (field_goal, speed, type_id, person_id, team_id, height) VALUES('{Goals}','{Speed}', '1', '{person_id}', '1', '{Height}')";
                 cmd.CommandText = insertPlayer;
                 cmd.ExecuteNonQuery();
 
@@ -155,7 +175,7 @@ namespace Tournament_Management.Model
             try
             {
                 con.Open();
-                string query = $"SELECT * FROM PERSON P JOIN FOOTBALLPLAYER FP ON P.ID = FP.PERSON_ID WHERE P.ID = {id}";
+                string query = $"SELECT * FROM PERSON P JOIN BASKETBALLPLAYER BP ON P.ID = BP.PERSON_ID WHERE P.ID = {id}";
                 MySqlCommand cmd = new MySqlCommand(query, con);
                 MySqlDataReader reader = cmd.ExecuteReader();
                 
@@ -164,8 +184,9 @@ namespace Tournament_Management.Model
                     Id = reader.GetInt32("id");
                     Name = reader.GetString("name");
                     Surname = reader.GetString("surname");
-                    Goals = reader.GetInt32("goals");
+                    Goals = reader.GetInt32("field_goal");
                     Speed = reader.GetDouble("speed");
+                    Height = reader.GetInt32("height");
                     Active = reader.GetBoolean("active");
                     Age = reader.GetInt32("age");
                 }

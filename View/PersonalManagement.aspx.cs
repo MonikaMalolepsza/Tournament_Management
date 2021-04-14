@@ -19,6 +19,11 @@ namespace Tournament_Management.View
         protected void Page_Load(object sender, EventArgs e)
         {
             Controller = Global.Controller;
+            //if (rdbtnList1.Items[1].Selected)
+            //{
+            //    LoadPeople();
+            //    LoadInputFields();
+            //}
         }
 
         protected void btnConfirm_Click(object sender, EventArgs e)
@@ -76,6 +81,7 @@ namespace Tournament_Management.View
 
         private void LoadPeople()
         {
+            tblPeople.Rows.Clear();
             //All
             if (rdbtnList1.Items[0].Selected)
             {
@@ -200,12 +206,18 @@ namespace Tournament_Management.View
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            foreach(TableRow tr in tblPeople.Rows)
+            for(int i = 1; i < tblPeople.Rows.Count; i++)
             {
-                if (tr.Cells[tr.Cells.Count - 1].Controls is CheckBox)
-                    if ((tr.Cells[tr.Cells.Count - 1].Controls[0] as CheckBox).Checked)
-                        Controller.Participants.First(x => x.Id == Convert.ToInt32((tr.Cells[tr.Cells.Count - 1].Controls[0] as CheckBox).ID.Split('$')[1])).Delete();
+                if (tblPeople.Rows[i].Cells[tblPeople.Rows[i].Cells.Count - 1].Controls[0] is CheckBox)
+                    if ((tblPeople.Rows[i].Cells[tblPeople.Rows[i].Cells.Count - 1].Controls[0] as CheckBox).Checked)
+                        Controller.Participants.First(x => x.Id == Convert.ToInt32((tblPeople.Rows[i].Cells[tblPeople.Rows[i].Cells.Count - 1].Controls[0] as CheckBox).ID.Split('$')[1])).Delete();
             }
+            //foreach(TableRow tr in tblPeople.Rows)
+            //{
+            //    if (tr.Cells[tr.Cells.Count - 1].Controls[0] is CheckBox)
+            //        if ((tr.Cells[tr.Cells.Count - 1].Controls[0] as CheckBox).Checked)
+            //            Controller.Participants.First(x => x.Id == Convert.ToInt32((tr.Cells[tr.Cells.Count - 1].Controls[0] as CheckBox).ID.Split('$')[1])).Delete();
+            //}
         }
     }
 }
