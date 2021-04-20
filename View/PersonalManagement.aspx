@@ -14,6 +14,8 @@
             <asp:RadioButtonList ID="rdbtnList1" runat="server">
                 <asp:ListItem>All People</asp:ListItem>
                 <asp:ListItem>Footballplayer</asp:ListItem>
+                <asp:ListItem>Basketballplayer</asp:ListItem>
+                <asp:ListItem>Handballplayer</asp:ListItem>
             </asp:RadioButtonList>
             <asp:Button ID="btnConfirm" runat="server" Text="Confirm" Font-Bold="True" Font-Size="Medium" OnClick="btnConfirm_Click" />
             <asp:Table ID="tblPeople" runat="server"></asp:Table>
