@@ -134,7 +134,7 @@ namespace Tournament_Management.Model
             {
                 con.Open();
 
-                string query = $"DELETE FROM PERSON P WHERE P.ID = {Id}";
+                string query = $"DELETE FROM PERSON WHERE ID = '{Id}'";
                 MySqlCommand cmd = new MySqlCommand(query, con);
 
                 cmd.ExecuteNonQuery();

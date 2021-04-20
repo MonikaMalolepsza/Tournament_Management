@@ -59,7 +59,7 @@ namespace Tournament_Management.Model
             try
             {
                 string updatePerson = $"UPDATE PERSON SET name='{Name}', age='{Age}' surname='{Surname}', active='{Active}' WHERE ID='{Id}'";
-                string updatePhysio = $"UPDATE PHYSIO SET experience='{Experience}' WHERE PERSON_ID= {Id}";
+                string updatePhysio = $"UPDATE PHYSIO SET experience='{Experience}' WHERE PERSON_ID= '{Id}'";
 
                 MySqlCommand cmd = new MySqlCommand()
                 {
@@ -145,12 +145,12 @@ namespace Tournament_Management.Model
             {
                 con.Open();
 
-                string query = $"DELETE FROM PERSON P WHERE P.ID = {Id}";
+                string query = $"DELETE FROM PERSON WHERE ID = '{Id}'";
                 MySqlCommand cmd = new MySqlCommand(query, con);
 
                 cmd.ExecuteNonQuery();
             }
-            catch (Exception e)`
+            catch (Exception e)
             {
 
             }
@@ -168,7 +168,7 @@ namespace Tournament_Management.Model
             try
             {
                 con.Open();
-                string query = $"SELECT * FROM PERSON P JOIN PHYSIO PHYS ON P.ID = PHYS.PERSON_ID WHERE P.ID = {id}";
+                string query = $"SELECT * FROM PERSON P JOIN PHYSIO PHYS ON P.ID = PHYS.PERSON_ID WHERE P.ID = '{id}'";
                 MySqlCommand cmd = new MySqlCommand(query, con);
                 MySqlDataReader reader = cmd.ExecuteReader();
 

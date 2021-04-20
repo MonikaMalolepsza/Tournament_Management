@@ -63,6 +63,8 @@ namespace Tournament_Management.ControllerNS
 
         public void GetAllPeople()
         {
+            Participants.Clear();
+
             Participant p = null;
             string sql = "SELECT P.ID," +
                 " case " +
@@ -126,6 +128,7 @@ namespace Tournament_Management.ControllerNS
 
         public void GetAllFootballPlayers()
         {
+            Participants.Clear();
             string query = "SELECT P.ID FROM PERSON P JOIN FOOTBALLPLAYER FP ON P.ID = FP.PERSON_ID";
             MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
 

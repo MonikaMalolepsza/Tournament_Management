@@ -130,7 +130,7 @@ namespace Tournament_Management.Model
             {
                 con.Open();
 
-                string query = $"DELETE FROM PERSON P WHERE P.ID = {Id}";
+                string query = $"DELETE FROM PERSON WHERE ID = '{Id}'";
                 MySqlCommand cmd = new MySqlCommand(query, con);
 
                 cmd.ExecuteNonQuery();
@@ -154,7 +154,7 @@ namespace Tournament_Management.Model
             try
             {
                 con.Open();
-                string query = $"SELECT * FROM PERSON P JOIN HANDBALLPLAYER HP ON P.ID = HP.PERSON_ID WHERE P.ID = {id}";
+                string query = $"SELECT * FROM PERSON P JOIN HANDBALLPLAYER HP ON P.ID = HP.PERSON_ID WHERE P.ID = '{id}'";
                 MySqlCommand cmd = new MySqlCommand(query, con);
                 MySqlDataReader reader = cmd.ExecuteReader();
 
