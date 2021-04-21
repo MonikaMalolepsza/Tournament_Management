@@ -167,9 +167,9 @@ namespace Tournament_Management.ControllerNS
 
                 while (rdr.Read())
                 {
-                    FootballPlayer fp = new FootballPlayer();
-                    fp.Get((int)rdr.GetInt64("id"));
-                    Participants.Add(fp);
+                    BasketballPlayer bbp = new BasketballPlayer();
+                    bbp.Get((int)rdr.GetInt64("id"));
+                    Participants.Add(bbp);
                 }
 
                 rdr.Close();
@@ -193,9 +193,9 @@ namespace Tournament_Management.ControllerNS
 
                 while (rdr.Read())
                 {
-                    FootballPlayer fp = new FootballPlayer();
-                    fp.Get((int)rdr.GetInt64("id"));
-                    Participants.Add(fp);
+                    HandballPlayer hbp = new HandballPlayer();
+                    hbp.Get((int)rdr.GetInt64("id"));
+                    Participants.Add(hbp);
                 }
 
                 rdr.Close();

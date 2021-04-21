@@ -23,16 +23,39 @@ namespace Tournament_Management.View
             if (rdbtnList1.Items[1].Selected)
             {
                 LoadFootballPlayers();
-                LoadInputFields();
+                LoadInputFP();
+            } 
+            else if (rdbtnList1.Items[2].Selected)
+            {
+                LoadBasketballPlayers();
+                LoadInputBP();
             }
-            // TODO implement the rest of the people
+            else if (rdbtnList1.Items[3].Selected)
+            {
+                LoadHandballPlayers();
+                LoadInputHP();
+            }
+            else if (rdbtnList1.Items[4].Selected)
+            {
+                LoadPhysio();
+                LoadInputP();
+            }
+            else if (rdbtnList1.Items[5].Selected)
+            {
+                LoadTrainer();
+                LoadInputT();
+            }
+            else if (rdbtnList1.Items[6].Selected)
+            {
+                LoadReferee();
+                LoadInputR();
+            }
         }
 
         protected void btnConfirm_Click(object sender, EventArgs e)
         {
-            tblInput.Enabled = true;
-            btnSubmit.Enabled = true;
             //All
+            btnDelete.Visible = true;
             if (rdbtnList1.Items[0].Selected)
             {
                 Controller.GetAllPeople();
@@ -78,7 +101,7 @@ namespace Tournament_Management.View
                 //  LoadReferee();
             }
 
-            LoadInputFields();
+          //  LoadInputFields();
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
@@ -103,71 +126,276 @@ namespace Tournament_Management.View
             //BasketballPlayer
             else if (rdbtnList1.Items[2].Selected)
             {
-            // Implement put request
+                BasketballPlayer tmp = Controller.NewParticipant as BasketballPlayer;
+                tmp.Name = Request.Form["txtName"];
+                tmp.Surname = Request.Form["txtSurname"];
+                tmp.Goals = Convert.ToInt32(Request.Form["txtGoals"]);
+                tmp.Height = Convert.ToInt32(Request.Form["txtHeight"]);
+                tmp.Speed = Convert.ToDouble(Request.Form["txtSpeed"]);
+                tmp.Age = Convert.ToInt32(Request.Form["txtAge"]);
+                tmp.Active = Request.Form["txtActive"].GetTrueFalseString();
+                tmp.Put();
             }
             //HandballPlayer
             else if (rdbtnList1.Items[3].Selected)
             {
-                // Implement put request
+                HandballPlayer tmp = Controller.NewParticipant as HandballPlayer;
+                tmp.Name = Request.Form["txtName"];
+                tmp.Surname = Request.Form["txtSurname"];
+                tmp.Goals = Convert.ToInt32(Request.Form["txtGoals"]);
+                tmp.Position = Request.Form["txtPosition"];
+                tmp.Speed = Convert.ToDouble(Request.Form["txtSpeed"]);
+                tmp.Age = Convert.ToInt32(Request.Form["txtAge"]);
+                tmp.Active = Request.Form["txtActive"].GetTrueFalseString();
+                tmp.Put();
             }
             //Physio
             else if (rdbtnList1.Items[4].Selected)
             {
-                // Implement put request
-
+                Physio tmp = Controller.NewParticipant as Physio;
+                tmp.Name = Request.Form["txtName"];
+                tmp.Surname = Request.Form["txtSurname"];
+                tmp.Experience = Convert.ToInt32(Request.Form["txtExperience"]);
+                tmp.Age = Convert.ToInt32(Request.Form["txtAge"]);
+                tmp.Active = Request.Form["txtActive"].GetTrueFalseString();
+                tmp.Put();
             }
             //Trainer
             else if (rdbtnList1.Items[5].Selected)
             {
-                // Implement put request
+                Trainer tmp = Controller.NewParticipant as Trainer;
+                tmp.Name = Request.Form["txtName"];
+                tmp.Surname = Request.Form["txtSurname"];
+                tmp.Age = Convert.ToInt32(Request.Form["txtAge"]);
+                tmp.Active = Request.Form["txtActive"].GetTrueFalseString();
+                tmp.Put();
             }
             //Referee
             else if (rdbtnList1.Items[6].Selected)
             {
-                // Implement put request
+                Referee tmp = Controller.NewParticipant as Referee;
+                tmp.Name = Request.Form["txtName"];
+                tmp.Surname = Request.Form["txtSurname"];
+                tmp.Age = Convert.ToInt32(Request.Form["txtAge"]);
+                tmp.Certificate = Request.Form["txCert"];
+                tmp.Active = Request.Form["txtActive"].GetTrueFalseString();
+                tmp.Put();
             }
+
         }
 
-        private void LoadInputFields()
+
+        private void LoadInputBasic()
         {
+            btnSubmit.Visible = true;
+
+            Label lbl = new Label();
+            lbl.Text = "Name";
+            form1.Controls.Add(lbl);
+
+            TextBox txt = new TextBox();
+            txt.ID = "txtName";
+            txt.Text = "";
+            txt.CssClass = "form-control";
+            form1.Controls.Add(txt);
+
+            lbl = new Label();
+            lbl.Text = "Surname";
+            form1.Controls.Add(lbl);
+
+            txt = new TextBox();
+            txt.ID = "txtSurname";
+            txt.Text = "";
+            txt.CssClass = "form-control";
+            form1.Controls.Add(txt);
+
+            lbl = new Label();
+            lbl.Text = "Age";
+            form1.Controls.Add(lbl);
+
+            txt = new TextBox();
+            txt.ID = "txtAge";
+            txt.Text = "";
+            txt.CssClass = "form-control";
+            form1.Controls.Add(txt);
+
+            lbl = new Label();
+            lbl.Text = "Active";
+            form1.Controls.Add(lbl);
+
+            txt = new TextBox();
+            txt.ID = "txtActive";
+            txt.Text = "";
+            txt.CssClass = "form-control";
+            form1.Controls.Add(txt);
+
+        }
+
+            private void LoadInputFP()
+        {
+            Controller.NewParticipant = new FootballPlayer();
+
             //All
-            if (rdbtnList1.Items[0].Selected)
-            {
+            this.LoadInputBasic();
 
-            }
-            //Footballplayer
-            else if (rdbtnList1.Items[1].Selected)
-            {
-                Controller.NewParticipant = new FootballPlayer();
-            }   
+            //Special fields
+            Label lbl = new Label();
+            lbl.Text = "Goal";
+            form1.Controls.Add(lbl);
+            
+            TextBox txt = new TextBox();
+            txt.ID = "txtGoal";
+            txt.Text = "";
+            txt.CssClass = "form-control";
+            form1.Controls.Add(txt); 
 
-            //TODO: NOT TESTED YET, lust prepared, not sure if ok!
+            lbl = new Label();
+            lbl.Text = "Speed";
+            form1.Controls.Add(lbl);
 
-            //BasketballPlayer
-            else if (rdbtnList1.Items[2].Selected)
-            {
-                Controller.NewParticipant = new BasketballPlayer();
-            }          
-            //HandballPlayer
-            else if (rdbtnList1.Items[3].Selected)
-            {
+            txt = new TextBox();
+            txt.ID = "txtSpeed";
+            txt.Text = "";
+            txt.CssClass = "form-control";
+            form1.Controls.Add(txt);
+
+
+
+        }
+        private void LoadInputBP()
+        {
+            Controller.NewParticipant = new BasketballPlayer();
+
+            //All
+            this.LoadInputBasic();
+
+            //Special fields
+            Label lbl = new Label();
+            lbl.Text = "Goal";
+            form1.Controls.Add(lbl);
+
+            TextBox txt = new TextBox();
+            txt.ID = "txtGoal";
+            txt.Text = "";
+            txt.CssClass = "form-control";
+            form1.Controls.Add(txt);
+
+            lbl = new Label();
+            lbl.Text = "Speed";
+            form1.Controls.Add(lbl);
+
+            txt = new TextBox();
+            txt.ID = "txtSpeed";
+            txt.Text = "";
+            txt.CssClass = "form-control";
+            form1.Controls.Add(txt);
+
+            lbl = new Label();
+            lbl.Text = "Height";
+            form1.Controls.Add(lbl);  
+            
+            txt = new TextBox();
+            txt.ID = "txtHeight";
+            txt.Text = "";
+            txt.CssClass = "form-control";
+            form1.Controls.Add(txt);
+
+        }
+        //HandballPlayer
+        private void LoadInputHP()
+        {
                 Controller.NewParticipant = new HandballPlayer();
-            }           
-            //Physio
-            else if (rdbtnList1.Items[4].Selected)
-            {
+
+            //All
+            this.LoadInputBasic();
+
+            //Special fields
+
+            Label lbl = new Label();
+            lbl.Text = "Goal";
+            form1.Controls.Add(lbl);
+
+            TextBox txt = new TextBox();
+            txt.ID = "txtGoal";
+            txt.Text = "";
+            txt.CssClass = "form-control";
+            form1.Controls.Add(txt);
+
+            lbl = new Label();
+            lbl.Text = "Speed";
+            form1.Controls.Add(lbl);
+
+            txt = new TextBox();
+            txt.ID = "txtSpeed";
+            txt.Text = "";
+            txt.CssClass = "form-control";
+            form1.Controls.Add(txt);
+
+            lbl = new Label();
+            lbl.Text = "Position";
+            form1.Controls.Add(lbl);
+
+            txt = new TextBox();
+            txt.ID = "txtPosition";
+            txt.Text = "";
+            txt.CssClass = "form-control";
+            form1.Controls.Add(txt);
+
+
+        }
+        //Physio
+        private void LoadInputP()
+        {
                 Controller.NewParticipant = new Physio();
-            }            
-            //Trainer
-            else if (rdbtnList1.Items[5].Selected)
-            {
-                Controller.NewParticipant = new Trainer();
-            }           
-            //Referee
-            else if (rdbtnList1.Items[6].Selected)
-            {
-                Controller.NewParticipant = new Referee();
-            }
+
+            //All
+            this.LoadInputBasic();
+
+            //Special fields
+
+            Label lbl = new Label();
+            lbl.Text = "Experience";
+            form1.Controls.Add(lbl);
+
+            TextBox txt = new TextBox();
+            txt.ID = "txtExperience";
+            txt.Text = "";
+            txt.CssClass = "form-control";
+            form1.Controls.Add(txt);
+
+
+
+
+        }
+        //Trainer
+        private void LoadInputT()
+        {
+            Controller.NewParticipant = new Trainer();
+
+            //All
+            this.LoadInputBasic();
+        }
+
+        //Referee
+        private void LoadInputR()
+        {
+            Controller.NewParticipant = new Referee();
+
+            //All
+            this.LoadInputBasic();
+
+            //Special fields
+
+            Label lbl = new Label();
+            lbl.Text = "Certificate";
+            form1.Controls.Add(lbl);
+
+            TextBox txt = new TextBox();
+            txt.ID = "txtCert";
+            txt.Text = "";
+            txt.CssClass = "form-control";
+            form1.Controls.Add(txt);
+
         }
 
         private void LoadPeople()
@@ -257,6 +485,10 @@ namespace Tournament_Management.View
             newHeaderCell = new TableHeaderCell();
             newHeaderCell.ID = "headerActive";
             newHeaderCell.Text = "Active";
+            thr.Cells.Add(newHeaderCell);
+
+            newHeaderCell = new TableHeaderCell();
+            newHeaderCell.Text = "Check";
             thr.Cells.Add(newHeaderCell);
 
             tblPeople.Rows.Add(thr);
@@ -350,6 +582,10 @@ namespace Tournament_Management.View
             newHeaderCell = new TableHeaderCell();
             newHeaderCell.ID = "headerActive";
             newHeaderCell.Text = "Active";
+            thr.Cells.Add(newHeaderCell); 
+            
+            newHeaderCell = new TableHeaderCell();
+            newHeaderCell.Text = "Check";
             thr.Cells.Add(newHeaderCell);
 
             tblPeople.Rows.Add(thr);
@@ -449,6 +685,10 @@ namespace Tournament_Management.View
             newHeaderCell.Text = "Active";
             thr.Cells.Add(newHeaderCell);
 
+            newHeaderCell = new TableHeaderCell();
+            newHeaderCell.Text = "Check";
+            thr.Cells.Add(newHeaderCell);
+
             tblPeople.Rows.Add(thr);
 
             //Data
@@ -537,6 +777,9 @@ namespace Tournament_Management.View
             newHeaderCell.Text = "Active";
             thr.Cells.Add(newHeaderCell);
 
+            newHeaderCell = new TableHeaderCell();
+            newHeaderCell.Text = "Check";
+            thr.Cells.Add(newHeaderCell);
             tblPeople.Rows.Add(thr);
 
             //Data
@@ -609,6 +852,9 @@ namespace Tournament_Management.View
             newHeaderCell.Text = "Active";
             thr.Cells.Add(newHeaderCell);
 
+            newHeaderCell = new TableHeaderCell();
+            newHeaderCell.Text = "Check";
+            thr.Cells.Add(newHeaderCell);
             tblPeople.Rows.Add(thr);
 
             //Data
@@ -681,6 +927,9 @@ namespace Tournament_Management.View
             newHeaderCell.Text = "Active";
             thr.Cells.Add(newHeaderCell);
 
+            newHeaderCell = new TableHeaderCell();
+            newHeaderCell.Text = "Check";
+            thr.Cells.Add(newHeaderCell);
             tblPeople.Rows.Add(thr);
 
             //Data
