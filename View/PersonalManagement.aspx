@@ -9,8 +9,11 @@
     <title></title>
 </head>
 <body>
-            <h1 class="display-3 panel-heading">People Management</h1>
-    <form id="form1" runat="server">
+    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+    <h1 class="display-4 fw-normal">People Management</h1>
+        <p class="fs-5 text-muted">Quickly build an effective pricing table for your potential customers with this Bootstrap example. It’s built with default Bootstrap components and utilities with little customization.</p>
+    </div>
+        <form id="form1" runat="server">
         <div class="container">
             <asp:RadioButtonList CssClass="form-check" ID="rdbtnList1" runat="server">
                 <asp:ListItem>&nbsp;All People</asp:ListItem>
@@ -24,8 +27,8 @@
             <asp:Button ID="btnConfirm" runat="server" Text="Confirm" CssClass="btn btn-info" OnClick="btnConfirm_Click" />
         </div>
         <div class="container">
-            <asp:Table ID="tblPeople" CssClass="table table-bordered table-info" runat="server"></asp:Table>
-            <asp:Button ID="btnDelete" CssClass="btn btn-secondary" runat="server"  Visible="false" Text="Delete selected" OnClick="btnDelete_Click"/>
+            <asp:Table ID="tblPeople" CssClass="table table-striped" runat="server"></asp:Table>
+            <asp:Button ID="btnDelete" Visible="false" CssClass="btn btn-secondary" runat="server"  Text="Delete selected" OnClick="btnDelete_Click"/>
         </div>
         <div>
             <div class="container">

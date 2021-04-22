@@ -22,40 +22,44 @@ namespace Tournament_Management.View
 
             if (rdbtnList1.Items[1].Selected)
             {
-                LoadFootballPlayers();
-                LoadInputFP();
+                Controller.GetAllFootballPlayers();
+
             } 
             else if (rdbtnList1.Items[2].Selected)
             {
-                LoadBasketballPlayers();
-                LoadInputBP();
+                Controller.GetAllBasketballPlayers();
+
             }
             else if (rdbtnList1.Items[3].Selected)
             {
-                LoadHandballPlayers();
-                LoadInputHP();
+                Controller.GetAllHndballPlayers();
+
             }
             else if (rdbtnList1.Items[4].Selected)
             {
-                LoadPhysio();
-                LoadInputP();
+                Controller.GetAllPhysio();
+
             }
             else if (rdbtnList1.Items[5].Selected)
             {
-                LoadTrainer();
-                LoadInputT();
+                Controller.GetAllTrainers();
+
             }
             else if (rdbtnList1.Items[6].Selected)
             {
-                LoadReferee();
-                LoadInputR();
+                Controller.GetAllReferees();
+
             }
         }
 
         protected void btnConfirm_Click(object sender, EventArgs e)
         {
             //All
-            btnDelete.Visible = true;
+            if (Controller.Participants.Count > 0)
+            { 
+                        btnDelete.Visible = true;
+            }
+
             if (rdbtnList1.Items[0].Selected)
             {
                 Controller.GetAllPeople();
@@ -64,44 +68,45 @@ namespace Tournament_Management.View
             //Footballplayer
             else if (rdbtnList1.Items[1].Selected)
             {
-                Controller.GetAllFootballPlayers();
+                //Controller.GetAllFootballPlayers();
                 LoadFootballPlayers();
+                LoadInputFP();
             }
             //BasketballPlayer
             else if (rdbtnList1.Items[2].Selected)
             {
-                Controller.GetAllBasketballPlayers();
+                //Controller.GetAllBasketballPlayers();
                 LoadBasketballPlayers();
+                LoadInputBP();
             }
             //HandballPlayer
             else if (rdbtnList1.Items[3].Selected)
             {
-                Controller.GetAllHndballPlayers();
+                //Controller.GetAllHndballPlayers();
                 LoadHandballPlayers();
+                LoadInputHP();
             }
             //Physio
             else if (rdbtnList1.Items[4].Selected)
             {
-                //todo
-                //  Controller.GetAllPhysio();
-                //  LoadPhysio();
+                LoadPhysio();
+                LoadInputP();
             }
             //Trainer
             else if (rdbtnList1.Items[5].Selected)
             {
-                //todo
-                //  Controller.GetAllTrainers();
-                //  LoadTrainer();
+                LoadTrainer();
+                LoadInputT();
+
             }
             //Referee
             else if (rdbtnList1.Items[6].Selected)
             {
-                //todo in controller
-                //  Controller.GetAllReferees();
-                //  LoadReferee();
+                LoadReferee();
+                LoadInputR();
             }
 
-          //  LoadInputFields();
+            //  LoadInputFields();
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)

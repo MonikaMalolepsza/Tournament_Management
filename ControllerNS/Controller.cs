@@ -155,6 +155,7 @@ namespace Tournament_Management.ControllerNS
         }
         public void GetAllBasketballPlayers()
         {
+            Participants.Clear();
             string query = "SELECT P.ID FROM PERSON P JOIN BASKETBALLPLAYER BP ON P.ID = BP.PERSON_ID";
             MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
 
@@ -181,6 +182,7 @@ namespace Tournament_Management.ControllerNS
         }
         public void GetAllHndballPlayers()
         {
+            Participants.Clear();
             string query = "SELECT P.ID FROM PERSON P JOIN HANDBALLPLAYER HB ON P.ID = HB.PERSON_ID";
             MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
 
@@ -205,6 +207,90 @@ namespace Tournament_Management.ControllerNS
                 con.Close();
             }
         }
+        public void GetAllPhysio()
+        {
+            Participants.Clear();
+            string query = "SELECT P.ID FROM PERSON P JOIN PHYSIO HB ON P.ID = HB.PERSON_ID";
+            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+
+            try
+            {
+                con.Open();
+
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    Physio p = new Physio();
+                    p.Get((int)rdr.GetInt64("id"));
+                    Participants.Add(p);
+                }
+
+                rdr.Close();
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+        
+        public void GetAllTrainers()
+        {
+            Participants.Clear();
+            string query = "SELECT P.ID FROM PERSON P JOIN TRAINER HB ON P.ID = HB.PERSON_ID";
+            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+
+            try
+            {
+                con.Open();
+
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    Trainer tr = new Trainer();
+                    tr.Get((int)rdr.GetInt64("id"));
+                    Participants.Add(tr);
+                }
+
+                rdr.Close();
+            }
+            finally
+            {
+                con.Close();
+            }
+        } 
+        
+        public void GetAllReferees()
+        {
+            Participants.Clear();
+            string query = "SELECT P.ID FROM PERSON P JOIN REFEREE HB ON P.ID = HB.PERSON_ID";
+            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+
+            try
+            {
+                con.Open();
+
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    Referee re = new Referee();
+                    re.Get((int)rdr.GetInt64("id"));
+                    Participants.Add(re);
+                }
+
+                rdr.Close();
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
         #endregion
     }
 }

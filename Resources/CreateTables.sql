@@ -100,6 +100,7 @@ CREATE TABLE `tournament`.`trainer` (
 CREATE TABLE `tournament`.`physio` (
                                        `id` INT(11) NOT NULL AUTO_INCREMENT,
                                        `person_id` INT(11) NULL DEFAULT NULL,
+                                       `experience` INT(2) NULL DEFAULT NULL,
                                        PRIMARY KEY (`id`),
                                        `team_id` INT(11) NULL DEFAULT NULL,
                                        INDEX `fk_ph_team` (`team_id`),
