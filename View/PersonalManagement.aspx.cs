@@ -10,7 +10,7 @@ using Tournament_Management.Helper;
 
 namespace Tournament_Management.View
 {
-    public partial class PersonenVerwaltung : System.Web.UI.Page
+    public partial class PersonalManagement: System.Web.UI.Page
     {
         private Controller _controller;
 
@@ -20,95 +20,69 @@ namespace Tournament_Management.View
         {
             Controller = Global.Controller;
 
-            if (rdbtnList1.Items[1].Selected)
-            {
-                Controller.GetAllFootballPlayers();
-
-            } 
-            else if (rdbtnList1.Items[2].Selected)
-            {
-                Controller.GetAllBasketballPlayers();
-
-            }
-            else if (rdbtnList1.Items[3].Selected)
-            {
-                Controller.GetAllHndballPlayers();
-
-            }
-            else if (rdbtnList1.Items[4].Selected)
-            {
-                Controller.GetAllPhysio();
-
-            }
-            else if (rdbtnList1.Items[5].Selected)
-            {
-                Controller.GetAllTrainers();
-
-            }
-            else if (rdbtnList1.Items[6].Selected)
-            {
-                Controller.GetAllReferees();
-
-            }
-        }
-
-        protected void btnConfirm_Click(object sender, EventArgs e)
-        {
-            //All
-            if (Controller.Participants.Count > 0)
-            { 
-                        btnDelete.Visible = true;
-            }
-
             if (rdbtnList1.Items[0].Selected)
             {
                 Controller.GetAllPeople();
                 LoadPeople();
             }
-            //Footballplayer
             else if (rdbtnList1.Items[1].Selected)
             {
-                //Controller.GetAllFootballPlayers();
+                Controller.GetAllFootballPlayers();
                 LoadFootballPlayers();
                 LoadInputFP();
-            }
-            //BasketballPlayer
+                LoadSubmitButton();
+            } 
             else if (rdbtnList1.Items[2].Selected)
             {
-                //Controller.GetAllBasketballPlayers();
+                Controller.GetAllBasketballPlayers();
                 LoadBasketballPlayers();
                 LoadInputBP();
+                LoadSubmitButton();
             }
-            //HandballPlayer
             else if (rdbtnList1.Items[3].Selected)
             {
-                //Controller.GetAllHndballPlayers();
+                Controller.GetAllHndballPlayers();
                 LoadHandballPlayers();
                 LoadInputHP();
+                LoadSubmitButton();
             }
-            //Physio
             else if (rdbtnList1.Items[4].Selected)
             {
+                Controller.GetAllPhysio();
                 LoadPhysio();
                 LoadInputP();
+                LoadSubmitButton();
             }
-            //Trainer
             else if (rdbtnList1.Items[5].Selected)
             {
+                Controller.GetAllTrainers();
                 LoadTrainer();
                 LoadInputT();
+                LoadSubmitButton();
 
             }
-            //Referee
             else if (rdbtnList1.Items[6].Selected)
             {
+                Controller.GetAllReferees();
                 LoadReferee();
                 LoadInputR();
-            }
+                LoadSubmitButton();
 
-            //  LoadInputFields();
+            }
         }
 
+        private void LoadSubmitButton()
+        {
+
+            Button submit = new Button();
+            submit.ID = "btnSubmit";
+            submit.CssClass = "btn btn-secondary";
+            submit.Text = "Submit";
+            submit.Click += new EventHandler(this.btnSubmit_Click);
+            form1.Controls.Add(submit);
+
+        } 
+        
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             //All
@@ -192,7 +166,6 @@ namespace Tournament_Management.View
 
         private void LoadInputBasic()
         {
-            btnSubmit.Visible = true;
 
             Label lbl = new Label();
             lbl.Text = "Name";
@@ -236,7 +209,7 @@ namespace Tournament_Management.View
 
         }
 
-            private void LoadInputFP()
+        private void LoadInputFP()
         {
             Controller.NewParticipant = new FootballPlayer();
 
@@ -264,9 +237,8 @@ namespace Tournament_Management.View
             txt.CssClass = "form-control";
             form1.Controls.Add(txt);
 
-
-
         }
+
         private void LoadInputBP()
         {
             Controller.NewParticipant = new BasketballPlayer();
@@ -452,7 +424,6 @@ namespace Tournament_Management.View
                 tblPeople.Rows.Add(newRow);
             }
         }
-    
         //Footballplayer
         private void LoadFootballPlayers()
         {
@@ -493,7 +464,13 @@ namespace Tournament_Management.View
             thr.Cells.Add(newHeaderCell);
 
             newHeaderCell = new TableHeaderCell();
-            newHeaderCell.Text = "Check";
+            newHeaderCell.ID = "headerEdit";
+            newHeaderCell.Text = "Edit";
+            thr.Cells.Add(newHeaderCell); 
+
+            newHeaderCell = new TableHeaderCell();
+            newHeaderCell.ID = "headerDel";
+            newHeaderCell.Text = "Delete";
             thr.Cells.Add(newHeaderCell);
 
             tblPeople.Rows.Add(thr);
@@ -535,16 +512,32 @@ namespace Tournament_Management.View
                 newRow.Cells.Add(newCell);
 
                 newCell = new TableCell();
-                newCell.ID = "cellCheckbox" + pers.Id;
-                CheckBox cbChoose = new CheckBox();
-                cbChoose.ID = "cbChoose!" + pers.Id;
-                newCell.Controls.Add(cbChoose);
+                newCell.ID = "cellEditButton" + pers.Id;
+                Button editButton = new Button();
+                editButton.ID = "editButton_" + pers.Id;
+                editButton.CommandName = "Edit";
+                editButton.Text = "Edit";
+                editButton.CssClass = "btn btn-warning";
+                editButton.CommandArgument = pers.Id.ToString();
+                editButton.Command += this.btnDeleteEdit_Click;
+                newCell.Controls.Add(editButton);
+                newRow.Cells.Add(newCell);
+
+                newCell = new TableCell();
+                newCell.ID = "cellDelButton" + pers.Id;
+                Button delButton = new Button();
+                delButton.ID = "delButton_" + pers.Id;
+                delButton.CssClass = "btn btn-danger";
+                delButton.CommandName = "Delete";
+                delButton.Text = "X";
+                delButton.CommandArgument = pers.Id.ToString();
+                delButton.Command += this.btnDeleteEdit_Click;
+                newCell.Controls.Add(delButton);
                 newRow.Cells.Add(newCell);
 
                 tblPeople.Rows.Add(newRow);
             }
         }
-
         //Basketballplayer
         private void LoadBasketballPlayers()
         {
@@ -587,10 +580,16 @@ namespace Tournament_Management.View
             newHeaderCell = new TableHeaderCell();
             newHeaderCell.ID = "headerActive";
             newHeaderCell.Text = "Active";
-            thr.Cells.Add(newHeaderCell); 
-            
+            thr.Cells.Add(newHeaderCell);
+
             newHeaderCell = new TableHeaderCell();
-            newHeaderCell.Text = "Check";
+            newHeaderCell.ID = "headerEdit";
+            newHeaderCell.Text = "Edit";
+            thr.Cells.Add(newHeaderCell); 
+
+            newHeaderCell = new TableHeaderCell();
+            newHeaderCell.ID = "headerDel";
+            newHeaderCell.Text = "Delete";
             thr.Cells.Add(newHeaderCell);
 
             tblPeople.Rows.Add(thr);
@@ -637,10 +636,25 @@ namespace Tournament_Management.View
                 newRow.Cells.Add(newCell);
 
                 newCell = new TableCell();
-                newCell.ID = "cellCheckbox" + pers.Id;
-                CheckBox cbChoose = new CheckBox();
-                cbChoose.ID = "cbChoose!" + pers.Id;
-                newCell.Controls.Add(cbChoose);
+                newCell.ID = "cellEditButton" + pers.Id;
+                Button editButton = new Button();
+                editButton.ID = "editButton_" + pers.Id;
+                editButton.CommandName = "Edit";
+                editButton.CssClass = "btn btn-warning";
+                editButton.CommandArgument = pers.Id.ToString();
+                editButton.Command += this.btnDeleteEdit_Click;
+                newCell.Controls.Add(editButton);
+                newRow.Cells.Add(newCell);
+
+                newCell = new TableCell();
+                newCell.ID = "cellDelButton" + pers.Id;
+                Button delButton = new Button();
+                delButton.ID = "delButton_" + pers.Id;
+                delButton.CommandName = "Delete";
+                delButton.CssClass = "btn btn-danger";
+                delButton.CommandArgument = pers.Id.ToString();
+                delButton.Command += this.btnDeleteEdit_Click;
+                newCell.Controls.Add(delButton);
                 newRow.Cells.Add(newCell);
 
                 tblPeople.Rows.Add(newRow);
@@ -691,7 +705,13 @@ namespace Tournament_Management.View
             thr.Cells.Add(newHeaderCell);
 
             newHeaderCell = new TableHeaderCell();
-            newHeaderCell.Text = "Check";
+            newHeaderCell.ID = "headerEdit";
+            newHeaderCell.Text = "Edit";
+            thr.Cells.Add(newHeaderCell); 
+
+            newHeaderCell = new TableHeaderCell();
+            newHeaderCell.ID = "headerDel";
+            newHeaderCell.Text = "Delete";
             thr.Cells.Add(newHeaderCell);
 
             tblPeople.Rows.Add(thr);
@@ -738,16 +758,32 @@ namespace Tournament_Management.View
                 newRow.Cells.Add(newCell);
 
                 newCell = new TableCell();
-                newCell.ID = "cellCheckbox" + pers.Id;
-                CheckBox cbChoose = new CheckBox();
-                cbChoose.ID = "cbChoose!" + pers.Id;
-                newCell.Controls.Add(cbChoose);
+                newCell.ID = "cellEditButton" + pers.Id;
+                Button editButton = new Button();
+                editButton.ID = "editButton_" + pers.Id;
+                editButton.CommandName = "Edit";
+                editButton.Text = "Edit";
+                editButton.CssClass = "btn btn-warning";
+                editButton.CommandArgument = pers.Id.ToString();
+                editButton.Command += this.btnDeleteEdit_Click;
+                newCell.Controls.Add(editButton);
+                newRow.Cells.Add(newCell);
+
+                newCell = new TableCell();
+                newCell.ID = "cellDelButton" + pers.Id;
+                Button delButton = new Button();
+                delButton.ID = "delButton_" + pers.Id;
+                delButton.CssClass = "btn btn-danger";
+                delButton.CommandName = "Delete";
+                delButton.Text = "X";
+                delButton.CommandArgument = pers.Id.ToString();
+                delButton.Command += this.btnDeleteEdit_Click;
+                newCell.Controls.Add(delButton);
                 newRow.Cells.Add(newCell);
 
                 tblPeople.Rows.Add(newRow);
             }
         }
-
         //Physio
         private void LoadPhysio()
         {
@@ -783,8 +819,15 @@ namespace Tournament_Management.View
             thr.Cells.Add(newHeaderCell);
 
             newHeaderCell = new TableHeaderCell();
-            newHeaderCell.Text = "Check";
+            newHeaderCell.ID = "headerEdit";
+            newHeaderCell.Text = "Edit";
+            thr.Cells.Add(newHeaderCell); 
+
+            newHeaderCell = new TableHeaderCell();
+            newHeaderCell.ID = "headerDel";
+            newHeaderCell.Text = "Delete";
             thr.Cells.Add(newHeaderCell);
+
             tblPeople.Rows.Add(thr);
 
             //Data
@@ -819,10 +862,27 @@ namespace Tournament_Management.View
                 newRow.Cells.Add(newCell);
 
                 newCell = new TableCell();
-                newCell.ID = "cellCheckbox" + pers.Id;
-                CheckBox cbChoose = new CheckBox();
-                cbChoose.ID = "cbChoose!" + pers.Id;
-                newCell.Controls.Add(cbChoose);
+                newCell.ID = "cellEditButton" + pers.Id;
+                Button editButton = new Button();
+                editButton.ID = "editButton_" + pers.Id;
+                editButton.CommandName = "Edit";
+                editButton.Text = "Edit";
+                editButton.CssClass = "btn btn-warning";
+                editButton.CommandArgument = pers.Id.ToString();
+                editButton.Command += this.btnDeleteEdit_Click;
+                newCell.Controls.Add(editButton);
+                newRow.Cells.Add(newCell);
+
+                newCell = new TableCell();
+                newCell.ID = "cellDelButton" + pers.Id;
+                Button delButton = new Button();
+                delButton.ID = "delButton_" + pers.Id;
+                delButton.CssClass = "btn btn-danger";
+                delButton.CommandName = "Delete";
+                delButton.Text = "X";
+                delButton.CommandArgument = pers.Id.ToString();
+                delButton.Command += this.btnDeleteEdit_Click;
+                newCell.Controls.Add(delButton);
                 newRow.Cells.Add(newCell);
 
                 tblPeople.Rows.Add(newRow);
@@ -858,8 +918,15 @@ namespace Tournament_Management.View
             thr.Cells.Add(newHeaderCell);
 
             newHeaderCell = new TableHeaderCell();
-            newHeaderCell.Text = "Check";
+            newHeaderCell.ID = "headerEdit";
+            newHeaderCell.Text = "Edit";
+            thr.Cells.Add(newHeaderCell); 
+
+            newHeaderCell = new TableHeaderCell();
+            newHeaderCell.ID = "headerDel";
+            newHeaderCell.Text = "Delete";
             thr.Cells.Add(newHeaderCell);
+
             tblPeople.Rows.Add(thr);
 
             //Data
@@ -889,10 +956,27 @@ namespace Tournament_Management.View
                 newRow.Cells.Add(newCell);
 
                 newCell = new TableCell();
-                newCell.ID = "cellCheckbox" + pers.Id;
-                CheckBox cbChoose = new CheckBox();
-                cbChoose.ID = "cbChoose!" + pers.Id;
-                newCell.Controls.Add(cbChoose);
+                newCell.ID = "cellEditButton" + pers.Id;
+                Button editButton = new Button();
+                editButton.ID = "editButton_" + pers.Id;
+                editButton.CommandName = "Edit";
+                editButton.Text = "Edit";
+                editButton.CssClass = "btn btn-warning";
+                editButton.CommandArgument = pers.Id.ToString();
+                editButton.Command += this.btnDeleteEdit_Click;
+                newCell.Controls.Add(editButton);
+                newRow.Cells.Add(newCell);
+
+                newCell = new TableCell();
+                newCell.ID = "cellDelButton" + pers.Id;
+                Button delButton = new Button();
+                delButton.ID = "delButton_" + pers.Id;
+                delButton.CssClass = "btn btn-danger";
+                delButton.CommandName = "Delete";
+                delButton.Text = "X";
+                delButton.CommandArgument = pers.Id.ToString();
+                delButton.Command += this.btnDeleteEdit_Click;
+                newCell.Controls.Add(delButton);
                 newRow.Cells.Add(newCell);
 
                 tblPeople.Rows.Add(newRow);
@@ -933,8 +1017,15 @@ namespace Tournament_Management.View
             thr.Cells.Add(newHeaderCell);
 
             newHeaderCell = new TableHeaderCell();
-            newHeaderCell.Text = "Check";
+            newHeaderCell.ID = "headerEdit";
+            newHeaderCell.Text = "Edit";
+            thr.Cells.Add(newHeaderCell); 
+
+            newHeaderCell = new TableHeaderCell();
+            newHeaderCell.ID = "headerDel";
+            newHeaderCell.Text = "Delete";
             thr.Cells.Add(newHeaderCell);
+
             tblPeople.Rows.Add(thr);
 
             //Data
@@ -969,10 +1060,27 @@ namespace Tournament_Management.View
                 newRow.Cells.Add(newCell);
 
                 newCell = new TableCell();
-                newCell.ID = "cellCheckbox" + pers.Id;
-                CheckBox cbChoose = new CheckBox();
-                cbChoose.ID = "cbChoose!" + pers.Id;
-                newCell.Controls.Add(cbChoose);
+                newCell.ID = "cellEditButton" + pers.Id;
+                Button editButton = new Button();
+                editButton.ID = "editButton_" + pers.Id;
+                editButton.CommandName = "Edit";
+                editButton.Text = "Edit";
+                editButton.CssClass = "btn btn-warning";
+                editButton.CommandArgument = pers.Id.ToString();
+                editButton.Command += this.btnDeleteEdit_Click;
+                newCell.Controls.Add(editButton);
+                newRow.Cells.Add(newCell);
+
+                newCell = new TableCell();
+                newCell.ID = "cellDelButton" + pers.Id;
+                Button delButton = new Button();
+                delButton.ID = "delButton_" + pers.Id;
+                delButton.CssClass = "btn btn-danger";
+                delButton.CommandName = "Delete";
+                delButton.Text = "X";
+                delButton.CommandArgument = pers.Id.ToString();
+                delButton.Command += this.btnDeleteEdit_Click;
+                newCell.Controls.Add(delButton);
                 newRow.Cells.Add(newCell);
 
                 tblPeople.Rows.Add(newRow);
@@ -980,22 +1088,25 @@ namespace Tournament_Management.View
         }
 
 
-        protected void btnDelete_Click(object sender, EventArgs e)
+        protected void btnDeleteEdit_Click(object sender, CommandEventArgs e)
         {
-            for(int i = 1; i < tblPeople.Rows.Count; i++)
+            switch (e.CommandName)
             {
-                //this.Page.Request.Form["cbChoose$1"]
-                if (tblPeople.Rows[i].Cells[tblPeople.Rows[i].Cells.Count - 1].Controls[0] is CheckBox)
-                    if ((tblPeople.Rows[i].Cells[tblPeople.Rows[i].Cells.Count - 1].Controls[0] as CheckBox).Checked)
-                        Controller.Participants.First(x => x.Id == Convert.ToInt32((tblPeople.Rows[i].Cells[tblPeople.Rows[i].Cells.Count - 1].Controls[0] as CheckBox).ID.Split('!')[1])).Delete();
+                case "Delete":
+                Controller.Participants.First(x => x.Id == Convert.ToInt32(e.CommandArgument)).Delete();
+                    break;
+
+                case "Edit":
+
+                    break;
+
+                default:
+
+                    break;
             }
+
             Response.Redirect(Request.RawUrl);
-            //foreach(TableRow tr in tblPeople.Rows)
-            //{
-            //    if (tr.Cells[tr.Cells.Count - 1].Controls[0] is CheckBox)
-            //        if ((tr.Cells[tr.Cells.Count - 1].Controls[0] as CheckBox).Checked)
-            //            Controller.Participants.First(x => x.Id == Convert.ToInt32((tr.Cells[tr.Cells.Count - 1].Controls[0] as CheckBox).ID.Split('$')[1])).Delete();
-            //}
+
         }
     }
 }

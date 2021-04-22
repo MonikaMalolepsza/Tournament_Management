@@ -11,7 +11,7 @@ namespace Tournament_Management.View
 {
 
 
-    public partial class PersonenVerwaltung
+    public partial class PersonalManagement
     {
 
         /// <summary>
@@ -21,7 +21,7 @@ namespace Tournament_Management.View
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl form1;
 
         /// <summary>
         /// rdbtnList1-Steuerelement
@@ -51,30 +51,12 @@ namespace Tournament_Management.View
         protected global::System.Web.UI.WebControls.Table tblPeople;
 
         /// <summary>
-        /// btnDelete-Steuerelement
+        /// editPerson-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnDelete;
-
-        /// <summary>
-        /// tblInput-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder tblInput;
-
-        /// <summary>
-        /// btnSubmit-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSubmit;
+        protected global::System.Web.UI.WebControls.PlaceHolder editPerson;
     }
 }

@@ -13,11 +13,11 @@ namespace Tournament_Management.Helper
         }
         public static bool GetTrueFalseString(this string value)
         {
-            switch (value)
+            switch (value.ToLower())
             {
-                case "Yes":
+                case "yes":
                     return true;
-                case "No":
+                case "no":
                     return false;
                 default: throw new Exception("Invalid Input!");
             }
