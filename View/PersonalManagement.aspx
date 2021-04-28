@@ -36,6 +36,7 @@
                         <br />
                          <div id="form1" runat="server"></div>
                         <br />
+                        <asp:Button ID="btnSubmit" OnCommand="btnSubmit_Click" Visible="false" runat="server" Text="Save" CssClass="btn btn-secondary" />
                     </div>
                 </div>
             </div>

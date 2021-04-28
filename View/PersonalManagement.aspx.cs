@@ -10,7 +10,7 @@ using Tournament_Management.Helper;
 
 namespace Tournament_Management.View
 {
-    public partial class PersonalManagement: System.Web.UI.Page
+    public partial class PersonalManagement : System.Web.UI.Page
     {
         private Controller _controller;
 
@@ -22,68 +22,56 @@ namespace Tournament_Management.View
 
             //if (!IsPostBack) 
             //{ 
-                if (rdbtnList1.Items[0].Selected)
-                {
-                    Controller.GetAllPeople();
-                    LoadPeople();
-                }
-                else if (rdbtnList1.Items[1].Selected)
-                {
-                    Controller.GetAllFootballPlayers();
-                    LoadFootballPlayers();
-                    btnAdd.Visible = true;
-                } 
-                else if (rdbtnList1.Items[2].Selected)
-                {
-                    Controller.GetAllBasketballPlayers();
-                    LoadBasketballPlayers();
-                    btnAdd.Visible = true;
+            if (rdbtnList1.Items[0].Selected)
+            {
+                Controller.GetAllPeople();
+                LoadPeople();
+            }
+            else if (rdbtnList1.Items[1].Selected)
+            {
+                Controller.GetAllFootballPlayers();
+                LoadFootballPlayers();
+                btnAdd.Visible = true;
+            }
+            else if (rdbtnList1.Items[2].Selected)
+            {
+                Controller.GetAllBasketballPlayers();
+                LoadBasketballPlayers();
+                btnAdd.Visible = true;
 
-                }
-                else if (rdbtnList1.Items[3].Selected)
-                {
-                    Controller.GetAllHndballPlayers();
-                    LoadHandballPlayers();
-                    btnAdd.Visible = true;
+            }
+            else if (rdbtnList1.Items[3].Selected)
+            {
+                Controller.GetAllHndballPlayers();
+                LoadHandballPlayers();
+                btnAdd.Visible = true;
 
-                }
-                else if (rdbtnList1.Items[4].Selected)
-                {
-                    Controller.GetAllPhysio();
-                    LoadPhysio();
-                    btnAdd.Visible = true;
+            }
+            else if (rdbtnList1.Items[4].Selected)
+            {
+                Controller.GetAllPhysio();
+                LoadPhysio();
+                btnAdd.Visible = true;
 
-                }
-                else if (rdbtnList1.Items[5].Selected)
-                {
-                    Controller.GetAllTrainers();
-                    LoadTrainer();
-                    btnAdd.Visible = true;
+            }
+            else if (rdbtnList1.Items[5].Selected)
+            {
+                Controller.GetAllTrainers();
+                LoadTrainer();
+                btnAdd.Visible = true;
 
 
-                }
-                else if (rdbtnList1.Items[6].Selected)
-                {
-                    Controller.GetAllReferees();
-                    LoadReferee();
-                    btnAdd.Visible = true;
+            }
+            else if (rdbtnList1.Items[6].Selected)
+            {
+                Controller.GetAllReferees();
+                LoadReferee();
+                btnAdd.Visible = true;
 
-                }
-          //  }
-            
+            }
+            this.hideInputs();
+
         }
-
-        private void LoadSubmitButton()
-        {
-
-            Button submit = new Button();
-            submit.ID = "btnSubmit";
-            submit.CssClass = "btn btn-secondary";
-            submit.Text = "Submit";
-            submit.Command += this.btnSubmit_Click;
-            form1.Controls.Add(submit);
-
-        }  
 
         protected void btnToggleInputs_Click(object sender, CommandEventArgs e)
         {
@@ -91,7 +79,7 @@ namespace Tournament_Management.View
             tblPeople.Rows[Convert.ToInt32(e.CommandArgument)].Style.Clear();
             tblPeople.Rows[Convert.ToInt32(e.CommandArgument)].Style.Add("visibility", "visible");
 
-        }  
+        }
 
 
         protected void btnAdd_Click(object sender, CommandEventArgs e)
@@ -99,54 +87,42 @@ namespace Tournament_Management.View
 
             if (rdbtnList1.Items[1].Selected)
             {
-                
                 LoadInputFP();
-                LoadSubmitButton();
             }
             else if (rdbtnList1.Items[2].Selected)
             {
 
                 LoadInputBP();
-                LoadSubmitButton();
-
             }
             else if (rdbtnList1.Items[3].Selected)
             {
 
                 LoadInputHP();
-                LoadSubmitButton();
-
             }
             else if (rdbtnList1.Items[4].Selected)
             {
 
                 LoadInputP();
-                LoadSubmitButton();
-
             }
             else if (rdbtnList1.Items[5].Selected)
             {
-
                 LoadInputT();
-                LoadSubmitButton();
-
-
             }
             else if (rdbtnList1.Items[6].Selected)
             {
-
                 LoadInputR();
-                LoadSubmitButton();
-
             }
+
+            btnSubmit.Visible = true;
+
         }
         protected void btnSubmit_Click(object sender, CommandEventArgs e)
         {
             //All
             if (rdbtnList1.Items[0].Selected)
             {
-                
-               // empty
+
+                // empty
             }
             //Footballplayer
             else if (rdbtnList1.Items[1].Selected)
@@ -204,6 +180,7 @@ namespace Tournament_Management.View
                 tmp.Name = Request.Form["ctl00$PersonalManagement$txtName"];
                 tmp.Surname = Request.Form["ctl00$PersonalManagement$txtSurname"];
                 tmp.Age = Convert.ToInt32(Request.Form["ctl00$PersonalManagement$txtAge"]);
+                tmp.Type = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$txtType"]);
                 tmp.Active = Request.Form["ctl00$PersonalManagement$txtActive"].GetTrueFalseString();
                 tmp.Put();
             }
@@ -215,10 +192,12 @@ namespace Tournament_Management.View
                 tmp.Surname = Request.Form["ctl00$PersonalManagement$txtSurname"];
                 tmp.Certificate = Request.Form["ctl00$PersonalManagement$txtCert"];
                 tmp.Age = Convert.ToInt32(Request.Form["ctl00$PersonalManagement$txtAge"]);
+                tmp.Type = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$txtType"]);
                 tmp.Active = Request.Form["ctl00$PersonalManagement$txtActive"].GetTrueFalseString();
                 tmp.Put();
             }
 
+            btnSubmit.Visible = false;
         }
 
 
@@ -278,12 +257,12 @@ namespace Tournament_Management.View
             Label lbl = new Label();
             lbl.Text = "Goal";
             form1.Controls.Add(lbl);
-            
+
             TextBox txt = new TextBox();
             txt.ID = "txtGoal";
             txt.Text = "";
             txt.CssClass = "form-control";
-            form1.Controls.Add(txt); 
+            form1.Controls.Add(txt);
 
             lbl = new Label();
             lbl.Text = "Speed";
@@ -327,8 +306,8 @@ namespace Tournament_Management.View
 
             lbl = new Label();
             lbl.Text = "Height";
-            form1.Controls.Add(lbl);  
-            
+            form1.Controls.Add(lbl);
+
             txt = new TextBox();
             txt.ID = "txtHeight";
             txt.Text = "";
@@ -339,7 +318,7 @@ namespace Tournament_Management.View
         //HandballPlayer
         private void LoadInputHP()
         {
-                Controller.NewParticipant = new HandballPlayer();
+            Controller.NewParticipant = new HandballPlayer();
 
             //All
             this.LoadInputBasic();
@@ -376,12 +355,11 @@ namespace Tournament_Management.View
             txt.CssClass = "form-control";
             form1.Controls.Add(txt);
 
-
         }
         //Physio
         private void LoadInputP()
         {
-                Controller.NewParticipant = new Physio();
+            Controller.NewParticipant = new Physio();
 
             //All
             this.LoadInputBasic();
@@ -400,7 +378,6 @@ namespace Tournament_Management.View
 
 
 
-
         }
         //Trainer
         private void LoadInputT()
@@ -409,13 +386,21 @@ namespace Tournament_Management.View
 
             //All
             this.LoadInputBasic();
+
+            DropDownList dropdown = new DropDownList();
+            dropdown.ID = "txtType";
+            dropdown.CssClass = "form-control";
+            dropdown.DataSource = Controller.TypeList;
+            dropdown.DataTextField = "Value";
+            dropdown.DataValueField = "Key";
+            dropdown.DataBind();
+            form1.Controls.Add(dropdown);
         }
 
         //Referee
         private void LoadInputR()
         {
             Controller.NewParticipant = new Referee();
-
             //All
             this.LoadInputBasic();
 
@@ -431,6 +416,14 @@ namespace Tournament_Management.View
             txt.CssClass = "form-control";
             form1.Controls.Add(txt);
 
+            DropDownList dropdown = new DropDownList();
+            dropdown.ID = "txtType";
+            dropdown.CssClass = "form-control";
+            dropdown.DataSource = Controller.TypeList;
+            dropdown.DataTextField = "Value";
+            dropdown.DataValueField = "Key";
+            dropdown.DataBind();
+            form1.Controls.Add(dropdown);
         }
 
         private void LoadPeople()
@@ -521,11 +514,16 @@ namespace Tournament_Management.View
             newHeaderCell.Text = "Speed";
             thr.Cells.Add(newHeaderCell);
 
+            newHeaderCell = new TableHeaderCell();
+            newHeaderCell.ID = "headerType";
+            newHeaderCell.Text = "Discipline";
+            thr.Cells.Add(newHeaderCell);
+
 
             newHeaderCell = new TableHeaderCell();
             newHeaderCell.ID = "headerEdit";
             newHeaderCell.Text = "Edit";
-            thr.Cells.Add(newHeaderCell); 
+            thr.Cells.Add(newHeaderCell);
 
 
             newHeaderCell = new TableHeaderCell();
@@ -572,7 +570,12 @@ namespace Tournament_Management.View
                 newCell.Text = (pers as FootballPlayer).Speed.ToString();
                 newRow.Cells.Add(newCell);
 
-                string currentRowIndexTemp = (tblPeople.Rows.Count+1).ToString();
+                newCell = new TableCell();
+                newCell.ID = "cellType" + pers.Id;
+                newCell.Text = Controller.TypeList[(pers as FootballPlayer).Type];
+                newRow.Cells.Add(newCell);
+
+                string currentRowIndexTemp = (tblPeople.Rows.Count + 1).ToString();
                 newCell = new TableCell();
                 newCell.ID = "cellEditButton" + pers.Id;
                 Button editButton = new Button();
@@ -643,28 +646,40 @@ namespace Tournament_Management.View
                 newCell.ID = $"editActive{pers.Id}";
                 row.Cells.Add(newCell);
 
-                    newCell = new TableCell();
-                    txt = new TextBox();
-                    txt.ID = $"edittxtGoal{pers.Id}";
-                    txt.Text = "";
-                    txt.CssClass = "form-control";
-                    form1.Controls.Add(txt);
-                    form1.Controls.Add(txt);
-                    newCell.Controls.Add(txt);
-                    newCell.ID = $"editGoal{pers.Id}";
-                    row.Cells.Add(newCell);
+                newCell = new TableCell();
+                txt = new TextBox();
+                txt.ID = $"edittxtGoal{pers.Id}";
+                txt.Text = "";
+                txt.CssClass = "form-control";
+                form1.Controls.Add(txt);
+                form1.Controls.Add(txt);
+                newCell.Controls.Add(txt);
+                newCell.ID = $"editGoal{pers.Id}";
+                row.Cells.Add(newCell);
 
 
-                    newCell = new TableCell();
-                    txt = new TextBox();
-                    txt.ID = $"edittxtSpeed{pers.Id}";
-                    txt.Text = "";
-                    txt.CssClass = "form-control";
-                    form1.Controls.Add(txt);
-                    form1.Controls.Add(txt);
-                    newCell.Controls.Add(txt);
-                    newCell.ID = $"editSpeed{pers.Id}";
-                    row.Cells.Add(newCell);
+                newCell = new TableCell();
+                txt = new TextBox();
+                txt.ID = $"edittxtSpeed{pers.Id}";
+                txt.Text = "";
+                txt.CssClass = "form-control";
+                form1.Controls.Add(txt);
+                form1.Controls.Add(txt);
+                newCell.Controls.Add(txt);
+                newCell.ID = $"editSpeed{pers.Id}";
+                row.Cells.Add(newCell);
+
+
+                newCell = new TableCell();
+                txt = new TextBox();
+                txt.ID = $"edittxtType{pers.Id}";
+                txt.Text = "Football";
+                txt.Enabled = false;
+                txt.CssClass = "form-control";
+                form1.Controls.Add(txt);
+                newCell.Controls.Add(txt);
+                newCell.ID = $"editType{pers.Id}";
+                row.Cells.Add(newCell);
 
                 newCell = new TableCell();
                 newCell.ID = $"cellSaveButton{pers.Id}";
@@ -727,9 +742,14 @@ namespace Tournament_Management.View
             thr.Cells.Add(newHeaderCell);
 
             newHeaderCell = new TableHeaderCell();
+            newHeaderCell.ID = "headerType";
+            newHeaderCell.Text = "Discipline";
+            thr.Cells.Add(newHeaderCell);
+
+            newHeaderCell = new TableHeaderCell();
             newHeaderCell.ID = "headerEdit";
             newHeaderCell.Text = "Edit";
-            thr.Cells.Add(newHeaderCell); 
+            thr.Cells.Add(newHeaderCell);
 
 
             newHeaderCell = new TableHeaderCell();
@@ -781,7 +801,12 @@ namespace Tournament_Management.View
                 newCell.Text = (pers as BasketballPlayer).Speed.ToString();
                 newRow.Cells.Add(newCell);
 
-                string currentRowIndexTemp = (tblPeople.Rows.Count +1).ToString();
+                newCell = new TableCell();
+                newCell.ID = "cellType" + pers.Id;
+                newCell.Text = Controller.TypeList[(pers as BasketballPlayer).Type];
+                newRow.Cells.Add(newCell);
+
+                string currentRowIndexTemp = (tblPeople.Rows.Count + 1).ToString();
                 newCell = new TableCell();
                 newCell.ID = "cellEditButton" + pers.Id;
                 Button editButton = new Button();
@@ -853,39 +878,51 @@ namespace Tournament_Management.View
                 newCell.ID = $"editActive{pers.Id}";
                 row.Cells.Add(newCell);
 
-                    newCell = new TableCell();
-                    txt = new TextBox();
-                    txt.ID = $"edittxtGoal{pers.Id}";
-                    txt.Text = "";
-                    txt.CssClass = "form-control";
-                    form1.Controls.Add(txt);
-                    form1.Controls.Add(txt);
-                    newCell.Controls.Add(txt);
-                    newCell.ID = $"editGoal{pers.Id}";
-                    row.Cells.Add(newCell);
+                newCell = new TableCell();
+                txt = new TextBox();
+                txt.ID = $"edittxtGoal{pers.Id}";
+                txt.Text = "";
+                txt.CssClass = "form-control";
+                form1.Controls.Add(txt);
+                form1.Controls.Add(txt);
+                newCell.Controls.Add(txt);
+                newCell.ID = $"editGoal{pers.Id}";
+                row.Cells.Add(newCell);
 
 
-                    newCell = new TableCell();
-                    txt = new TextBox();
-                    txt.ID = $"edittxtSpeed{pers.Id}";
-                    txt.Text = "";
-                    txt.CssClass = "form-control";
-                    form1.Controls.Add(txt);
-                    form1.Controls.Add(txt);
-                    newCell.Controls.Add(txt);
-                    newCell.ID = $"editSpeed{pers.Id}";
-                    row.Cells.Add(newCell);
+                newCell = new TableCell();
+                txt = new TextBox();
+                txt.ID = $"edittxtSpeed{pers.Id}";
+                txt.Text = "";
+                txt.CssClass = "form-control";
+                form1.Controls.Add(txt);
+                form1.Controls.Add(txt);
+                newCell.Controls.Add(txt);
+                newCell.ID = $"editSpeed{pers.Id}";
+                row.Cells.Add(newCell);
 
-                    newCell = new TableCell();
-                    txt = new TextBox();
-                    txt.ID = $"edittxtHeight{pers.Id}";
-                    txt.Text = "";
-                    txt.CssClass = "form-control";
-                    form1.Controls.Add(txt);
-                    form1.Controls.Add(txt);
-                    newCell.Controls.Add(txt);
-                    newCell.ID = $"editHeight{pers.Id}";
-                    row.Cells.Add(newCell);
+                newCell = new TableCell();
+                txt = new TextBox();
+                txt.ID = $"edittxtHeight{pers.Id}";
+                txt.Text = "";
+                txt.CssClass = "form-control";
+                form1.Controls.Add(txt);
+                form1.Controls.Add(txt);
+                newCell.Controls.Add(txt);
+                newCell.ID = $"editHeight{pers.Id}";
+                row.Cells.Add(newCell);
+
+                newCell = new TableCell();
+                txt = new TextBox();
+                txt.ID = $"edittxtType{pers.Id}";
+                txt.Text = "Basketball";
+                txt.Enabled = false;
+                txt.CssClass = "form-control";
+                form1.Controls.Add(txt);
+                newCell.Controls.Add(txt);
+                newCell.ID = $"editType{pers.Id}";
+                row.Cells.Add(newCell);
+
 
                 newCell = new TableCell();
                 newCell.ID = $"cellSaveButton{pers.Id}";
@@ -948,9 +985,14 @@ namespace Tournament_Management.View
             thr.Cells.Add(newHeaderCell);
 
             newHeaderCell = new TableHeaderCell();
+            newHeaderCell.ID = "headerType";
+            newHeaderCell.Text = "Discipline";
+            thr.Cells.Add(newHeaderCell);
+
+            newHeaderCell = new TableHeaderCell();
             newHeaderCell.ID = "headerEdit";
             newHeaderCell.Text = "Edit";
-            thr.Cells.Add(newHeaderCell); 
+            thr.Cells.Add(newHeaderCell);
 
             newHeaderCell = new TableHeaderCell();
             newHeaderCell.ID = "headerDel";
@@ -1000,7 +1042,12 @@ namespace Tournament_Management.View
                 newCell.Text = (pers as HandballPlayer).Speed.ToString();
                 newRow.Cells.Add(newCell);
 
-                string currentRowIndexTemp = (tblPeople.Rows.Count+1).ToString();
+                newCell = new TableCell();
+                newCell.ID = "cellType" + pers.Id;
+                newCell.Text = Controller.TypeList[(pers as HandballPlayer).Type];
+                newRow.Cells.Add(newCell);
+
+                string currentRowIndexTemp = (tblPeople.Rows.Count + 1).ToString();
                 newCell = new TableCell();
                 newCell.ID = "cellEditButton" + pers.Id;
                 Button editButton = new Button();
@@ -1067,44 +1114,52 @@ namespace Tournament_Management.View
                 txt.Text = "";
                 txt.CssClass = "form-control";
                 form1.Controls.Add(txt);
-                form1.Controls.Add(txt);
                 newCell.Controls.Add(txt);
                 newCell.ID = $"editActive{pers.Id}";
                 row.Cells.Add(newCell);
 
-                    newCell = new TableCell();
-                    txt = new TextBox();
-                    txt.ID = $"edittxtGoal{pers.Id}";
-                    txt.Text = "";
-                    txt.CssClass = "form-control";
-                    form1.Controls.Add(txt);
-                    form1.Controls.Add(txt);
-                    newCell.Controls.Add(txt);
-                    newCell.ID = $"editGoal{pers.Id}";
-                    row.Cells.Add(newCell);
+                newCell = new TableCell();
+                txt = new TextBox();
+                txt.ID = $"edittxtGoal{pers.Id}";
+                txt.Text = "";
+                txt.CssClass = "form-control";
+                form1.Controls.Add(txt);
+                newCell.Controls.Add(txt);
+                newCell.ID = $"editGoal{pers.Id}";
+                row.Cells.Add(newCell);
 
 
-                    newCell = new TableCell();
-                    txt = new TextBox();
-                    txt.ID = $"edittxtSpeed{pers.Id}";
-                    txt.Text = "";
-                    txt.CssClass = "form-control";
-                    form1.Controls.Add(txt);
-                    form1.Controls.Add(txt);
-                    newCell.Controls.Add(txt);
-                    newCell.ID = $"editSpeed{pers.Id}";
-                    row.Cells.Add(newCell);
+                newCell = new TableCell();
+                txt = new TextBox();
+                txt.ID = $"edittxtSpeed{pers.Id}";
+                txt.Text = "";
+                txt.CssClass = "form-control";
+                form1.Controls.Add(txt);
+                newCell.Controls.Add(txt);
+                newCell.ID = $"editSpeed{pers.Id}";
+                row.Cells.Add(newCell);
 
-                    newCell = new TableCell();
-                    txt = new TextBox();
-                    txt.ID = $"edittxtPosition{pers.Id}";
-                    txt.Text = "";
-                    txt.CssClass = "form-control";
-                    form1.Controls.Add(txt);
-                    form1.Controls.Add(txt);
-                    newCell.Controls.Add(txt);
-                    newCell.ID = $"editPosition{pers.Id}";
-                    row.Cells.Add(newCell);
+                newCell = new TableCell();
+                txt = new TextBox();
+                txt.ID = $"edittxtPosition{pers.Id}";
+                txt.Text = "";
+                txt.CssClass = "form-control";
+                form1.Controls.Add(txt);
+                newCell.Controls.Add(txt);
+                newCell.ID = $"editPosition{pers.Id}";
+                row.Cells.Add(newCell);
+
+                newCell = new TableCell();
+                txt = new TextBox();
+                txt.ID = $"edittxtType{pers.Id}";
+                txt.Text = "Handball";
+                txt.Enabled = false;
+                txt.CssClass = "form-control";
+                form1.Controls.Add(txt);
+                newCell.Controls.Add(txt);
+                newCell.ID = $"editType{pers.Id}";
+                row.Cells.Add(newCell);
+
 
                 newCell = new TableCell();
                 newCell.ID = $"cellSaveButton{pers.Id}";
@@ -1159,7 +1214,7 @@ namespace Tournament_Management.View
             newHeaderCell = new TableHeaderCell();
             newHeaderCell.ID = "headerEdit";
             newHeaderCell.Text = "Edit";
-            thr.Cells.Add(newHeaderCell); 
+            thr.Cells.Add(newHeaderCell);
 
 
             newHeaderCell = new TableHeaderCell();
@@ -1201,7 +1256,7 @@ namespace Tournament_Management.View
                 newCell.Text = (pers as Physio).Experience.ToString();
                 newRow.Cells.Add(newCell);
 
-                string currentRowIndexTemp = (tblPeople.Rows.Count+1).ToString();
+                string currentRowIndexTemp = (tblPeople.Rows.Count + 1).ToString();
                 newCell = new TableCell();
                 newCell.ID = "cellEditButton" + pers.Id;
                 Button editButton = new Button();
@@ -1273,16 +1328,16 @@ namespace Tournament_Management.View
                 newCell.ID = $"editActive{pers.Id}";
                 row.Cells.Add(newCell);
 
-                    newCell = new TableCell();
-                    txt = new TextBox();
-                    txt.ID = $"edittxtExperience{pers.Id}";
-                    txt.Text = "";
-                    txt.CssClass = "form-control";
-                    form1.Controls.Add(txt);
-                    form1.Controls.Add(txt);
-                    newCell.Controls.Add(txt);
-                    newCell.ID = $"editExperience{pers.Id}";
-                    row.Cells.Add(newCell);
+                newCell = new TableCell();
+                txt = new TextBox();
+                txt.ID = $"edittxtExperience{pers.Id}";
+                txt.Text = "";
+                txt.CssClass = "form-control";
+                form1.Controls.Add(txt);
+                form1.Controls.Add(txt);
+                newCell.Controls.Add(txt);
+                newCell.ID = $"editExperience{pers.Id}";
+                row.Cells.Add(newCell);
 
                 newCell = new TableCell();
                 newCell.ID = $"cellSaveButton{pers.Id}";
@@ -1330,9 +1385,14 @@ namespace Tournament_Management.View
             thr.Cells.Add(newHeaderCell);
 
             newHeaderCell = new TableHeaderCell();
+            newHeaderCell.ID = "headerType";
+            newHeaderCell.Text = "Discipline";
+            thr.Cells.Add(newHeaderCell);
+
+            newHeaderCell = new TableHeaderCell();
             newHeaderCell.ID = "headerEdit";
             newHeaderCell.Text = "Edit";
-            thr.Cells.Add(newHeaderCell);  
+            thr.Cells.Add(newHeaderCell);
 
             newHeaderCell = new TableHeaderCell();
             newHeaderCell.ID = "headerDel";
@@ -1367,8 +1427,13 @@ namespace Tournament_Management.View
                 newCell.Text = (pers as Trainer).Active.GetYesNoString();
                 newRow.Cells.Add(newCell);
 
+                newCell = new TableCell();
+                newCell.ID = "cellType" + pers.Id;
+                newCell.Text = Controller.TypeList[(pers as Trainer).Type];
+                newRow.Cells.Add(newCell);
 
-                string currentRowIndexTemp = (tblPeople.Rows.Count+1).ToString();
+
+                string currentRowIndexTemp = (tblPeople.Rows.Count + 1).ToString();
                 newCell = new TableCell();
                 newCell.ID = "cellEditButton" + pers.Id;
                 Button editButton = new Button();
@@ -1441,13 +1506,25 @@ namespace Tournament_Management.View
                 row.Cells.Add(newCell);
 
                 newCell = new TableCell();
+                DropDownList dropdown = new DropDownList();
+                dropdown.ID = $"edittxtType{pers.Id}";
+                dropdown.CssClass = "form-control";
+                dropdown.DataSource = Controller.TypeList;
+                dropdown.DataTextField = "Value";
+                dropdown.DataValueField = "Key";
+                dropdown.DataBind();
+                newCell.Controls.Add(dropdown);
+                newCell.ID = $"editType{pers.Id}";
+                row.Cells.Add(newCell);
+
+                newCell = new TableCell();
                 newCell.ID = $"cellSaveButton{pers.Id}";
                 Button saveButton = new Button();
                 saveButton.ID = $"saveButton{pers.Id}";
                 saveButton.CommandName = "Edit";
                 saveButton.Text = "Save";
                 saveButton.CssClass = "btn btn-success";
-                saveButton.CommandArgument =pers.Id.ToString();
+                saveButton.CommandArgument = pers.Id.ToString();
                 saveButton.Command += this.btnEdit_Click;
                 newCell.Controls.Add(saveButton);
                 row.Cells.Add(newCell);
@@ -1456,7 +1533,7 @@ namespace Tournament_Management.View
 
             }
         }
-         //Referee
+        //Referee
         private void LoadReferee()
         {
             tblPeople.Rows.Clear();
@@ -1478,8 +1555,8 @@ namespace Tournament_Management.View
             newHeaderCell = new TableHeaderCell();
             newHeaderCell.ID = "headerAge";
             newHeaderCell.Text = "Age";
-            thr.Cells.Add(newHeaderCell);   
-            
+            thr.Cells.Add(newHeaderCell);
+
 
             newHeaderCell = new TableHeaderCell();
             newHeaderCell.ID = "headerActive";
@@ -1493,9 +1570,14 @@ namespace Tournament_Management.View
             thr.Cells.Add(newHeaderCell);
 
             newHeaderCell = new TableHeaderCell();
+            newHeaderCell.ID = "headerType";
+            newHeaderCell.Text = "Discipline";
+            thr.Cells.Add(newHeaderCell);
+
+            newHeaderCell = new TableHeaderCell();
             newHeaderCell.ID = "headerEdit";
             newHeaderCell.Text = "Edit";
-            thr.Cells.Add(newHeaderCell); 
+            thr.Cells.Add(newHeaderCell);
 
 
             newHeaderCell = new TableHeaderCell();
@@ -1525,7 +1607,7 @@ namespace Tournament_Management.View
                 newCell = new TableCell();
                 newCell.ID = "cellAge" + pers.Id;
                 newCell.Text = (pers as Referee).Age.ToString();
-                newRow.Cells.Add(newCell); 
+                newRow.Cells.Add(newCell);
 
                 newCell = new TableCell();
                 newCell.ID = "cellActive" + pers.Id;
@@ -1537,8 +1619,13 @@ namespace Tournament_Management.View
                 newCell.Text = (pers as Referee).Certificate;
                 newRow.Cells.Add(newCell);
 
+                newCell = new TableCell();
+                newCell.ID = "cellType" + pers.Id;
+                newCell.Text = Controller.TypeList[(pers as Referee).Type];
+                newRow.Cells.Add(newCell);
 
-                string currentRowIndexTemp = (tblPeople.Rows.Count+1).ToString();
+
+                string currentRowIndexTemp = (tblPeople.Rows.Count + 1).ToString();
                 newCell = new TableCell();
                 newCell.ID = "cellEditButton" + pers.Id;
                 Button editButton = new Button();
@@ -1616,9 +1703,20 @@ namespace Tournament_Management.View
                 txt.Text = "";
                 txt.CssClass = "form-control";
                 form1.Controls.Add(txt);
-                form1.Controls.Add(txt);
                 newCell.Controls.Add(txt);
                 newCell.ID = $"editCert{pers.Id}";
+                row.Cells.Add(newCell);
+
+                newCell = new TableCell();
+                DropDownList dropdown = new DropDownList();
+                dropdown.ID = $"edittxtType{pers.Id}";
+                dropdown.CssClass = "form-control";
+                dropdown.DataSource = Controller.TypeList;
+                dropdown.DataTextField = "Value";
+                dropdown.DataValueField = "Key";
+                dropdown.DataBind();
+                newCell.Controls.Add(dropdown);
+                newCell.ID = $"editType{pers.Id}";
                 row.Cells.Add(newCell);
 
                 newCell = new TableCell();
@@ -1637,7 +1735,17 @@ namespace Tournament_Management.View
             }
         }
 
-
+        private void hideInputs()
+        {
+            foreach (TableRow tr in tblPeople.Rows)
+            {
+                if (tr.Style.Count > 0)
+                {
+                    tr.Style.Clear();
+                    tr.Style.Add("visibility", "collapse");
+                }
+            }
+        }
 
         protected void btnDeleteEdit_Click(object sender, CommandEventArgs e)
         {
@@ -1648,99 +1756,92 @@ namespace Tournament_Management.View
             Response.Redirect(Request.RawUrl);
 
         }
-        
+
         protected void btnEdit_Click(object sender, CommandEventArgs e)
         {
 
-                string index = e.CommandArgument.ToString();
+            string index = e.CommandArgument.ToString();
 
-                if (rdbtnList1.Items[0].Selected)
-                {
-                    //nichts
-                }
-                //Footballplayer
-                else if (rdbtnList1.Items[1].Selected)
-                {
-                   
-                    FootballPlayer tmp = Controller.Participants.First(x => x.Id == Convert.ToInt32(e.CommandArgument)) as FootballPlayer;
-                    tmp.Name = Request.Form[$"ctl00$PersonalManagement$edittxtName{index}"];
-                    tmp.Surname = Request.Form[$"ctl00$PersonalManagement$edittxtSurname{index}"];
-                    tmp.Goals = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtGoals{index}"]);
-                    tmp.Speed = Convert.ToDouble(Request.Form[$"ctl00$PersonalManagement$edittxtSpeed{index}"]);
-                    tmp.Age = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtAge{index}"]);
-                    tmp.Active = Request.Form[$"ctl00$PersonalManagement$edittxtActive{index}"].GetTrueFalseString();
-                    tmp.Update();
-                }
-                //BasketballPlayer
-                else if (rdbtnList1.Items[2].Selected)
-                {
-                    BasketballPlayer tmp = Controller.Participants.First(x => x.Id == Convert.ToInt32(e.CommandArgument)) as BasketballPlayer;
-                    tmp.Name = Request.Form[$"ctl00$PersonalManagement$edittxtName{index}"];
-                    tmp.Surname = Request.Form[$"ctl00$PersonalManagement$edittxtSurname{index}"];
-                    tmp.Goals = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtGoals{index}"]);
-                    tmp.Height = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtHeight{index}"]);
-                    tmp.Speed = Convert.ToDouble(Request.Form[$"ctl00$PersonalManagement$edittxtSpeed{index}"]);
-                    tmp.Age = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtAge{index}"]);
-                    tmp.Active = Request.Form[$"ctl00$PersonalManagement$edittxtActive{index}"].GetTrueFalseString();
-                    tmp.Update();
-                }
-                //HandballPlayer
-                else if (rdbtnList1.Items[3].Selected)
-                {
-                    HandballPlayer tmp = Controller.Participants.First(x => x.Id == Convert.ToInt32(e.CommandArgument)) as HandballPlayer;
-                    tmp.Name = Request.Form[$"ctl00$PersonalManagement$edittxtName{index}"];
-                    tmp.Surname = Request.Form[$"ctl00$PersonalManagement$edittxtSurname{index}"];
-                    tmp.Goals = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtGoals{index}"]);
-                    tmp.Position = Request.Form[$"ctl00$PersonalManagement$edittxtPosition{index}"];
-                    tmp.Speed = Convert.ToDouble(Request.Form[$"ctl00$PersonalManagement$edittxtSpeed{index}"]);
-                    tmp.Age = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtAge{index}"]);
-                    tmp.Active = Request.Form[$"ctl00$PersonalManagement$edittxtActive{index}"].GetTrueFalseString();
-                    tmp.Update();
-                }
-                //Physio
-                else if (rdbtnList1.Items[4].Selected)
-                {
-                    Physio tmp = Controller.Participants.First(x => x.Id == Convert.ToInt32(e.CommandArgument)) as Physio;
-                    tmp.Name = Request.Form["ctl00$PersonalManagement$txtName"];
-                    tmp.Surname = Request.Form["ctl00$PersonalManagement$txtSurname"];
-                    tmp.Experience = Convert.ToInt32(Request.Form["ctl00$PersonalManagement$txtExperience"]);
-                    tmp.Age = Convert.ToInt32(Request.Form["ctl00$PersonalManagement$txtAge"]);
-                    tmp.Active = Request.Form["ctl00$PersonalManagement$txtActive"].GetTrueFalseString();
-                    tmp.Update();
-                }
-                //Trainer
-                else if (rdbtnList1.Items[5].Selected)
-                {
-                    Trainer tmp = Controller.Participants.First(x => x.Id == Convert.ToInt32(e.CommandArgument)) as Trainer;
-                    tmp.Name = Request.Form[$"ctl00$PersonalManagement$edittxtName{index}"];
-                    tmp.Surname = Request.Form[$"ctl00$PersonalManagement$edittxtSurname{index}"];
-                    tmp.Age = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtAge{index}"]);
-                    tmp.Active = Request.Form[$"ctl00$PersonalManagement$edittxtActive{index}"].GetTrueFalseString();
-                    tmp.Update();
-                }
-                //Referee
-                else if (rdbtnList1.Items[6].Selected)
-                {
-                    Referee tmp = Controller.Participants.First(x => x.Id == Convert.ToInt32(e.CommandArgument)) as Referee;
-                    tmp.Name = Request.Form[$"ctl00$PersonalManagement$edittxtName{index}"];
-                    tmp.Surname = Request.Form[$"ctl00$PersonalManagement$edittxtSurname{index}"];
-                    tmp.Certificate = Request.Form[$"ctl00$PersonalManagement$edittxtCert{index}"];
-                    tmp.Age = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtAge{index}"]);
-                    tmp.Active = Request.Form[$"ctl00$PersonalManagement$edittxtActive{index}"].GetTrueFalseString();
-                    tmp.Update();
-                }
-
-            foreach (TableRow tr in tblPeople.Rows)
+            if (rdbtnList1.Items[0].Selected)
             {
-                if (tr.Style.Count>0)
-                { 
-                tr.Style.Clear();
-                tr.Style.Add("visibility", "collapse");         
-                }
+                //nichts
+            }
+            //Footballplayer
+            else if (rdbtnList1.Items[1].Selected)
+            {
 
+                FootballPlayer tmp = Controller.Participants.First(x => x.Id == Convert.ToInt32(e.CommandArgument)) as FootballPlayer;
+                tmp.Name = Request.Form[$"ctl00$PersonalManagement$edittxtName{index}"];
+                tmp.Surname = Request.Form[$"ctl00$PersonalManagement$edittxtSurname{index}"];
+                tmp.Goals = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtGoals{index}"]);
+                tmp.Speed = Convert.ToDouble(Request.Form[$"ctl00$PersonalManagement$edittxtSpeed{index}"]);
+                tmp.Age = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtAge{index}"]);
+                tmp.Active = Request.Form[$"ctl00$PersonalManagement$edittxtActive{index}"].GetTrueFalseString();
+                tmp.Update();
+            }
+            //BasketballPlayer
+            else if (rdbtnList1.Items[2].Selected)
+            {
+                BasketballPlayer tmp = Controller.Participants.First(x => x.Id == Convert.ToInt32(e.CommandArgument)) as BasketballPlayer;
+                tmp.Name = Request.Form[$"ctl00$PersonalManagement$edittxtName{index}"];
+                tmp.Surname = Request.Form[$"ctl00$PersonalManagement$edittxtSurname{index}"];
+                tmp.Goals = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtGoals{index}"]);
+                tmp.Height = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtHeight{index}"]);
+                tmp.Speed = Convert.ToDouble(Request.Form[$"ctl00$PersonalManagement$edittxtSpeed{index}"]);
+                tmp.Age = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtAge{index}"]);
+                tmp.Active = Request.Form[$"ctl00$PersonalManagement$edittxtActive{index}"].GetTrueFalseString();
+                tmp.Update();
+            }
+            //HandballPlayer
+            else if (rdbtnList1.Items[3].Selected)
+            {
+                HandballPlayer tmp = Controller.Participants.First(x => x.Id == Convert.ToInt32(e.CommandArgument)) as HandballPlayer;
+                tmp.Name = Request.Form[$"ctl00$PersonalManagement$edittxtName{index}"];
+                tmp.Surname = Request.Form[$"ctl00$PersonalManagement$edittxtSurname{index}"];
+                tmp.Goals = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtGoals{index}"]);
+                tmp.Position = Request.Form[$"ctl00$PersonalManagement$edittxtPosition{index}"];
+                tmp.Speed = Convert.ToDouble(Request.Form[$"ctl00$PersonalManagement$edittxtSpeed{index}"]);
+                tmp.Age = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtAge{index}"]);
+                tmp.Active = Request.Form[$"ctl00$PersonalManagement$edittxtActive{index}"].GetTrueFalseString();
+                tmp.Update();
+            }
+            //Physio
+            else if (rdbtnList1.Items[4].Selected)
+            {
+                Physio tmp = Controller.Participants.First(x => x.Id == Convert.ToInt32(e.CommandArgument)) as Physio;
+                tmp.Name = Request.Form["ctl00$PersonalManagement$txtName"];
+                tmp.Surname = Request.Form["ctl00$PersonalManagement$txtSurname"];
+                tmp.Experience = Convert.ToInt32(Request.Form["ctl00$PersonalManagement$txtExperience"]);
+                tmp.Age = Convert.ToInt32(Request.Form["ctl00$PersonalManagement$txtAge"]);
+                tmp.Active = Request.Form["ctl00$PersonalManagement$txtActive"].GetTrueFalseString();
+                tmp.Update();
+            }
+            //Trainer
+            else if (rdbtnList1.Items[5].Selected)
+            {
+                Trainer tmp = Controller.Participants.First(x => x.Id == Convert.ToInt32(e.CommandArgument)) as Trainer;
+                tmp.Name = Request.Form[$"ctl00$PersonalManagement$edittxtName{index}"];
+                tmp.Surname = Request.Form[$"ctl00$PersonalManagement$edittxtSurname{index}"];
+                tmp.Age = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtAge{index}"]);
+                tmp.Active = Request.Form[$"ctl00$PersonalManagement$edittxtActive{index}"].GetTrueFalseString();
+                tmp.Type = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtType{index}"]);
+                tmp.Update();
+            }
+            //Referee
+            else if (rdbtnList1.Items[6].Selected)
+            {
+                Referee tmp = Controller.Participants.First(x => x.Id == Convert.ToInt32(e.CommandArgument)) as Referee;
+                tmp.Name = Request.Form[$"ctl00$PersonalManagement$edittxtName{index}"];
+                tmp.Surname = Request.Form[$"ctl00$PersonalManagement$edittxtSurname{index}"];
+                tmp.Certificate = Request.Form[$"ctl00$PersonalManagement$edittxtCert{index}"];
+                tmp.Age = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtAge{index}"]);
+                tmp.Type = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtType{index}"]);
+                tmp.Active = Request.Form[$"ctl00$PersonalManagement$edittxtActive{index}"].GetTrueFalseString();
+                tmp.Update();
             }
 
-
+            this.hideInputs();
+            
 
             Response.Redirect(Request.RawUrl);
 

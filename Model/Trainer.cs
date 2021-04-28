@@ -58,7 +58,7 @@ namespace Tournament_Management.Model
 
             try
             {
-                string updatePerson = $"UPDATE PERSON SET name='{Name}', age='{Age}' surname='{Surname}', active='{Active}' WHERE ID='{Id}'";
+                string updatePerson = $"UPDATE PERSON SET name='{Name}', age='{Age}', surname='{Surname}', active='{Active}' WHERE ID='{Id}'";
                 string updateTrainer = $"UPDATE TRAINER SET type_id='{Type}' WHERE PERSON_ID= '{Id}'";
 
                 MySqlCommand cmd = new MySqlCommand()
@@ -166,7 +166,7 @@ namespace Tournament_Management.Model
             try
             {
                 con.Open();
-                string query = $"SELECT * FROM PERSON P JOIN TRAINER TR ON P.ID = TR.PERSON_ID WHERE P.ID = '{id}'";
+                string query = $"SELECT * FROM PERSON P JOIN TRAINER TR ON P.ID = TR.PERSON_ID  WHERE P.ID = '{id}'";
                 MySqlCommand cmd = new MySqlCommand(query, con);
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -176,7 +176,6 @@ namespace Tournament_Management.Model
                     Name = reader.GetString("name");
                     Type = reader.GetInt32("type_id");
                     Surname = reader.GetString("surname");
-                    Type = reader.GetInt32("type_id");
                     Active = reader.GetBoolean("active");
                     Age = reader.GetInt32("age");
                 }

@@ -19,6 +19,8 @@ namespace Tournament_Management.ControllerNS
         private List<Participant> _participants;
         private Participant _newParticipant;
 
+        private Dictionary<int, string> _typeList;
+
         #endregion
 
         #region Properties
@@ -30,6 +32,7 @@ namespace Tournament_Management.ControllerNS
         public List<Physio> Physios { get => _physios; set => _physios = value; }
         public List<Participant> Participants { get => _participants; set => _participants = value; }
         public Participant NewParticipant { get => _newParticipant; set => _newParticipant = value; }
+        public Dictionary<int, string> TypeList { get => _typeList; set => _typeList = value; }
 
         #endregion
 
@@ -42,9 +45,11 @@ namespace Tournament_Management.ControllerNS
             Physios = new List<Physio>();
             Trainers = new List<Trainer>();
             Referees = new List<Referee>();
+            TypeList = new Dictionary<int, string>();
 
-            Participants = new List<Participant>();
-
+            Participants = new List<Participant>(); 
+            
+            GetAllTypes();
             //GetAllPeople();
 
         }
@@ -61,6 +66,35 @@ namespace Tournament_Management.ControllerNS
 
         #region Methods
 
+        public void GetAllTypes()
+        {
+            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+
+            string selectTypes = "SELECT * FROM TYPE";
+            try
+            {
+                con.Open();
+
+                MySqlCommand cmd = new MySqlCommand(selectTypes, con);
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    TypeList.Add(reader.GetInt32("id"), reader.GetString("type"));
+                }
+                reader.Close();
+
+            }
+            catch (Exception e)
+            {
+
+            }
+            finally 
+            {
+                con.Close();
+            }
+           
+        }
         public void GetAllPeople()
         {
             Participants.Clear();

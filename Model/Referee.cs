@@ -70,8 +70,8 @@ namespace Tournament_Management.Model
 
         try
         {
-            string updatePerson = $"UPDATE PERSON SET name='{Name}', age='{Age}' surname='{Surname}', active='{Active}' WHERE  ID='{Id}'";
-            string updateReferee = $"UPDATE REFEREE SET certificate='{Certificate}', type_id='{Type}' WHERE PERSON_ID= '{Id}'";
+            string updatePerson = $"UPDATE PERSON SET name='{Name}', age='{Age}', surname='{Surname}', active='{Active}' WHERE ID='{Id}'";
+            string updateReferee = $"UPDATE REFEREE SET certificate='{Certificate}', type_id='{Type}' WHERE PERSON_ID='{Id}'";
 
             MySqlCommand cmd = new MySqlCommand()
             {
@@ -179,7 +179,7 @@ namespace Tournament_Management.Model
             try
             {
                 con.Open();
-                string query = $"SELECT * FROM PERSON P JOIN REFEREE REF ON P.ID = REF.PERSON_ID WHERE P.ID = '{id}'";
+                string query = $"SELECT * FROM PERSON P JOIN REFEREE REF ON P.ID = REF.PERSON_ID  WHERE P.ID = '{id}'";
                 MySqlCommand cmd = new MySqlCommand(query, con);
                 MySqlDataReader reader = cmd.ExecuteReader();
 
