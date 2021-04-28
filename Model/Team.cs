@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 
 namespace Tournament_Management.Model
@@ -8,12 +9,14 @@ namespace Tournament_Management.Model
         #region Attributes
 
         private List<Participant> _list;
+        private string _foundingDate;
 
         #endregion
 
         #region Properties
 
         public List<Participant> List { get => _list; set => _list = value; }
+        public string FoundingDate { get => _foundingDate; set => _foundingDate = value; }
 
         #endregion
 
@@ -72,7 +75,33 @@ namespace Tournament_Management.Model
 
         public override void Get(int id)
         {
-            throw new NotImplementedException();
+            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+
+            try
+            {
+                con.Open();
+                string query = $"SELECT * FROM PERSON P JOIN TEAM FP ON P.ID = FP.PERSON_ID WHERE P.ID = {id}";
+                string queryMembers = $"SELECT * FROM PERSON P JOIN FOOTBALLPLAYER FP ON P.ID = FP.PERSON_ID WHERE P.ID = {id}";
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Id = reader.GetInt32("id");
+                    Name = reader.GetString("name");
+                }
+
+                reader.Close();
+
+            }
+            catch (Exception e)
+            {
+
+            }
+            finally
+            {
+                con.Close();
+            }
         }
         #endregion
     }

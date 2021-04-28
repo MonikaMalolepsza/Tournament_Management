@@ -62,7 +62,7 @@ namespace Tournament_Management.Model
 
                  */
 
-                string updateBasketballplayer = $"UPDATE BASKETBALLPLAYER SET field_goal='{Goals}', speed='{Speed}', height='{Height}', type={Type}  WHERE  PERSON_ID = '{Id}'";
+                string updateBasketballplayer = $"UPDATE BASKETBALLPLAYER SET field_goal='{Goals}', speed='{Speed}', height='{Height}', type='3'  WHERE  PERSON_ID = '{Id}'";
                 string updatePlayer = $"UPDATE PERSON SET name='{Name}', age='{Age}' surname='{Surname}', active='{Active}' WHERE ID ='{Id}'";
 
 
@@ -125,7 +125,7 @@ namespace Tournament_Management.Model
                 cmd.CommandText = insertParticipant;
                 cmd.ExecuteNonQuery();
                 int person_id = (int)cmd.LastInsertedId;
-                string insertPlayer = $"INSERT INTO BASKETBALLPLAYER (field_goal, speed, type_id, person_id, team_id, height) VALUES('{Goals}','{Speed}', '{Type}', '{person_id}', '1', '{Height}')";
+                string insertPlayer = $"INSERT INTO BASKETBALLPLAYER (field_goal, speed, type_id, person_id, team_id, height) VALUES('{Goals}','{Speed}', '3', '{person_id}', '1', '{Height}')";
                 cmd.CommandText = insertPlayer;
                 cmd.ExecuteNonQuery();
 

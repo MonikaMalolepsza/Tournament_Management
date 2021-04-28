@@ -43,7 +43,7 @@ namespace Tournament_Management.Model
             try
             {
                 string updatePerson = $"UPDATE PERSON SET NAME='{Name}', SURNAME='{Surname}', ACTIVE='{Active}', AGE='{Age}' WHERE ID='{Id}'";
-                string updateHandballplayer = $"UPDATE HANDBALLPLAYER SET position='{Position}', goals='{Goals}', speed='{Speed}', type_id='{Type}' WHERE PERSON_ID='{Id}'";
+                string updateHandballplayer = $"UPDATE HANDBALLPLAYER SET position='{Position}', goals='{Goals}', speed='{Speed}', type_id='2' WHERE PERSON_ID='{Id}'";
 
                 MySqlCommand cmd = new MySqlCommand()
                 {
@@ -103,7 +103,7 @@ namespace Tournament_Management.Model
                 cmd.CommandText = insertParticipant;
                 cmd.ExecuteNonQuery();
                 int person_id = (int)cmd.LastInsertedId;
-                string insertPlayer = $"INSERT INTO HANDBALLPLAYER (goals, speed, type_id, person_id, team_id, position) VALUES('{Goals}','{Speed}', '{Type}', '{person_id}', '1', '{Position}')";
+                string insertPlayer = $"INSERT INTO HANDBALLPLAYER (goals, speed, type_id, person_id, team_id, position) VALUES('{Goals}','{Speed}', '2', '{person_id}', '1', '{Position}')";
                 cmd.CommandText = insertPlayer;
                 cmd.ExecuteNonQuery();
                 transaction.Commit();

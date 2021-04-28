@@ -7,7 +7,7 @@
           <hr class="my-4">
           <p>Here you can add new players to your team, update the details and delete the inactive members.</p>
         </div>
-               <div id="form1" runat="server">
+               <div runat="server">
                 <div class="container-fluid">
 
                     <asp:RadioButtonList 
@@ -32,7 +32,10 @@
                 </div>
                 <div>
                     <div class="container">
-                     <asp:Placeholder id="editPerson" runat="server"></asp:Placeholder>
+                         <asp:Button ID="btnAdd" OnCommand="btnAdd_Click" Visible="false" runat="server" Text="Add New Member" CssClass="btn btn-secondary" />
+                        <br />
+                         <div id="form1" runat="server"></div>
+                        <br />
                     </div>
                 </div>
             </div>

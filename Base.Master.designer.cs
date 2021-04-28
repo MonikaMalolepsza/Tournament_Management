@@ -24,6 +24,15 @@ namespace Tournament_Management
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
+        /// Home-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder Home;
+
+        /// <summary>
         /// PersonalManagement-Steuerelement
         /// </summary>
         /// <remarks>
@@ -31,5 +40,14 @@ namespace Tournament_Management
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder PersonalManagement;
+
+        /// <summary>
+        /// TeamManagement-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder TeamManagement;
     }
 }

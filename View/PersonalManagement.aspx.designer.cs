@@ -15,15 +15,6 @@ namespace Tournament_Management.View
     {
 
         /// <summary>
-        /// form1-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl form1;
-
-        /// <summary>
         /// rdbtnList1-Steuerelement
         /// </summary>
         /// <remarks>
@@ -51,12 +42,21 @@ namespace Tournament_Management.View
         protected global::System.Web.UI.WebControls.Table tblPeople;
 
         /// <summary>
-        /// editPerson-Steuerelement
+        /// btnAdd-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder editPerson;
+        protected global::System.Web.UI.WebControls.Button btnAdd;
+
+        /// <summary>
+        /// form1-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl form1;
     }
 }

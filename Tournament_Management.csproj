@@ -170,6 +170,7 @@
     <EmbeddedResource Include="Resources\CreateDatabase.sql" />
     <EmbeddedResource Include="Resources\CreateTables.sql" />
     <EmbeddedResource Include="Resources\InsertData.sql" />
+    <Content Include="Home.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -200,6 +201,7 @@
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="View\PersonalManagement.aspx" />
     <Content Include="Bundle.config" />
+    <Content Include="View\TeamManagement.aspx" />
     <Content Include="Web.config" />
     <Content Include="Base.Master" />
     <None Include="Web.Debug.config">
@@ -218,6 +220,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\ClassExtensions.cs" />
+    <Compile Include="Home.aspx.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Home.aspx.designer.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Model\BasketballPlayer.cs" />
     <Compile Include="Model\FootballPlayer.cs" />
     <Compile Include="Model\HandballPlayer.cs" />
@@ -241,6 +250,13 @@
     </Compile>
     <Compile Include="View\PersonalManagement.aspx.designer.cs">
       <DependentUpon>PersonalManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\TeamManagement.aspx.cs">
+      <DependentUpon>TeamManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\TeamManagement.aspx.designer.cs">
+      <DependentUpon>TeamManagement.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

@@ -116,8 +116,8 @@ namespace Tournament_Management.Model
                 cmd.CommandText = insertParticipant;
                 cmd.ExecuteNonQuery();
                 int person_id = (int)cmd.LastInsertedId;
-                string insertReferee = $"INSERT INTO REFEREE (team_id, person_id, type_id) VALUES('1', '{person_id}', '{Type}')";
-                cmd.CommandText = insertReferee;
+                string insertTrainer = $"INSERT INTO TRAINER (team_id, person_id, type_id) VALUES('1', '{person_id}', '{Type}')";
+                cmd.CommandText = insertTrainer;
                 cmd.ExecuteNonQuery();
 
 
