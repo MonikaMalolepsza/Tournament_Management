@@ -15,6 +15,15 @@ namespace Tournament_Management.View
     {
 
         /// <summary>
+        /// rdbtnList1_container-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl rdbtnList1_container;
+
+        /// <summary>
         /// rdbtnList1-Steuerelement
         /// </summary>
         /// <remarks>
@@ -24,22 +33,13 @@ namespace Tournament_Management.View
         protected global::System.Web.UI.WebControls.RadioButtonList rdbtnList1;
 
         /// <summary>
-        /// btnConfirm-Steuerelement
+        /// btnShow-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnConfirm;
-
-        /// <summary>
-        /// tblPeople-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Table tblPeople;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl btnShow;
 
         /// <summary>
         /// btnAdd-Steuerelement
@@ -67,5 +67,14 @@ namespace Tournament_Management.View
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSubmit;
+
+        /// <summary>
+        /// tblPeople-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Table tblPeople;
     }
 }

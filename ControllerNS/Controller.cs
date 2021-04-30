@@ -18,6 +18,7 @@ namespace Tournament_Management.ControllerNS
         private List<Physio> _physios;
         private List<Participant> _participants;
         private Participant _newParticipant;
+        private int _activeParticipant;
 
         private Dictionary<int, string> _typeList;
 
@@ -33,6 +34,7 @@ namespace Tournament_Management.ControllerNS
         public List<Participant> Participants { get => _participants; set => _participants = value; }
         public Participant NewParticipant { get => _newParticipant; set => _newParticipant = value; }
         public Dictionary<int, string> TypeList { get => _typeList; set => _typeList = value; }
+        public int ActiveParticipant { get => _activeParticipant; set => _activeParticipant = value; }
 
         #endregion
 

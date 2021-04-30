@@ -19,188 +19,111 @@ namespace Tournament_Management.View
         protected void Page_Load(object sender, EventArgs e)
         {
             Controller = Global.Controller;
+          //  this.generateBtnList();
+            this.generateShowBtn();
+            //persist the old value after refresh
+            rdbtnList1.SelectedValue = Controller.ActiveParticipant.ToString();
+            switch (Controller.ActiveParticipant)
+            {
+                case 0:
+                    {
+                        Controller.GetAllPeople();
+                        LoadPeople();
+                        break;
+                    }
+                case 1:
+                    {
+                        Controller.GetAllFootballPlayers();
+                        LoadFootballPlayers();
+                        btnAdd.Visible = true;
+                        break;
+                    }
+                case 2:
+                    {
+                        Controller.GetAllBasketballPlayers();
+                        LoadBasketballPlayers();
+                        btnAdd.Visible = true;
+                        break;
+                    }
+                case 3:
+                    {
+                        Controller.GetAllHndballPlayers();
+                        LoadHandballPlayers();
 
-            //if (!IsPostBack) 
-            //{ 
-            if (rdbtnList1.Items[0].Selected)
-            {
-                Controller.GetAllPeople();
-                LoadPeople();
+                        break;
+                    }
+                case 4:
+                    {
+                        Controller.GetAllPhysio();
+                        LoadPhysio();
+                        break;
+                    }
+                case 5:
+                    {
+                        Controller.GetAllTrainers();
+                        LoadTrainer();
+                        break;
+                    }
+                case 6:
+                    {
+                        Controller.GetAllReferees();
+                        LoadReferee();
+                        break;
+                    }
+                default:
+                    break;
             }
-            else if (rdbtnList1.Items[1].Selected)
-            {
-                Controller.GetAllFootballPlayers();
-                LoadFootballPlayers();
+            if (Controller.ActiveParticipant != 0)
+            { 
                 btnAdd.Visible = true;
             }
-            else if (rdbtnList1.Items[2].Selected)
-            {
-                Controller.GetAllBasketballPlayers();
-                LoadBasketballPlayers();
-                btnAdd.Visible = true;
 
-            }
-            else if (rdbtnList1.Items[3].Selected)
-            {
-                Controller.GetAllHndballPlayers();
-                LoadHandballPlayers();
-                btnAdd.Visible = true;
-
-            }
-            else if (rdbtnList1.Items[4].Selected)
-            {
-                Controller.GetAllPhysio();
-                LoadPhysio();
-                btnAdd.Visible = true;
-
-            }
-            else if (rdbtnList1.Items[5].Selected)
-            {
-                Controller.GetAllTrainers();
-                LoadTrainer();
-                btnAdd.Visible = true;
-
-
-            }
-            else if (rdbtnList1.Items[6].Selected)
-            {
-                Controller.GetAllReferees();
-                LoadReferee();
-                btnAdd.Visible = true;
-
-            }
             this.hideInputs();
 
         }
 
-        protected void btnToggleInputs_Click(object sender, CommandEventArgs e)
+        private void generateShowBtn()
         {
-            //update style to visibility: visible on row for index!
-            tblPeople.Rows[Convert.ToInt32(e.CommandArgument)].Style.Clear();
-            tblPeople.Rows[Convert.ToInt32(e.CommandArgument)].Style.Add("visibility", "visible");
-
+            Button save = new Button();
+            save.ID = "btnConfirm";
+            save.Command += btnShow_Click;
+            ListControl ctrl = rdbtnList1;
+            save.CommandArgument =ctrl.SelectedValue; 
+            save.Text = "Show me the players!";
+            save.CssClass = "btn btn-info";
+            btnShow.Controls.Add(save);
         }
 
-
-        protected void btnAdd_Click(object sender, CommandEventArgs e)
+        private void generateBtnList()
         {
+            //        <asp:RadioButtonList 
+            //    CssClass="form-check vertical-center" 
+            //    ID="rdbtnList1"  
+            //    runat="server">
+            //    <asp:ListItem Value="0">&nbsp;All People</asp:ListItem>
+            //    <asp:ListItem Value="1">&nbsp;Footballplayer</asp:ListItem>
+            //    <asp:ListItem Value="2">&nbsp;Basketballplayer</asp:ListItem>
+            //    <asp:ListItem Value="3">&nbsp;Handballplayer</asp:ListItem> 
+            //    <asp:ListItem Value="4">&nbsp;Physio</asp:ListItem>
+            //    <asp:ListItem Value="5">&nbsp;Trainer</asp:ListItem>
+            //    <asp:ListItem Value="6">&nbsp;Referee</asp:ListItem>
+            //</asp:RadioButtonList>
 
-            if (rdbtnList1.Items[1].Selected)
-            {
-                LoadInputFP();
-            }
-            else if (rdbtnList1.Items[2].Selected)
-            {
-
-                LoadInputBP();
-            }
-            else if (rdbtnList1.Items[3].Selected)
-            {
-
-                LoadInputHP();
-            }
-            else if (rdbtnList1.Items[4].Selected)
-            {
-
-                LoadInputP();
-            }
-            else if (rdbtnList1.Items[5].Selected)
-            {
-                LoadInputT();
-            }
-            else if (rdbtnList1.Items[6].Selected)
-            {
-                LoadInputR();
-            }
-
-            btnSubmit.Visible = true;
-
-        }
-        protected void btnSubmit_Click(object sender, CommandEventArgs e)
-        {
-            //All
-            if (rdbtnList1.Items[0].Selected)
-            {
-
-                // empty
-            }
-            //Footballplayer
-            else if (rdbtnList1.Items[1].Selected)
-            {
-                FootballPlayer tmp = Controller.NewParticipant as FootballPlayer;
-                tmp.Name = Request.Form["ctl00$PersonalManagement$txtName"];
-                tmp.Surname = Request.Form["ctl00$PersonalManagement$txtSurname"];
-                tmp.Goals = Convert.ToInt32(Request.Form["ctl00$PersonalManagement$txtGoals"]);
-                tmp.Speed = Convert.ToDouble(Request.Form["ctl00$PersonalManagement$txtSpeed"]);
-                tmp.Age = Convert.ToInt32(Request.Form["ctl00$PersonalManagement$txtAge"]);
-                tmp.Active = Request.Form["ctl00$PersonalManagement$txtActive"].GetTrueFalseString();
-                tmp.Put();
-            }
-            //BasketballPlayer
-            else if (rdbtnList1.Items[2].Selected)
-            {
-                BasketballPlayer tmp = Controller.NewParticipant as BasketballPlayer;
-                tmp.Name = Request.Form["ctl00$PersonalManagement$txtName"];
-                tmp.Surname = Request.Form["ctl00$PersonalManagement$txtSurname"];
-                tmp.Goals = Convert.ToInt32(Request.Form["ctl00$PersonalManagement$txtGoals"]);
-                tmp.Height = Convert.ToInt32(Request.Form["ctl00$PersonalManagement$txtHeight"]);
-                tmp.Speed = Convert.ToDouble(Request.Form["ctl00$PersonalManagement$txtSpeed"]);
-                tmp.Age = Convert.ToInt32(Request.Form["ctl00$PersonalManagement$txtAge"]);
-                tmp.Active = Request.Form["ctl00$PersonalManagement$txtActive"].GetTrueFalseString();
-                tmp.Put();
-            }
-            //HandballPlayer
-            else if (rdbtnList1.Items[3].Selected)
-            {
-                HandballPlayer tmp = Controller.NewParticipant as HandballPlayer;
-                tmp.Name = Request.Form["ctl00$PersonalManagement$txtName"];
-                tmp.Surname = Request.Form["ctl00$PersonalManagement$txtSurname"];
-                tmp.Goals = Convert.ToInt32(Request.Form["ctl00$PersonalManagement$txtGoals"]);
-                tmp.Position = Request.Form["ctl00$PersonalManagement$txtPosition"];
-                tmp.Speed = Convert.ToDouble(Request.Form["ctl00$PersonalManagement$txtSpeed"]);
-                tmp.Age = Convert.ToInt32(Request.Form["ctl00$PersonalManagement$txtAge"]);
-                tmp.Active = Request.Form["ctl00$PersonalManagement$txtActive"].GetTrueFalseString();
-                tmp.Put();
-            }
-            //Physio
-            else if (rdbtnList1.Items[4].Selected)
-            {
-                Physio tmp = Controller.NewParticipant as Physio;
-                tmp.Name = Request.Form["ctl00$PersonalManagement$txtName"];
-                tmp.Surname = Request.Form["ctl00$PersonalManagement$txtSurname"];
-                tmp.Experience = Convert.ToInt32(Request.Form["ctl00$PersonalManagement$txtExperience"]);
-                tmp.Age = Convert.ToInt32(Request.Form["ctl00$PersonalManagement$txtAge"]);
-                tmp.Active = Request.Form["ctl00$PersonalManagement$txtActive"].GetTrueFalseString();
-                tmp.Put();
-            }
-            //Trainer
-            else if (rdbtnList1.Items[5].Selected)
-            {
-                Trainer tmp = Controller.NewParticipant as Trainer;
-                tmp.Name = Request.Form["ctl00$PersonalManagement$txtName"];
-                tmp.Surname = Request.Form["ctl00$PersonalManagement$txtSurname"];
-                tmp.Age = Convert.ToInt32(Request.Form["ctl00$PersonalManagement$txtAge"]);
-                tmp.Type = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$txtType"]);
-                tmp.Active = Request.Form["ctl00$PersonalManagement$txtActive"].GetTrueFalseString();
-                tmp.Put();
-            }
-            //Referee
-            else if (rdbtnList1.Items[6].Selected)
-            {
-                Referee tmp = Controller.NewParticipant as Referee;
-                tmp.Name = Request.Form["ctl00$PersonalManagement$txtName"];
-                tmp.Surname = Request.Form["ctl00$PersonalManagement$txtSurname"];
-                tmp.Certificate = Request.Form["ctl00$PersonalManagement$txtCert"];
-                tmp.Age = Convert.ToInt32(Request.Form["ctl00$PersonalManagement$txtAge"]);
-                tmp.Type = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$txtType"]);
-                tmp.Active = Request.Form["ctl00$PersonalManagement$txtActive"].GetTrueFalseString();
-                tmp.Put();
-            }
-
-            btnSubmit.Visible = false;
+            RadioButtonList rbl = new RadioButtonList();
+            rbl.CssClass = "form-check vertical-center";
+            rbl.ID = "rdbtnList1";
+            rbl.Items.Add(new ListItem("&nbsp;All People", "0"));
+            rbl.Items.Add(new ListItem("&nbsp;Footballplayer", "1"));
+            rbl.Items.Add(new ListItem("&nbsp;Basketballplayer", "2"));
+            rbl.Items.Add(new ListItem("&nbsp;Handballplayer", "3"));
+            rbl.Items.Add(new ListItem("&nbsp;Physio", "4"));
+            rbl.Items.Add(new ListItem("&nbsp;Trainer", "5"));
+            rbl.Items.Add(new ListItem("&nbsp;Referee", "6"));
+            rbl.DataBind();
+            rdbtnList1_container.Controls.Add(rbl);
         }
 
-
+        // Load tabn
         private void LoadInputBasic()
         {
 
@@ -396,7 +319,6 @@ namespace Tournament_Management.View
             dropdown.DataBind();
             form1.Controls.Add(dropdown);
         }
-
         //Referee
         private void LoadInputR()
         {
@@ -693,6 +615,19 @@ namespace Tournament_Management.View
                 newCell.Controls.Add(saveButton);
                 row.Cells.Add(newCell);
 
+                newCell = new TableCell();
+                newCell.ID = $"cellCancelButton{pers.Id}";
+                Button cancelButton = new Button();
+                cancelButton.ID = $"cancelButton{pers.Id}";
+                cancelButton.Text = "Cancel";
+                cancelButton.CssClass = "btn btn-secondary";
+                cancelButton.CommandArgument = pers.Id.ToString();
+                cancelButton.Command += this.btnCancel_Click;
+                newCell.Controls.Add(cancelButton);
+                row.Cells.Add(newCell);
+
+                tblPeople.Rows.Add(row);
+
                 tblPeople.Rows.Add(row);
             }
         }
@@ -936,6 +871,19 @@ namespace Tournament_Management.View
                 newCell.Controls.Add(saveButton);
                 row.Cells.Add(newCell);
 
+                newCell = new TableCell();
+                newCell.ID = $"cellCancelButton{pers.Id}";
+                Button cancelButton = new Button();
+                cancelButton.ID = $"cancelButton{pers.Id}";
+                cancelButton.Text = "Cancel";
+                cancelButton.CssClass = "btn btn-secondary";
+                cancelButton.CommandArgument = pers.Id.ToString();
+                cancelButton.Command += this.btnCancel_Click;
+                newCell.Controls.Add(cancelButton);
+                row.Cells.Add(newCell);
+
+                tblPeople.Rows.Add(row);
+
                 tblPeople.Rows.Add(row);
 
             }
@@ -1173,6 +1121,19 @@ namespace Tournament_Management.View
                 newCell.Controls.Add(saveButton);
                 row.Cells.Add(newCell);
 
+                newCell = new TableCell();
+                newCell.ID = $"cellCancelButton{pers.Id}";
+                Button cancelButton = new Button();
+                cancelButton.ID = $"cancelButton{pers.Id}";
+                cancelButton.Text = "Cancel";
+                cancelButton.CssClass = "btn btn-secondary";
+                cancelButton.CommandArgument = pers.Id.ToString();
+                cancelButton.Command += this.btnCancel_Click;
+                newCell.Controls.Add(cancelButton);
+                row.Cells.Add(newCell);
+
+                tblPeople.Rows.Add(row);
+
                 tblPeople.Rows.Add(row);
             }
         }
@@ -1351,6 +1312,19 @@ namespace Tournament_Management.View
                 newCell.Controls.Add(saveButton);
                 row.Cells.Add(newCell);
 
+                newCell = new TableCell();
+                newCell.ID = $"cellCancelButton{pers.Id}";
+                Button cancelButton = new Button();
+                cancelButton.ID = $"cancelButton{pers.Id}";
+                cancelButton.Text = "Cancel";
+                cancelButton.CssClass = "btn btn-secondary";
+                cancelButton.CommandArgument = pers.Id.ToString();
+                cancelButton.Command += this.btnCancel_Click;
+                newCell.Controls.Add(cancelButton);
+                row.Cells.Add(newCell);
+
+                tblPeople.Rows.Add(row);
+
                 tblPeople.Rows.Add(row);
 
             }
@@ -1528,6 +1502,20 @@ namespace Tournament_Management.View
                 saveButton.Command += this.btnEdit_Click;
                 newCell.Controls.Add(saveButton);
                 row.Cells.Add(newCell);
+
+                newCell = new TableCell();
+                newCell.ID = $"cellCancelButton{pers.Id}";
+                Button cancelButton = new Button();
+                cancelButton.ID = $"cancelButton{pers.Id}";
+                cancelButton.Text = "Cancel";
+                cancelButton.CssClass = "btn btn-secondary";
+                cancelButton.CommandArgument = pers.Id.ToString();
+                cancelButton.Command += this.btnCancel_Click;
+                newCell.Controls.Add(cancelButton);
+                row.Cells.Add(newCell);
+
+                tblPeople.Rows.Add(row);
+
 
                 tblPeople.Rows.Add(row);
 
@@ -1731,10 +1719,24 @@ namespace Tournament_Management.View
                 newCell.Controls.Add(saveButton);
                 row.Cells.Add(newCell);
 
+
+                newCell = new TableCell();
+                newCell.ID = $"cellCancelButton{pers.Id}";
+                Button cancelButton = new Button();
+                cancelButton.ID = $"cancelButton{pers.Id}";
+                cancelButton.Text = "Cancel";
+                cancelButton.CssClass = "btn btn-secondary";
+                cancelButton.CommandArgument = pers.Id.ToString();
+                cancelButton.Command += this.btnCancel_Click;
+                newCell.Controls.Add(cancelButton);
+                row.Cells.Add(newCell);
+
                 tblPeople.Rows.Add(row);
             }
         }
 
+
+        // style
         private void hideInputs()
         {
             foreach (TableRow tr in tblPeople.Rows)
@@ -1747,98 +1749,215 @@ namespace Tournament_Management.View
             }
         }
 
+        //helper methods
+
+        protected void setBaseNew(Person InOutPerson)
+        {
+            InOutPerson.Name = Request.Form["ctl00$PersonalManagement$txtName"];
+            InOutPerson.Surname = Request.Form["ctl00$PersonalManagement$txtSurname"];
+            InOutPerson.Age = Convert.ToInt32(Request.Form["ctl00$PersonalManagement$txtAge"]);
+            InOutPerson.Active = Request.Form["ctl00$PersonalManagement$txtActive"].GetTrueFalseString();
+        }
+        protected void setBaseEdit(Person InOutPerson, string index)
+        {
+            InOutPerson.Name = Request.Form[$"ctl00$PersonalManagement$edittxtName{index}"];
+            InOutPerson.Surname = Request.Form[$"ctl00$PersonalManagement$edittxtSurname{index}"];
+            InOutPerson.Age = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtAge{index}"]);
+            InOutPerson.Active = Request.Form[$"ctl00$PersonalManagement$edittxtActive{index}"].GetTrueFalseString();
+        }
+
+        // event handlers
+        protected void btnToggleInputs_Click(object sender, CommandEventArgs e)
+        {
+            //update style to visibility: visible on row for index!
+            tblPeople.Rows[Convert.ToInt32(e.CommandArgument)].Style.Clear();
+            tblPeople.Rows[Convert.ToInt32(e.CommandArgument)].Style.Add("visibility", "visible");
+
+        }
+        protected void btnAdd_Click(object sender, CommandEventArgs e)
+        {
+            switch (Controller.ActiveParticipant)
+            {
+                case 1:
+                    {
+                        LoadInputFP();
+                        break;
+                    }
+                case 2:
+                    {
+                        LoadInputBP();
+                        break;
+                    }
+                case 3:
+                    {
+                        LoadInputHP();
+                        break;
+                    }
+                case 4:
+                    {
+                        LoadInputP();
+                        break;
+                    }
+                case 5:
+                    {
+                        LoadInputT();
+                        break;
+                    }
+                case 6:
+                    {
+                        LoadInputR();
+                        break;
+                    }
+                default:
+                    break;
+            }
+
+            btnSubmit.Visible = true;
+
+        }
+        protected void btnShow_Click(object sender, CommandEventArgs e)
+        {
+            Controller.ActiveParticipant = Convert.ToInt32(e.CommandArgument);
+            Response.Redirect(Request.RawUrl);
+        }
+        protected void btnSubmit_Click(object sender, CommandEventArgs e)
+        {
+            switch (Controller.ActiveParticipant)
+            {
+                case 1:
+                    {
+                        FootballPlayer tmp = Controller.NewParticipant as FootballPlayer;
+                        this.setBaseNew(tmp);
+                        tmp.Goals = Convert.ToInt32(Request.Form["ctl00$PersonalManagement$txtGoals"]);
+                        tmp.Speed = Convert.ToDouble(Request.Form["ctl00$PersonalManagement$txtSpeed"]);
+                        tmp.Put(); break;
+                    }
+                case 2:
+                    {
+                        BasketballPlayer tmp = Controller.NewParticipant as BasketballPlayer;
+                        this.setBaseNew(tmp);
+                        tmp.Goals = Convert.ToInt32(Request.Form["ctl00$PersonalManagement$txtGoals"]);
+                        tmp.Height = Convert.ToInt32(Request.Form["ctl00$PersonalManagement$txtHeight"]);
+                        tmp.Speed = Convert.ToDouble(Request.Form["ctl00$PersonalManagement$txtSpeed"]);
+                        tmp.Put();
+                        break;
+                    }
+                case 3:
+                    {
+                        HandballPlayer tmp = Controller.NewParticipant as HandballPlayer;
+                        this.setBaseNew(tmp);
+                        tmp.Goals = Convert.ToInt32(Request.Form["ctl00$PersonalManagement$txtGoals"]);
+                        tmp.Position = Request.Form["ctl00$PersonalManagement$txtPosition"];
+                        tmp.Speed = Convert.ToDouble(Request.Form["ctl00$PersonalManagement$txtSpeed"]);
+                        tmp.Put();
+                        break;
+                    }
+                case 4:
+                    {
+                        Physio tmp = Controller.NewParticipant as Physio;
+                        this.setBaseNew(tmp);
+                        tmp.Experience = Convert.ToInt32(Request.Form["ctl00$PersonalManagement$txtExperience"]);
+                        tmp.Put();
+                        break;
+                    }
+                case 5:
+                    {
+                        Trainer tmp = Controller.NewParticipant as Trainer;
+                        this.setBaseNew(tmp);
+                        tmp.Age = Convert.ToInt32(Request.Form["ctl00$PersonalManagement$txtAge"]);
+                        tmp.Put();
+                        break;
+                    }
+                case 6:
+                    {
+                        Referee tmp = Controller.NewParticipant as Referee;
+                        this.setBaseNew(tmp);
+                        tmp.Certificate = Request.Form["ctl00$PersonalManagement$txtCert"];
+                        tmp.Type = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$txtType"]);
+                        tmp.Put();
+                        break;
+                    }
+                default:
+                    break;
+            }
+            btnSubmit.Visible = false;
+        }
+        protected void btnCancel_Click(object sender, CommandEventArgs e)
+        {
+            this.hideInputs();
+        }
         protected void btnDeleteEdit_Click(object sender, CommandEventArgs e)
         {
 
             Controller.Participants.First(x => x.Id == Convert.ToInt32(e.CommandArgument)).Delete();
 
-
             Response.Redirect(Request.RawUrl);
 
         }
-
         protected void btnEdit_Click(object sender, CommandEventArgs e)
         {
-
             string index = e.CommandArgument.ToString();
+            switch (Controller.ActiveParticipant)
+            {
+                case 1:
+                    {
 
-            if (rdbtnList1.Items[0].Selected)
-            {
-                //nichts
+                        FootballPlayer tmp = Controller.Participants.First(x => x.Id == Convert.ToInt32(e.CommandArgument)) as FootballPlayer;
+                        this.setBaseEdit(tmp, index);
+                        tmp.Goals = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtGoals{index}"]);
+                        tmp.Speed = Convert.ToDouble(Request.Form[$"ctl00$PersonalManagement$edittxtSpeed{index}"]);
+                        tmp.Update(); 
+                        break;
+                    }
+                case 2:
+                    {
+                        BasketballPlayer tmp = Controller.Participants.First(x => x.Id == Convert.ToInt32(e.CommandArgument)) as BasketballPlayer;
+                        this.setBaseEdit(tmp, index);
+                        tmp.Goals = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtGoals{index}"]);
+                        tmp.Height = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtHeight{index}"]);
+                        tmp.Speed = Convert.ToDouble(Request.Form[$"ctl00$PersonalManagement$edittxtSpeed{index}"]);
+                        tmp.Update();
+                        break;
+                    }
+                case 3:
+                    {
+                        HandballPlayer tmp = Controller.Participants.First(x => x.Id == Convert.ToInt32(e.CommandArgument)) as HandballPlayer;
+                        this.setBaseEdit(tmp, index);
+                        tmp.Goals = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtGoals{index}"]);
+                        tmp.Position = Request.Form[$"ctl00$PersonalManagement$edittxtPosition{index}"];
+                        tmp.Speed = Convert.ToDouble(Request.Form[$"ctl00$PersonalManagement$edittxtSpeed{index}"]);
+                        tmp.Update();
+                        break;
+                    }
+                case 4:
+                    {
+                        Physio tmp = Controller.Participants.First(x => x.Id == Convert.ToInt32(e.CommandArgument)) as Physio;
+                        this.setBaseEdit(tmp, index);
+                        tmp.Experience = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtCert{index}"]);
+                        tmp.Update();
+                        break;
+                    }
+                case 5:
+                    {
+                        Trainer tmp = Controller.Participants.First(x => x.Id == Convert.ToInt32(e.CommandArgument)) as Trainer;
+                        this.setBaseEdit(tmp, index);
+                        tmp.Type = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtType{index}"]);
+                        tmp.Update();
+                        break;
+                    }
+                case 6:
+                    {
+                        Referee tmp = Controller.Participants.First(x => x.Id == Convert.ToInt32(e.CommandArgument)) as Referee;
+                        this.setBaseEdit(tmp, index);
+                        tmp.Certificate = Request.Form[$"ctl00$PersonalManagement$edittxtCert{index}"];
+                        tmp.Type = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtType{index}"]);
+                        tmp.Update();
+                        break;
+                    }
+                default:
+                    break;
             }
-            //Footballplayer
-            else if (rdbtnList1.Items[1].Selected)
-            {
-
-                FootballPlayer tmp = Controller.Participants.First(x => x.Id == Convert.ToInt32(e.CommandArgument)) as FootballPlayer;
-                tmp.Name = Request.Form[$"ctl00$PersonalManagement$edittxtName{index}"];
-                tmp.Surname = Request.Form[$"ctl00$PersonalManagement$edittxtSurname{index}"];
-                tmp.Goals = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtGoals{index}"]);
-                tmp.Speed = Convert.ToDouble(Request.Form[$"ctl00$PersonalManagement$edittxtSpeed{index}"]);
-                tmp.Age = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtAge{index}"]);
-                tmp.Active = Request.Form[$"ctl00$PersonalManagement$edittxtActive{index}"].GetTrueFalseString();
-                tmp.Update();
-            }
-            //BasketballPlayer
-            else if (rdbtnList1.Items[2].Selected)
-            {
-                BasketballPlayer tmp = Controller.Participants.First(x => x.Id == Convert.ToInt32(e.CommandArgument)) as BasketballPlayer;
-                tmp.Name = Request.Form[$"ctl00$PersonalManagement$edittxtName{index}"];
-                tmp.Surname = Request.Form[$"ctl00$PersonalManagement$edittxtSurname{index}"];
-                tmp.Goals = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtGoals{index}"]);
-                tmp.Height = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtHeight{index}"]);
-                tmp.Speed = Convert.ToDouble(Request.Form[$"ctl00$PersonalManagement$edittxtSpeed{index}"]);
-                tmp.Age = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtAge{index}"]);
-                tmp.Active = Request.Form[$"ctl00$PersonalManagement$edittxtActive{index}"].GetTrueFalseString();
-                tmp.Update();
-            }
-            //HandballPlayer
-            else if (rdbtnList1.Items[3].Selected)
-            {
-                HandballPlayer tmp = Controller.Participants.First(x => x.Id == Convert.ToInt32(e.CommandArgument)) as HandballPlayer;
-                tmp.Name = Request.Form[$"ctl00$PersonalManagement$edittxtName{index}"];
-                tmp.Surname = Request.Form[$"ctl00$PersonalManagement$edittxtSurname{index}"];
-                tmp.Goals = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtGoals{index}"]);
-                tmp.Position = Request.Form[$"ctl00$PersonalManagement$edittxtPosition{index}"];
-                tmp.Speed = Convert.ToDouble(Request.Form[$"ctl00$PersonalManagement$edittxtSpeed{index}"]);
-                tmp.Age = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtAge{index}"]);
-                tmp.Active = Request.Form[$"ctl00$PersonalManagement$edittxtActive{index}"].GetTrueFalseString();
-                tmp.Update();
-            }
-            //Physio
-            else if (rdbtnList1.Items[4].Selected)
-            {
-                Physio tmp = Controller.Participants.First(x => x.Id == Convert.ToInt32(e.CommandArgument)) as Physio;
-                tmp.Name = Request.Form["ctl00$PersonalManagement$txtName"];
-                tmp.Surname = Request.Form["ctl00$PersonalManagement$txtSurname"];
-                tmp.Experience = Convert.ToInt32(Request.Form["ctl00$PersonalManagement$txtExperience"]);
-                tmp.Age = Convert.ToInt32(Request.Form["ctl00$PersonalManagement$txtAge"]);
-                tmp.Active = Request.Form["ctl00$PersonalManagement$txtActive"].GetTrueFalseString();
-                tmp.Update();
-            }
-            //Trainer
-            else if (rdbtnList1.Items[5].Selected)
-            {
-                Trainer tmp = Controller.Participants.First(x => x.Id == Convert.ToInt32(e.CommandArgument)) as Trainer;
-                tmp.Name = Request.Form[$"ctl00$PersonalManagement$edittxtName{index}"];
-                tmp.Surname = Request.Form[$"ctl00$PersonalManagement$edittxtSurname{index}"];
-                tmp.Age = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtAge{index}"]);
-                tmp.Active = Request.Form[$"ctl00$PersonalManagement$edittxtActive{index}"].GetTrueFalseString();
-                tmp.Type = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtType{index}"]);
-                tmp.Update();
-            }
-            //Referee
-            else if (rdbtnList1.Items[6].Selected)
-            {
-                Referee tmp = Controller.Participants.First(x => x.Id == Convert.ToInt32(e.CommandArgument)) as Referee;
-                tmp.Name = Request.Form[$"ctl00$PersonalManagement$edittxtName{index}"];
-                tmp.Surname = Request.Form[$"ctl00$PersonalManagement$edittxtSurname{index}"];
-                tmp.Certificate = Request.Form[$"ctl00$PersonalManagement$edittxtCert{index}"];
-                tmp.Age = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtAge{index}"]);
-                tmp.Type = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtType{index}"]);
-                tmp.Active = Request.Form[$"ctl00$PersonalManagement$edittxtActive{index}"].GetTrueFalseString();
-                tmp.Update();
-            }
+            btnSubmit.Visible = false;
 
             this.hideInputs();
             

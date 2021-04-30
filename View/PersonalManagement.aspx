@@ -8,37 +8,39 @@
           <p>Here you can add new players to your team, update the details and delete the inactive members.</p>
         </div>
                <div runat="server">
-                <div class="container-fluid">
+                <div class="container-fluid"> 
+                    <div id="rdbtnList1_container" runat="server">
 
-                    <asp:RadioButtonList 
-                        CssClass="form-check vertical-center" 
-                        ID="rdbtnList1"  
-                        runat="server">
-                        <asp:ListItem>&nbsp;All People</asp:ListItem>
-                        <asp:ListItem>&nbsp;Footballplayer</asp:ListItem>
-                        <asp:ListItem>&nbsp;Basketballplayer</asp:ListItem>
-                        <asp:ListItem>&nbsp;Handballplayer</asp:ListItem> 
-                        <asp:ListItem>&nbsp;Physio</asp:ListItem>
-                        <asp:ListItem>&nbsp;Trainer</asp:ListItem>
-                        <asp:ListItem>&nbsp;Referee</asp:ListItem>
-                    </asp:RadioButtonList>
-                    <asp:Button ID="btnConfirm" runat="server" Text="Show me the players!" CssClass="btn btn-info" />
+            <asp:RadioButtonList 
+                CssClass="form-check vertical-center" 
+                ID="rdbtnList1"  
+                runat="server">
+                <asp:ListItem Value="0">&nbsp;All People</asp:ListItem>
+                <asp:ListItem Value="1">&nbsp;Footballplayer</asp:ListItem>
+                <asp:ListItem Value="2">&nbsp;Basketballplayer</asp:ListItem>
+                <asp:ListItem Value="3">&nbsp;Handballplayer</asp:ListItem> 
+                <asp:ListItem Value="4">&nbsp;Physio</asp:ListItem>
+                <asp:ListItem Value="5">&nbsp;Trainer</asp:ListItem>
+                <asp:ListItem Value="6">&nbsp;Referee</asp:ListItem>
+            </asp:RadioButtonList>
+                    </div>
+                    <div id="btnShow" runat="server"></div>
                 </div>
+                   <br />  
                    <br />
-                   <br />
-                <div class="panel panel-info">
-                     <div class="panel-heading">Members</div>
-                        <asp:Table ID="tblPeople" CssClass="table table-striped" runat="server"></asp:Table>
-                </div>
-                <div>
-                    <div class="container">
+                     <div class="container">
                          <asp:Button ID="btnAdd" OnCommand="btnAdd_Click" Visible="false" runat="server" Text="Add New Member" CssClass="btn btn-secondary" />
                         <br />
                          <div id="form1" runat="server"></div>
                         <br />
                         <asp:Button ID="btnSubmit" OnCommand="btnSubmit_Click" Visible="false" runat="server" Text="Save" CssClass="btn btn-secondary" />
-                    </div>
+                    <br />
+                     </div>
+                <div class="panel panel-info">
+                     <div class="panel-heading">Members</div>
+                        <asp:Table ID="tblPeople" CssClass="table table-striped" runat="server"></asp:Table>
                 </div>
+                   <br />
             </div>
 
     </asp:Content>

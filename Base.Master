@@ -25,16 +25,18 @@
                     let url = location.href
                     console.log("Logging the current url...", url)
                     if (url.includes("PersonalManagement")) {
-                        let htmlCollection = document.getElementsByTagName("tr");
-                        let parentArr = [...htmlCollection];
-                        console.log("Logging the parent...", htmlCollection)
-                        console.log("Logging the parent...", parentArr)
-                
-                        let filteredKids = parentArr.filter(kid => kid.id === "");
-                        filteredKids.forEach(kid => {
-                            console.log("Logging all the kids... ", kid)
-                            kid.className = "list-group-item well well - lg col-md-3"
-                        });
+                        debugger
+                        //let htmlCollection = document.getElementsByTagName("tr");
+                        //let parentArr = [...htmlCollection];
+                        //console.log("Logging the parent...", htmlCollection)
+                        //console.log("Logging the parent...", parentArr)
+
+                        let parentOfParent = document.getElementById("PersonalManagement_rdbtnList1");
+                        let parent = parentOfParent.firstElementChild.children
+                        for (let kid of parent) {
+                           console.log("Logging all the kids... ", kid)
+                           kid.className = "list-group-item well well - lg col-md-3"
+                        };
                   }
               }     
                
