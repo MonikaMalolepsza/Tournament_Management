@@ -21,7 +21,7 @@ namespace Tournament_Management
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-          //  DatabaseCreator.GenerateDatabase();
+            DatabaseCreator.GenerateDatabase();
 
             Controller = new Controller();
         }

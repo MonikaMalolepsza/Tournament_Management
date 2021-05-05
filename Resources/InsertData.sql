@@ -89,7 +89,7 @@ INSERT INTO team (ID, type_id, name) VALUES (8, 1 ,'Bayern München');
 INSERT INTO team (ID, type_id, name) VALUES (9, 3 ,'Hamburg Towers');
 INSERT INTO team (ID, type_id, name) VALUES (10,3 ,'FC Bayern München');
 
---Team members football
+-- Team members football
 INSERT INTO team_member (ID, team_id, person_id) VALUES (1, 1, 1);
 INSERT INTO team_member (ID, team_id, person_id) VALUES (2, 1, 6);
 INSERT INTO team_member (ID, team_id, person_id) VALUES (3, 2, 2);
@@ -102,18 +102,18 @@ INSERT INTO team_member (ID, team_id, person_id) VALUES (9, 8, 5);
 INSERT INTO team_member (ID, team_id, person_id) VALUES (10, 8, 10);
 
 -- Footballplayer
-INSERT INTO FOOTBALLPLAYER (ID, GOALS, TYPE_ID, PERSON_ID, SPEED) VALUES (1, 10, 1, 40.1);
-INSERT INTO FOOTBALLPLAYER (ID, GOALS, TYPE_ID, PERSON_ID, SPEED) VALUES (2, 12, 1, 20.3);
-INSERT INTO FOOTBALLPLAYER (ID, GOALS, TYPE_ID, PERSON_ID, SPEED) VALUES (3, 22, 1, 14.0);
-INSERT INTO FOOTBALLPLAYER (ID, GOALS, TYPE_ID, PERSON_ID, SPEED) VALUES (4, 0, 1, 60.0);
-INSERT INTO FOOTBALLPLAYER (ID, GOALS, TYPE_ID, PERSON_ID, SPEED) VALUES (5, 18, 1, 35.0);
-INSERT INTO FOOTBALLPLAYER (ID, GOALS, TYPE_ID, PERSON_ID, SPEED) VALUES (6, 10, 1, 40.1);
-INSERT INTO FOOTBALLPLAYER (ID, GOALS, TYPE_ID, PERSON_ID, SPEED) VALUES (7, 12, 1, 20.3);
-INSERT INTO FOOTBALLPLAYER (ID, GOALS, TYPE_ID, PERSON_ID, SPEED) VALUES (8, 22, 1, 14.0);
-INSERT INTO FOOTBALLPLAYER (ID, GOALS, TYPE_ID, PERSON_ID, SPEED) VALUES (9, 0, 1, 60.0);
-INSERT INTO FOOTBALLPLAYER (ID, GOALS, TYPE_ID, PERSON_ID, SPEED) VALUES (10, 18, 1, 35.0);
+INSERT INTO FOOTBALLPLAYER (ID, GOALS, TYPE_ID, PERSON_ID, SPEED) VALUES (1, 10, 1, 1, 40.1);
+INSERT INTO FOOTBALLPLAYER (ID, GOALS, TYPE_ID, PERSON_ID, SPEED) VALUES (2, 12, 1, 2, 20.3);
+INSERT INTO FOOTBALLPLAYER (ID, GOALS, TYPE_ID, PERSON_ID, SPEED) VALUES (3, 22, 1, 3, 14.0);
+INSERT INTO FOOTBALLPLAYER (ID, GOALS, TYPE_ID, PERSON_ID, SPEED) VALUES (4, 0, 1, 4, 60.0);
+INSERT INTO FOOTBALLPLAYER (ID, GOALS, TYPE_ID, PERSON_ID, SPEED) VALUES (5, 18, 1, 5, 35.0);
+INSERT INTO FOOTBALLPLAYER (ID, GOALS, TYPE_ID, PERSON_ID, SPEED) VALUES (6, 10, 1, 6, 40.1);
+INSERT INTO FOOTBALLPLAYER (ID, GOALS, TYPE_ID, PERSON_ID, SPEED) VALUES (7, 12, 1, 7, 20.3);
+INSERT INTO FOOTBALLPLAYER (ID, GOALS, TYPE_ID, PERSON_ID, SPEED) VALUES (8, 22, 1, 8, 14.0);
+INSERT INTO FOOTBALLPLAYER (ID, GOALS, TYPE_ID, PERSON_ID, SPEED) VALUES (9, 0, 1, 9, 60.0);
+INSERT INTO FOOTBALLPLAYER (ID, GOALS, TYPE_ID, PERSON_ID, SPEED) VALUES (10, 18, 1, 10, 35.0);
 
---Team members handball
+-- Team members handball
 INSERT INTO team_member (ID, team_id, person_id) VALUES (11, 7, 16);
 INSERT INTO team_member (ID, team_id, person_id) VALUES (12, 7, 17);
 INSERT INTO team_member (ID, team_id, person_id) VALUES (13, 7, 18);
@@ -126,18 +126,18 @@ INSERT INTO team_member (ID, team_id, person_id) VALUES (19, 6, 14);
 INSERT INTO team_member (ID, team_id, person_id) VALUES (20, 6, 15);
 
 -- Handballplayer
-INSERT INTO HANDBALLPLAYER (id, position, speed, goals, type_id) VALUES (1, 'Circle Runner', 23.2, 44, 2);
-INSERT INTO HANDBALLPLAYER (id, position, speed, goals, type_id) VALUES (2, 'Goalkeeper', 15.3, 21, 2);
-INSERT INTO HANDBALLPLAYER (id, position, speed, goals, type_id) VALUES (3, 'Right wing', 24.5, 98, 2);
-INSERT INTO HANDBALLPLAYER (id, position, speed, goals, type_id) VALUES (4, 'Goalkeeper', 18.0, 0, 2);
-INSERT INTO HANDBALLPLAYER (id, position, speed, goals, type_id) VALUES (5, 'Left Wing', 18.2, 0, 2);
-INSERT INTO HANDBALLPLAYER (id, position, speed, goals, type_id) VALUES (6, 'Circle Runner', 19.2, 84, 2, 16, 7);
-INSERT INTO HANDBALLPLAYER (id, position, speed, goals, type_id) VALUES (7, 'Circle Runner', 20.3, 47, 2, 17, 7);
-INSERT INTO HANDBALLPLAYER (id, position, speed, goals, type_id) VALUES (8, 'Goalkeeper', 14.3, 62, 2, 18, 7);
-INSERT INTO HANDBALLPLAYER (id, position, speed, goals, type_id) VALUES (9, 'Left Wing', 18.4, 35, 2, 19, 7);
-INSERT INTO HANDBALLPLAYER (id, position, speed, goals, type_id) VALUES (10, 'Circle Runner', 19.2, 28, 2, 20, 7);
+INSERT INTO HANDBALLPLAYER (id, position, speed, goals, type_id, person_id) VALUES (1, 'Circle Runner', 23.2, 44, 2, 11);
+INSERT INTO HANDBALLPLAYER (id, position, speed, goals, type_id, person_id) VALUES (2, 'Goalkeeper', 15.3, 21, 2, 12);
+INSERT INTO HANDBALLPLAYER (id, position, speed, goals, type_id, person_id) VALUES (3, 'Right wing', 24.5, 98, 2, 13);
+INSERT INTO HANDBALLPLAYER (id, position, speed, goals, type_id, person_id) VALUES (4, 'Goalkeeper', 18.0, 0, 2, 14);
+INSERT INTO HANDBALLPLAYER (id, position, speed, goals, type_id, person_id) VALUES (5, 'Left Wing', 18.2, 0, 2, 15);
+INSERT INTO HANDBALLPLAYER (id, position, speed, goals, type_id, person_id) VALUES (6, 'Circle Runner', 19.2, 84, 2, 16);
+INSERT INTO HANDBALLPLAYER (id, position, speed, goals, type_id, person_id) VALUES (7, 'Circle Runner', 20.3, 47, 2, 17);
+INSERT INTO HANDBALLPLAYER (id, position, speed, goals, type_id, person_id) VALUES (8, 'Goalkeeper', 14.3, 62, 2, 18);
+INSERT INTO HANDBALLPLAYER (id, position, speed, goals, type_id, person_id) VALUES (9, 'Left Wing', 18.4, 35, 2, 19);
+INSERT INTO HANDBALLPLAYER (id, position, speed, goals, type_id, person_id) VALUES (10, 'Circle Runner', 19.2, 28, 2, 20);
 
---Team members basketball
+-- Team members basketball
 INSERT INTO team_member (ID, team_id, person_id) VALUES (21, 5, 21);
 INSERT INTO team_member (ID, team_id, person_id) VALUES (22, 9, 22);
 INSERT INTO team_member (ID, team_id, person_id) VALUES (23, 10, 23);
@@ -151,18 +151,18 @@ INSERT INTO team_member (ID, team_id, person_id) VALUES (30, 5, 30);
 
 
 -- Basketballplayer
-INSERT INTO BASKETBALLPLAYER(ID, height, field_goal, speed, type_id) VALUES (1, 190, 13, 20.0, 3);
-INSERT INTO BASKETBALLPLAYER(ID, height, field_goal, speed, type_id) VALUES (2, 191, 44, 19.0, 3);
-INSERT INTO BASKETBALLPLAYER(ID, height, field_goal, speed, type_id) VALUES (3, 191, 63, 19.5, 3);
-INSERT INTO BASKETBALLPLAYER(ID, height, field_goal, speed, type_id) VALUES (4, 198, 42, 20.3, 3);
-INSERT INTO BASKETBALLPLAYER(ID, height, field_goal, speed, type_id) VALUES (5, 205, 11, 15.8, 3);
-INSERT INTO BASKETBALLPLAYER(ID, height, field_goal, speed, type_id) VALUES (6, 198, 0, 13.5, 3);
-INSERT INTO BASKETBALLPLAYER(ID, height, field_goal, speed, type_id) VALUES (7, 195, 12, 18.0, 3);
-INSERT INTO BASKETBALLPLAYER(ID, height, field_goal, speed, type_id) VALUES (8, 199, 11, 16.4, 3);
-INSERT INTO BASKETBALLPLAYER(ID, height, field_goal, speed, type_id) VALUES (9, 183, 17, 16.3, 3);
-INSERT INTO BASKETBALLPLAYER(ID, height, field_goal, speed, type_id) VALUES (10, 188, 23, 18.2, 3);
+INSERT INTO BASKETBALLPLAYER(ID, height, field_goal, speed, type_id, person_id) VALUES (1, 190, 13, 20.0, 3, 21);
+INSERT INTO BASKETBALLPLAYER(ID, height, field_goal, speed, type_id, person_id) VALUES (2, 191, 44, 19.0, 3, 22);
+INSERT INTO BASKETBALLPLAYER(ID, height, field_goal, speed, type_id, person_id) VALUES (3, 191, 63, 19.5, 3, 23);
+INSERT INTO BASKETBALLPLAYER(ID, height, field_goal, speed, type_id, person_id) VALUES (4, 198, 42, 20.3, 3, 24);
+INSERT INTO BASKETBALLPLAYER(ID, height, field_goal, speed, type_id, person_id) VALUES (5, 205, 11, 15.8, 3, 25);
+INSERT INTO BASKETBALLPLAYER(ID, height, field_goal, speed, type_id, person_id) VALUES (6, 198, 0, 13.5, 3, 26);
+INSERT INTO BASKETBALLPLAYER(ID, height, field_goal, speed, type_id, person_id) VALUES (7, 195, 12, 18.0, 3, 27);
+INSERT INTO BASKETBALLPLAYER(ID, height, field_goal, speed, type_id, person_id) VALUES (8, 199, 11, 16.4, 3, 28);
+INSERT INTO BASKETBALLPLAYER(ID, height, field_goal, speed, type_id, person_id) VALUES (9, 183, 17, 16.3, 3, 29);
+INSERT INTO BASKETBALLPLAYER(ID, height, field_goal, speed, type_id, person_id) VALUES (10, 188, 23, 18.2, 3, 30);
 
---Team members physio
+-- Team members physio
 INSERT INTO team_member (ID, team_id, person_id) VALUES (31,10, 31);
 INSERT INTO team_member (ID, team_id, person_id) VALUES (32,7, 32);
 INSERT INTO team_member (ID, team_id, person_id) VALUES (33,9, 33);
@@ -175,16 +175,16 @@ INSERT INTO team_member (ID, team_id, person_id) VALUES (39,2, 39);
 INSERT INTO team_member (ID, team_id, person_id) VALUES (40,1, 40);
 
 -- Physio
-INSERT INTO PHYSIO (experience, ID, team_id, person_id) VALUES (2, 1, 1, 31);
-INSERT INTO PHYSIO (experience, ID, team_id, person_id) VALUES (1, 2, 2, 32);
-INSERT INTO PHYSIO (experience, ID, team_id, person_id) VALUES (10, 3, 3, 33);
-INSERT INTO PHYSIO (experience, ID, team_id, person_id) VALUES (15, 4, 4, 34);
-INSERT INTO PHYSIO (experience, ID, team_id, person_id) VALUES (6, 5, 5, 35);
-INSERT INTO PHYSIO (experience, ID, team_id, person_id) VALUES (2, 6, 6, 36);
-INSERT INTO PHYSIO (experience, ID, team_id, person_id) VALUES (7, 7, 7, 37);
-INSERT INTO PHYSIO (experience, ID, team_id, person_id) VALUES (3, 8, 8, 38);
-INSERT INTO PHYSIO (experience, ID, team_id, person_id) VALUES (12, 9, 9, 39);
-INSERT INTO PHYSIO (experience, ID, team_id, person_id) VALUES (14, 10, 10, 40);
+INSERT INTO PHYSIO (experience, ID, person_id) VALUES (2, 1, 31);
+INSERT INTO PHYSIO (experience, ID, person_id) VALUES (1, 2, 32);
+INSERT INTO PHYSIO (experience, ID, person_id) VALUES (10, 3, 33);
+INSERT INTO PHYSIO (experience, ID, person_id) VALUES (15, 4, 34);
+INSERT INTO PHYSIO (experience, ID, person_id) VALUES (6, 5, 35);
+INSERT INTO PHYSIO (experience, ID, person_id) VALUES (2, 6, 36);
+INSERT INTO PHYSIO (experience, ID, person_id) VALUES (7, 7, 37);
+INSERT INTO PHYSIO (experience, ID, person_id) VALUES (3, 8, 38);
+INSERT INTO PHYSIO (experience, ID, person_id) VALUES (12, 9, 39);
+INSERT INTO PHYSIO (experience, ID, person_id) VALUES (14, 10, 40);
 
 -- Referee
 INSERT INTO REFEREE (id, certificate, type_id, person_id) VALUES (1, 'Regional', 1, 41);
@@ -198,17 +198,17 @@ INSERT INTO REFEREE (id, certificate, type_id, person_id) VALUES (8, 'Advanced',
 INSERT INTO REFEREE (id, certificate, type_id, person_id) VALUES (9, 'Advanced', 3, 49);
 INSERT INTO REFEREE (id, certificate, type_id, person_id) VALUES (10, 'Advanced', 1, 50);
 
---Team members trainer
-INSERT INTO team_member (ID, team_id, person_id) VALUES (41,1, 51);
-INSERT INTO team_member (ID, team_id, person_id) VALUES (42,7, 52);
-INSERT INTO team_member (ID, team_id, person_id) VALUES (43,9, 53);
-INSERT INTO team_member (ID, team_id, person_id) VALUES (44,8, 54);
-INSERT INTO team_member (ID, team_id, person_id) VALUES (45,6, 55);
-INSERT INTO team_member (ID, team_id, person_id) VALUES (46,5, 56);
-INSERT INTO team_member (ID, team_id, person_id) VALUES (47,4, 57);
-INSERT INTO team_member (ID, team_id, person_id) VALUES (48,3, 58);
-INSERT INTO team_member (ID, team_id, person_id) VALUES (49,2, 59);
-INSERT INTO team_member (ID, team_id, person_id) VALUES (50,1, 60);
+-- Team members trainer
+INSERT INTO team_member (ID, team_id, person_id) VALUES (41, 1, 51);
+INSERT INTO team_member (ID, team_id, person_id) VALUES (42, 7, 52);
+INSERT INTO team_member (ID, team_id, person_id) VALUES (43, 9, 53);
+INSERT INTO team_member (ID, team_id, person_id) VALUES (44, 8, 54);
+INSERT INTO team_member (ID, team_id, person_id) VALUES (45, 6, 55);
+INSERT INTO team_member (ID, team_id, person_id) VALUES (46, 5, 56);
+INSERT INTO team_member (ID, team_id, person_id) VALUES (47, 4, 57);
+INSERT INTO team_member (ID, team_id, person_id) VALUES (48, 3, 58);
+INSERT INTO team_member (ID, team_id, person_id) VALUES (49, 2, 59);
+INSERT INTO team_member (ID, team_id, person_id) VALUES (50, 1, 60);
 
 -- Trainer
 INSERT INTO TRAINER (id, type_id, person_id) VALUES (1, 1, 51);

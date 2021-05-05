@@ -8,11 +8,16 @@ CREATE TABLE `tournament`.`team` (
                                      PRIMARY KEY (`id`),
                                      `name` VARCHAR(50) NULL DEFAULT NULL,
                                      `type_id` INT(11) NULL DEFAULT NULL,
-                                     `team_member_id` INT(11) NULL DEFAULT NULL,
-                                     INDEX `fk_member_team_id` (`team_member_id`),
-                                     CONSTRAINT `fk_member_team_id` FOREIGN KEY (`team_member_id`) REFERENCES `team_member` (`id`)
                                      INDEX `fk_type_team_id` (`type_id`),
                                      CONSTRAINT `fk_type_team_id` FOREIGN KEY (`type_id`) REFERENCES `type` (`id`)
+);
+CREATE TABLE `tournament`.`person` (
+                                       `id` INT(11) NOT NULL AUTO_INCREMENT, 
+                                       `name` VARCHAR(50) NULL DEFAULT NULL,
+                                       `surname` VARCHAR(50) NULL DEFAULT NULL,
+                                       `age` INT NOT NULL,
+                                       `active` TINYINT(1) NULL,
+                                       PRIMARY KEY (`id`)
 );
 CREATE TABLE `tournament`.`team_member` (
                                      `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -20,22 +25,10 @@ CREATE TABLE `tournament`.`team_member` (
                                      `team_id` INT(11) NULL DEFAULT NULL,
                                      `person_id` INT(11) NULL DEFAULT NULL,
                                      INDEX `fk_prsn_team_member_id` (`person_id`),
-                                     CONSTRAINT `fk_prsn_team_member_id` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`)
+                                     CONSTRAINT `fk_prsn_team_member_id` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
                                      INDEX `fk_team_team_member_id` (`team_id`),
-                                     CONSTRAINT `fk_team_team_member_id` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`)
+                                     CONSTRAINT `fk_team_team_member_id` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
-CREATE TABLE `tournament`.`person` (
-                                       `id` INT(11) NOT NULL AUTO_INCREMENT, 
-                                       `team_member_id` INT(11) DEFAULT NULL,
-                                       `name` VARCHAR(50) NULL DEFAULT NULL,
-                                       `surname` VARCHAR(50) NULL DEFAULT NULL,
-                                       `age` INT NOT NULL,
-                                       `active` TINYINT(1) NULL,
-                                       PRIMARY KEY (`id`)
-                                       INDEX `fk_team_member_ person_id` (`team_member_id`),
-                                       CONSTRAINT `fk_team_member_ person_id` FOREIGN KEY (`team_member_id`) REFERENCES `team_member` (`id`)
-);
-
 CREATE TABLE `tournament`.`referee` (
                                         `id` INT(11) NOT NULL AUTO_INCREMENT,
                                         `certificate` VARCHAR(255) NULL,

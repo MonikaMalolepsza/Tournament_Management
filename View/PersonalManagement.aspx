@@ -36,6 +36,7 @@
                         <asp:Button ID="btnSubmit" OnCommand="btnSubmit_Click" Visible="false" runat="server" Text="Save" CssClass="btn btn-secondary" />
                     <br />
                      </div>
+                   <br />
                 <div class="panel panel-info">
                      <div class="panel-heading">Members</div>
                         <asp:Table ID="tblPeople" CssClass="table table-striped" runat="server"></asp:Table>

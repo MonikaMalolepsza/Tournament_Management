@@ -188,6 +188,33 @@ namespace Tournament_Management.ControllerNS
             {
                 con.Close();
             }
+        } 
+        public void GetAllTeams()
+        {
+            Participants.Clear();
+            string query = "SELECT * FROM TEAM";
+            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+
+            try
+            {
+                con.Open();
+
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    Team team = new Team();
+                    team.Get((int)rdr.GetInt64("id"));
+                    Participants.Add(team);
+                }
+
+                rdr.Close();
+            }
+            finally
+            {
+                con.Close();
+            }
         }
         public void GetAllBasketballPlayers()
         {
