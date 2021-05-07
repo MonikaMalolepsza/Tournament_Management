@@ -3,6 +3,7 @@ using MySql.Data.MySqlClient;
 
 namespace Tournament_Management.Model
 {
+    [Serializable]
     public class FootballPlayer : Person
     {
         #region Attributes

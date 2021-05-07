@@ -4,48 +4,47 @@ using System.Collections.Generic;
 
 namespace Tournament_Management.Model
 {
+    [Serializable]
     public class Team : Participant
     {
         #region Attributes
 
-        private List<Participant> _list;
+        private List<Person> _list;
         private string _foundingDate;
         private int _type;
 
-        #endregion
+        #endregion Attributes
 
         #region Properties
 
-        public List<Participant> List { get => _list; set => _list = value; }
+        public List<Person> List { get => _list; set => _list = value; }
         public string FoundingDate { get => _foundingDate; set => _foundingDate = value; }
         public int Type { get => _type; set => _type = value; }
 
-        #endregion
+        #endregion Properties
 
         #region Constructors
 
         public Team()
         {
-            List = new List<Participant>();
+            List = new List<Person>();
         }
 
         public Team(string name) : base(name)
         {
-            List = new List<Participant>();
+            List = new List<Person>();
         }
 
-        public Team(string name, List<Participant> team) : base(name)
+        public Team(string name, List<Person> team) : base(name)
         {
             List = team;
         }
 
-
-
-        #endregion
+        #endregion Constructors
 
         #region Methods
 
-        public void NewMember(Participant teilnehmer)
+        public void NewMember(Person teilnehmer)
         {
             List.Add(teilnehmer);
         }
@@ -74,9 +73,7 @@ namespace Tournament_Management.Model
 
             try
             {
-
                 string insertParticipant = $"INSERT INTO TEAM (name, type_id) VALUES ('{Name}', '{Type}')";
-
 
                 MySqlCommand cmd = new MySqlCommand()
                 {
@@ -99,9 +96,7 @@ namespace Tournament_Management.Model
 
                 //  }
 
-
                 transaction.Commit();
-
             }
             catch (Exception e)
             {
@@ -110,7 +105,6 @@ namespace Tournament_Management.Model
             finally
             {
                 con.Close();
-
             }
         }
 
@@ -129,12 +123,10 @@ namespace Tournament_Management.Model
             }
             catch (Exception e)
             {
-
             }
             finally
             {
                 con.Close();
-
             }
         }
 
@@ -170,21 +162,27 @@ namespace Tournament_Management.Model
                         case "Footballplayer":
                             p = new FootballPlayer();
                             break;
+
                         case "Trainer":
                             p = new Trainer();
                             break;
+
                         case "Handballplayer":
                             p = new HandballPlayer();
                             break;
+
                         case "Basketballplayer":
                             p = new BasketballPlayer();
                             break;
+
                         case "Physio":
                             p = new Physio();
                             break;
+
                         case "Referee":
                             p = new Referee();
                             break;
+
                         default: break;
                     }
                     if (p != null)
@@ -195,17 +193,16 @@ namespace Tournament_Management.Model
                     p = null;
                 }
                 reader.Close();
-
             }
             catch (Exception e)
             {
-
             }
             finally
             {
                 con.Close();
             }
         }
+
         public override void Get(int id)
         {
             MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
@@ -229,13 +226,13 @@ namespace Tournament_Management.Model
             }
             catch (Exception e)
             {
-
             }
             finally
             {
                 con.Close();
             }
         }
-        #endregion
+
+        #endregion Methods
     }
 }

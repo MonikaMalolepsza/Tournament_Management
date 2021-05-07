@@ -123,6 +123,7 @@ namespace Tournament_Management.View
             txt = new TextBox();
             txt.ID = "txtAge";
             txt.Text = "";
+            txt.TextMode = TextBoxMode.Number;
             txt.CssClass = "form-control";
             form1.Controls.Add(txt);
 
@@ -152,6 +153,7 @@ namespace Tournament_Management.View
             TextBox txt = new TextBox();
             txt.ID = "txtGoal";
             txt.Text = "";
+            txt.TextMode = TextBoxMode.Number;
             txt.CssClass = "form-control";
             form1.Controls.Add(txt);
 
@@ -162,6 +164,7 @@ namespace Tournament_Management.View
             txt = new TextBox();
             txt.ID = "txtSpeed";
             txt.Text = "";
+            txt.TextMode = TextBoxMode.Number;
             txt.CssClass = "form-control";
             form1.Controls.Add(txt);
         }
@@ -181,6 +184,7 @@ namespace Tournament_Management.View
             TextBox txt = new TextBox();
             txt.ID = "txtGoal";
             txt.Text = "";
+            txt.TextMode = TextBoxMode.Number;
             txt.CssClass = "form-control";
             form1.Controls.Add(txt);
 
@@ -191,6 +195,7 @@ namespace Tournament_Management.View
             txt = new TextBox();
             txt.ID = "txtSpeed";
             txt.Text = "";
+            txt.TextMode = TextBoxMode.Number;
             txt.CssClass = "form-control";
             form1.Controls.Add(txt);
 
@@ -201,6 +206,7 @@ namespace Tournament_Management.View
             txt = new TextBox();
             txt.ID = "txtHeight";
             txt.Text = "";
+            txt.TextMode = TextBoxMode.Number;
             txt.CssClass = "form-control";
             form1.Controls.Add(txt);
         }
@@ -222,6 +228,7 @@ namespace Tournament_Management.View
             TextBox txt = new TextBox();
             txt.ID = "txtGoal";
             txt.Text = "";
+            txt.TextMode = TextBoxMode.Number;
             txt.CssClass = "form-control";
             form1.Controls.Add(txt);
 
@@ -232,6 +239,7 @@ namespace Tournament_Management.View
             txt = new TextBox();
             txt.ID = "txtSpeed";
             txt.Text = "";
+            txt.TextMode = TextBoxMode.Number;
             txt.CssClass = "form-control";
             form1.Controls.Add(txt);
 
@@ -263,6 +271,7 @@ namespace Tournament_Management.View
             TextBox txt = new TextBox();
             txt.ID = "txtExperience";
             txt.Text = "";
+            txt.TextMode = TextBoxMode.Number;
             txt.CssClass = "form-control";
             form1.Controls.Add(txt);
         }
@@ -522,6 +531,7 @@ namespace Tournament_Management.View
                 newCell = new TableCell();
                 txt = new TextBox();
                 txt.ID = $"edittxtAge{pers.Id}";
+                txt.TextMode = TextBoxMode.Number;
                 txt.Text = (pers as FootballPlayer).Age.ToString();
                 txt.CssClass = "form-control";
                 form1.Controls.Add(txt);
@@ -532,7 +542,7 @@ namespace Tournament_Management.View
                 newCell = new TableCell();
                 txt = new TextBox();
                 txt.ID = $"edittxtActive{pers.Id}";
-                txt.Text = (pers as FootballPlayer).Active.ToString();
+                txt.Text = (pers as FootballPlayer).Active.GetYesNoString();
                 txt.CssClass = "form-control";
                 form1.Controls.Add(txt);
                 form1.Controls.Add(txt);
@@ -542,6 +552,7 @@ namespace Tournament_Management.View
 
                 newCell = new TableCell();
                 txt = new TextBox();
+                txt.TextMode = TextBoxMode.Number;
                 txt.ID = $"edittxtGoal{pers.Id}";
                 txt.Text = (pers as FootballPlayer).Goals.ToString();
                 txt.CssClass = "form-control";
@@ -554,6 +565,7 @@ namespace Tournament_Management.View
                 newCell = new TableCell();
                 txt = new TextBox();
                 txt.ID = $"edittxtSpeed{pers.Id}";
+                txt.TextMode = TextBoxMode.Number;
                 txt.Text = (pers as FootballPlayer).Speed.ToString();
                 txt.CssClass = "form-control";
                 form1.Controls.Add(txt);
@@ -595,8 +607,6 @@ namespace Tournament_Management.View
                 cancelButton.Command += this.btnCancel_Click;
                 newCell.Controls.Add(cancelButton);
                 row.Cells.Add(newCell);
-
-                tblPeople.Rows.Add(row);
 
                 tblPeople.Rows.Add(row);
             }
@@ -791,7 +801,6 @@ namespace Tournament_Management.View
                 newCell.Controls.Add(txt);
                 newCell.ID = $"editGoal{pers.Id}";
                 row.Cells.Add(newCell);
-
 
                 newCell = new TableCell();
                 txt = new TextBox();
@@ -1042,7 +1051,6 @@ namespace Tournament_Management.View
                 newCell.Controls.Add(txt);
                 newCell.ID = $"editGoal{pers.Id}";
                 row.Cells.Add(newCell);
-
 
                 newCell = new TableCell();
                 txt = new TextBox();

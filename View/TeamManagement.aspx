@@ -15,7 +15,7 @@
         <div class="panel panel-info">
             <div class="panel-heading">Teams</div>
             <br />
-            <asp:Table ID="tblTeam" CssClass="table table-striped" runat="server"></asp:Table>
+            <asp:Table ID="tblTeam" CssClass="table" runat="server"></asp:Table>
             <br />
         </div>
         <div>

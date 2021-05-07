@@ -2,6 +2,7 @@
 using System;
 namespace Tournament_Management.Model
 {
+    [Serializable]
     public class Referee : Person
 
     {

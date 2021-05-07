@@ -39,7 +39,7 @@
                    <br />
                 <div class="panel panel-info">
                      <div class="panel-heading">Members</div>
-                        <asp:Table ID="tblPeople" CssClass="table table-striped" runat="server"></asp:Table>
+                        <asp:Table ID="tblPeople" CssClass="table" runat="server"></asp:Table>
                 </div>
                    <br />
             </div>

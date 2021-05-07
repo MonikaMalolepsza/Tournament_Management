@@ -3,6 +3,7 @@ using MySql.Data.MySqlClient;
 
 namespace Tournament_Management.Model
 {
+    [Serializable]
     public class BasketballPlayer : Person
     {
         #region Attributes
@@ -12,7 +13,7 @@ namespace Tournament_Management.Model
         private int _type;
         private double _speed;
 
-        #endregion
+        #endregion Attributes
 
         #region Properties
 
@@ -21,7 +22,7 @@ namespace Tournament_Management.Model
         public double Speed { get => _speed; set => _speed = value; }
         public int Type { get => _type; set => _type = value; }
 
-        #endregion
+        #endregion Properties
 
         #region Constructors
 
@@ -33,8 +34,7 @@ namespace Tournament_Management.Model
             this.Height = 0;
         }
 
-        #endregion
-
+        #endregion Constructors
 
         #region Methods
 
@@ -48,10 +48,11 @@ namespace Tournament_Management.Model
             try
             {
                 /*
-                INSERT INTO BASKETBALLPLAYER 
+
+                INSERT INTO BASKETBALLPLAYER
                 (field_goal, speed, type_id, person_id, team_id, height) VALUES('{Goals}','{Speed}','1','{person_id}','1','{Height}')
-                 
-                INSERT INTO PERSON 
+
+                INSERT INTO PERSON
                 (name, surname, age, active) VALUES ('{Name}', '{Surname}', '{Age}', '{Active}')
 
                 `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -65,7 +66,6 @@ namespace Tournament_Management.Model
                 string updateBasketballplayer = $"UPDATE BASKETBALLPLAYER SET field_goal='{Goals}', speed='{Speed}', height='{Height}', type='3'  WHERE  PERSON_ID = '{Id}'";
                 string updatePlayer = $"UPDATE PERSON SET name='{Name}', age='{Age}' surname='{Surname}', active='{Active}' WHERE ID ='{Id}'";
 
-
                 MySqlCommand cmd = new MySqlCommand()
                 {
                     Connection = con,
@@ -78,7 +78,6 @@ namespace Tournament_Management.Model
                 cmd.ExecuteNonQuery();
 
                 transaction.Commit();
-
             }
             catch (Exception e)
             {
@@ -87,7 +86,6 @@ namespace Tournament_Management.Model
             finally
             {
                 con.Close();
-
             }
         }
 
@@ -100,9 +98,7 @@ namespace Tournament_Management.Model
 
             try
             {
-
                 string insertParticipant = $"INSERT INTO PERSON (name, surname, age, active) VALUES ('{Name}', '{Surname}', '{Age}', '{Active}')";
-
 
                 MySqlCommand cmd = new MySqlCommand()
                 {
@@ -129,9 +125,7 @@ namespace Tournament_Management.Model
                 cmd.CommandText = insertPlayer;
                 cmd.ExecuteNonQuery();
 
-
                 transaction.Commit();
-
             }
             catch (Exception e)
             {
@@ -140,11 +134,8 @@ namespace Tournament_Management.Model
             finally
             {
                 con.Close();
-
             }
-
         }
-
 
         public override void Delete()
         {
@@ -161,14 +152,11 @@ namespace Tournament_Management.Model
             }
             catch (Exception e)
             {
-
             }
             finally
             {
                 con.Close();
-
             }
-
         }
 
         public override void Get(int id)
@@ -181,7 +169,7 @@ namespace Tournament_Management.Model
                 string query = $"SELECT * FROM PERSON P JOIN BASKETBALLPLAYER BP ON P.ID = BP.PERSON_ID WHERE P.ID = '{id}'";
                 MySqlCommand cmd = new MySqlCommand(query, con);
                 MySqlDataReader reader = cmd.ExecuteReader();
-                
+
                 while (reader.Read())
                 {
                     Id = reader.GetInt32("id");
@@ -196,11 +184,9 @@ namespace Tournament_Management.Model
                 }
 
                 reader.Close();
-
             }
             catch (Exception e)
             {
-
             }
             finally
             {
@@ -208,8 +194,6 @@ namespace Tournament_Management.Model
             }
         }
 
-        #endregion
-
-
+        #endregion Methods
     }
 }

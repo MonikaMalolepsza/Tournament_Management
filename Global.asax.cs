@@ -13,9 +13,12 @@ namespace Tournament_Management
 {
     public class Global : HttpApplication
     {
+        //add the list of controllers instead of one
         private static Controller _controller;
+
         public static Controller Controller { get => _controller; set => _controller = value; }
-        void Application_Start(object sender, EventArgs e)
+
+        private void Application_Start(object sender, EventArgs e)
         {
             // Code, der beim Anwendungsstart ausgeführt wird
             RouteConfig.RegisterRoutes(RouteTable.Routes);

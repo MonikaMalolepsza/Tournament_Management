@@ -3,6 +3,7 @@ using MySql.Data.MySqlClient;
 
 namespace Tournament_Management.Model
 {
+    [Serializable]
     public abstract class Person : Participant
     {
         #region Attributes
@@ -11,24 +12,25 @@ namespace Tournament_Management.Model
         private string _surname;
         private int _age;
 
-        #endregion
+        #endregion Attributes
 
         #region Properties
-
 
         public string Surname
         {
             get => _surname;
             set => _surname = value;
         }
+
         public bool Active
         {
             get => _active;
             set => _active = value;
         }
+
         public int Age { get => _age; set => _age = value; }
 
-        #endregion
+        #endregion Properties
 
         #region Constructors
 
@@ -47,7 +49,7 @@ namespace Tournament_Management.Model
             this.Active = active;
         }
 
-        #endregion
+        #endregion Constructors
 
         #region Methods
 
@@ -66,6 +68,11 @@ namespace Tournament_Management.Model
             return base.GiveInfo() + $"{Surname}" + ", " + $"{(Active ? "Ja" : "Nein")}";
         }
 
+        public override string ToString()
+        {
+            return Name.ToString() + " " + Surname.ToString();
+        }
+
         public abstract override void Update();
 
         public abstract override void Put();
@@ -74,6 +81,6 @@ namespace Tournament_Management.Model
 
         public abstract override void Get(int id);
 
-        #endregion
+        #endregion Methods
     }
 }

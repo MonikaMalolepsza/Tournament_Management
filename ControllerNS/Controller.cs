@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 using Tournament_Management.Model;
 
-
 namespace Tournament_Management.ControllerNS
 {
     public class Controller
     {
-
         #region Attributes
 
         private List<Team> _teams;
@@ -22,7 +20,7 @@ namespace Tournament_Management.ControllerNS
 
         private Dictionary<int, string> _typeList;
 
-        #endregion
+        #endregion Attributes
 
         #region Properties
 
@@ -36,7 +34,7 @@ namespace Tournament_Management.ControllerNS
         public Dictionary<int, string> TypeList { get => _typeList; set => _typeList = value; }
         public int ActiveParticipant { get => _activeParticipant; set => _activeParticipant = value; }
 
-        #endregion
+        #endregion Properties
 
         #region Constructors
 
@@ -49,11 +47,10 @@ namespace Tournament_Management.ControllerNS
             Referees = new List<Referee>();
             TypeList = new Dictionary<int, string>();
 
-            Participants = new List<Participant>(); 
-            
+            Participants = new List<Participant>();
+
             GetAllTypes();
             //GetAllPeople();
-
         }
 
         public Controller(List<Team> teams, List<Trainer> trainers, List<Referee> referees, List<Person> players, List<Physio> physios)
@@ -64,12 +61,14 @@ namespace Tournament_Management.ControllerNS
             Trainers = trainers;
             Referees = referees;
         }
-        #endregion
+
+        #endregion Constructors
 
         #region Methods
 
         public void GetAllTypes()
         {
+            TypeList.Clear();
             MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
 
             string selectTypes = "SELECT * FROM TYPE";
@@ -85,18 +84,89 @@ namespace Tournament_Management.ControllerNS
                     TypeList.Add(reader.GetInt32("id"), reader.GetString("type"));
                 }
                 reader.Close();
-
             }
             catch (Exception e)
             {
-
             }
-            finally 
+            finally
             {
                 con.Close();
             }
-           
         }
+
+        public List<Person> GetAllCandidates(int teamId)
+        {
+            List<Person> result = new List<Person>();
+            Person p = null;
+            string sql = "SELECT P.ID, " +
+            "CASE " +
+            "WHEN((SELECT 1 FROM TRAINER T WHERE T.PERSON_ID = P.iD) IS NOT NULL) THEN 'Trainer' " +
+            "WHEN((SELECT 1 FROM PHYSIO PH WHERE PH.PERSON_ID = P.iD) IS NOT NULL) THEN 'Physio' " +
+            "WHEN((SELECT 1 FROM FOOTBALLPLAYER FP WHERE FP.PERSON_ID = P.iD) IS NOT NULL) THEN 'Footballplayer' " +
+            "WHEN((SELECT 1 FROM BASKETBALLPLAYER BS WHERE BS.PERSON_ID = P.iD) IS NOT NULL) THEN 'Basketballplayer' " +
+            "WHEN((SELECT 1 FROM HANDBALLPLAYER HB WHERE HB.PERSON_ID = P.iD) IS NOT NULL) THEN 'Handballplayer' " +
+            "ELSE 'No Candidates found!' " +
+            "END AS Profession " +
+            "FROM PERSON P " +
+            "LEFT OUTER JOIN team_member pm " +
+            "ON P.ID = pm.PERSON_ID " +
+            $"WHERE pm.TEAM_ID <> {teamId} " +
+            "OR pm.PERSON_ID IS NULL";
+
+            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            try
+            {
+                con.Open();
+
+                MySqlCommand cmd = new MySqlCommand(sql, con);
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    switch (reader.GetString("Profession"))
+                    {
+                        case "Footballplayer":
+                            p = new FootballPlayer();
+                            break;
+
+                        case "Trainer":
+                            p = new Trainer();
+                            break;
+
+                        case "Handballplayer":
+                            p = new HandballPlayer();
+                            break;
+
+                        case "Basketballplayer":
+                            p = new BasketballPlayer();
+                            break;
+
+                        case "Physio":
+                            p = new Physio();
+                            break;
+
+                        default: break;
+                    }
+                    if (p != null)
+                    {
+                        p.Get((int)reader.GetInt64("ID"));
+                        result.Add(p);
+                    }
+                    p = null;
+                }
+                reader.Close();
+            }
+            catch (Exception e)
+            {
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return result;
+        }
+
         public void GetAllPeople()
         {
             Participants.Clear();
@@ -127,21 +197,27 @@ namespace Tournament_Management.ControllerNS
                         case "Footballplayer":
                             p = new FootballPlayer();
                             break;
+
                         case "Trainer":
                             p = new Trainer();
                             break;
+
                         case "Handballplayer":
                             p = new HandballPlayer();
                             break;
+
                         case "Basketballplayer":
                             p = new BasketballPlayer();
                             break;
+
                         case "Physio":
                             p = new Physio();
                             break;
+
                         case "Referee":
                             p = new Referee();
                             break;
+
                         default: break;
                     }
                     if (p != null)
@@ -188,7 +264,8 @@ namespace Tournament_Management.ControllerNS
             {
                 con.Close();
             }
-        } 
+        }
+
         public void GetAllTeams()
         {
             Participants.Clear();
@@ -216,6 +293,7 @@ namespace Tournament_Management.ControllerNS
                 con.Close();
             }
         }
+
         public void GetAllBasketballPlayers()
         {
             Participants.Clear();
@@ -243,6 +321,7 @@ namespace Tournament_Management.ControllerNS
                 con.Close();
             }
         }
+
         public void GetAllHndballPlayers()
         {
             Participants.Clear();
@@ -270,6 +349,7 @@ namespace Tournament_Management.ControllerNS
                 con.Close();
             }
         }
+
         public void GetAllPhysio()
         {
             Participants.Clear();
@@ -297,7 +377,7 @@ namespace Tournament_Management.ControllerNS
                 con.Close();
             }
         }
-        
+
         public void GetAllTrainers()
         {
             Participants.Clear();
@@ -324,8 +404,8 @@ namespace Tournament_Management.ControllerNS
             {
                 con.Close();
             }
-        } 
-        
+        }
+
         public void GetAllReferees()
         {
             Participants.Clear();
@@ -354,6 +434,6 @@ namespace Tournament_Management.ControllerNS
             }
         }
 
-        #endregion
+        #endregion Methods
     }
 }

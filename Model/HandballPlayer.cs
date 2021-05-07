@@ -6,6 +6,7 @@ using System.Web;
 
 namespace Tournament_Management.Model
 {
+    [Serializable]
     public class HandballPlayer : Person
     {
         #region Attributes
