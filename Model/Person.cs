@@ -80,6 +80,10 @@ namespace Tournament_Management.Model
         public abstract override void Delete();
 
         public abstract override void Get(int id);
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
 
         #endregion Methods
     }

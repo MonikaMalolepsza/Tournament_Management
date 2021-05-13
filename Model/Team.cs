@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Tournament_Management.Model
 {
@@ -61,7 +62,24 @@ namespace Tournament_Management.Model
 
         public override void Update()
         {
-            throw new NotImplementedException();
+            string updateTeam = $"UPDATE TEAM SET NAME = '{Name}', TYPE_ID = '{Type}' WHERE ID = '{Id}'";
+
+            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            try
+            {
+                con.Open();
+                MySqlCommand cmd = new MySqlCommand { Connection = con };
+                cmd.CommandText = updateTeam;
+                cmd.ExecuteNonQuery();
+                SaveMembers();
+            }
+            catch (Exception e)
+            {
+            }
+            finally
+            {
+                con.Close();
+            }
         }
 
         public override void Put()
@@ -83,18 +101,17 @@ namespace Tournament_Management.Model
 
                 cmd.CommandText = insertParticipant;
                 cmd.ExecuteNonQuery();
-                int team_id = (int)cmd.LastInsertedId;
+                Id = (int)cmd.LastInsertedId;
 
-                //if (List.Count > 0)
-                //{
-                //    forEach(Participant p in List)
-                //    {
-                //        string insertMembers = $"INSERT INTO TEAM_MEMBER (person_id, team_id) VALUES('{p.id}', '{team_id}', '1')";
-                //        cmd.CommandText = insertMembers;
-                //        cmd.ExecuteNonQuery();
-                //    }
-
-                //  }
+                if (List != null && List.Count > 0)
+                {
+                    foreach (Person p in List)
+                    {
+                        string insertMember = $"INSERT INTO TEAM_MEMBER (PERSON_ID, TEAM_ID) VALUES ('{p.Id}','{ Id}')";
+                        cmd.CommandText = insertMember;
+                        cmd.ExecuteNonQuery();
+                    }
+                }
 
                 transaction.Commit();
             }
@@ -130,8 +147,9 @@ namespace Tournament_Management.Model
             }
         }
 
-        private void GetMembers(int id)
+        private List<Person> GetMembers(int id)
         {
+            List<Person> result = new List<Person>();
             Person p = null;
             MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
 
@@ -188,7 +206,7 @@ namespace Tournament_Management.Model
                     if (p != null)
                     {
                         p.Get((int)reader.GetInt64("ID"));
-                        List.Add(p);
+                        result.Add(p);
                     }
                     p = null;
                 }
@@ -201,6 +219,7 @@ namespace Tournament_Management.Model
             {
                 con.Close();
             }
+            return result;
         }
 
         public override void Get(int id)
@@ -222,7 +241,41 @@ namespace Tournament_Management.Model
                 }
 
                 reader.Close();
-                GetMembers(id);
+                List = GetMembers(id);
+            }
+            catch (Exception e)
+            {
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        private void SaveMembers()
+        {
+            List<Person> oldMembers = GetMembers(Id);
+
+            //TODO:Hier funktioniert etwas mit dem Vergleichen noch nicht so ganz
+            List<Person> membersToRemove = oldMembers.Except(List).ToList();
+            List<Person> membersToAdd = List.Except(oldMembers).ToList();
+
+            string deleteSql = $"DELETE FROM TEAM_MEMBER WHERE TEAM_ID = '{Id}' AND PERSON_ID IN ('{string.Join("', '", membersToRemove.Select(x => x.Id))}')";
+
+            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            try
+            {
+                con.Open();
+                MySqlCommand cmd = new MySqlCommand { Connection = con };
+                cmd.CommandText = deleteSql;
+                cmd.ExecuteNonQuery();
+
+                foreach (Person p in membersToAdd)
+                {
+                    string insertSql = $"INSERT INTO TEAM_MEMBER (TEAM_ID, PERSON_ID) VALUES ('{Id}', '{p.Id}')";
+                    cmd.CommandText = insertSql;
+                    cmd.ExecuteNonQuery();
+                }
             }
             catch (Exception e)
             {

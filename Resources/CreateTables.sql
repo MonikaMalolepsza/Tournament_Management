@@ -19,6 +19,41 @@ CREATE TABLE `tournament`.`person` (
                                        `active` TINYINT(1) NULL,
                                        PRIMARY KEY (`id`)
 );
+CREATE TABLE `tournament`.`tournament` (
+                                       `id` INT(11) NOT NULL AUTO_INCREMENT, 
+                                       `name` VARCHAR(50) NULL DEFAULT NULL,
+                                       `start_date` DATE NULL DEFAULT NULL,
+                                       `end_date` DATE NULL DEFAULT NULL,
+                                       `active` TINYINT(1) NULL,
+                                       PRIMARY KEY (`id`)
+);
+CREATE TABLE `tournament`.`tournament_participants` (
+                                       `id` INT(11) NOT NULL AUTO_INCREMENT, 
+                                       `tournament_id` INT(11) NULL DEFAULT NULL,
+                                       `team_id` INT(11) NULL DEFAULT NULL,
+                                        INDEX `fk_trnmt_team_id` (`team_id`),
+                                        CONSTRAINT `fk_trnmt_team_id` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+                                        INDEX `fk_trnmt_trnmt_id` (`tournament_id`),
+                                        CONSTRAINT `fk_trnmt_trnmt_id` FOREIGN KEY (`tournament_id`) REFERENCES `tournament` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+                                        PRIMARY KEY (`id`)
+);
+CREATE TABLE `tournament`.`game` (
+                                       `id` INT(11) NOT NULL AUTO_INCREMENT, 
+                                       `team_1_id` INT(11) NULL DEFAULT NULL,
+                                       `team_2_id` INT(11) NULL DEFAULT NULL,
+                                       `team_1_score` INT(3) NULL DEFAULT NULL,
+                                       `team_2_score` INT(3) NULL DEFAULT NULL,
+                                       `start_date` DATE NULL DEFAULT NULL,
+                                       `end_date` DATE NULL DEFAULT NULL,
+                                       PRIMARY KEY (`id`)
+);
+CREATE TABLE `tournament`.`score` (
+                                       `id` INT(11) NOT NULL AUTO_INCREMENT, 
+                                       `team_id` INT(11) NULL DEFAULT NULL,
+                                       `score` INT(3) NULL DEFAULT NULL,
+                                       PRIMARY KEY (`id`)
+);
+
 CREATE TABLE `tournament`.`team_member` (
                                      `id` INT(11) NOT NULL AUTO_INCREMENT,
                                      PRIMARY KEY (`id`),

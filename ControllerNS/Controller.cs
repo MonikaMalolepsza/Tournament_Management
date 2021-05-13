@@ -96,6 +96,7 @@ namespace Tournament_Management.ControllerNS
 
         public List<Person> GetAllCandidates(int teamId)
         {
+            // TODO: FIX THE QUERY!
             List<Person> result = new List<Person>();
             Person p = null;
             string sql = "SELECT P.ID, " +

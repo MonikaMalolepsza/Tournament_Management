@@ -24,6 +24,24 @@ namespace Tournament_Management.View
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl form1;
 
         /// <summary>
+        /// addTeam control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder addTeam;
+
+        /// <summary>
+        /// btnSubmit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSubmit;
+
+        /// <summary>
         /// tblTeam control.
         /// </summary>
         /// <remarks>
@@ -31,14 +49,5 @@ namespace Tournament_Management.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Table tblTeam;
-
-        /// <summary>
-        /// editPerson control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder editPerson;
     }
 }

@@ -21,6 +21,8 @@ namespace Tournament_Management.View
             Controller = Global.Controller;
             Controller.GetAllTeams();
             LoadTeams();
+            LoadInputTeam();
+            LoadInputMembers();
         }
 
         public List<Person> Members
@@ -49,13 +51,17 @@ namespace Tournament_Management.View
         {
             Label lbl = new Label();
             lbl.Text = "Name";
-            editPerson.Controls.Add(lbl);
+            addTeam.Controls.Add(lbl);
 
             TextBox txt = new TextBox();
             txt.ID = "txtName";
             txt.Text = "";
             txt.CssClass = "form-control";
-            editPerson.Controls.Add(txt);
+            addTeam.Controls.Add(txt);
+
+            lbl = new Label();
+            lbl.Text = "Discipline";
+            addTeam.Controls.Add(lbl);
 
             DropDownList dropdown = new DropDownList();
             dropdown.ID = $"txtType";
@@ -64,7 +70,19 @@ namespace Tournament_Management.View
             dropdown.DataTextField = "Value";
             dropdown.DataValueField = "Key";
             dropdown.DataBind();
-            editPerson.Controls.Add(dropdown);
+            addTeam.Controls.Add(dropdown);
+        }
+
+        private void LoadInputMembers()
+        {
+            TableRow row = new TableRow();
+            row.ID = "addMembers";
+
+            TableCell newCell = new TableCell();
+
+            Label lbl = new Label();
+            lbl.Text = "Members";
+            newCell.Controls.Add(lbl);
         }
 
         private void LoadTeams()
@@ -263,7 +281,7 @@ namespace Tournament_Management.View
         {
             //update style to visibility: visible on row for index!
 
-            Members = (Controller.Participants[Convert.ToInt32(e.CommandName)] as Team).List;
+            Members = (Controller.Participants[Convert.ToInt32(e.CommandName)-1] as Team).List;
             Candidates = Controller.GetAllCandidates(Convert.ToInt32(e.CommandName));
 
             LoadTeams();
@@ -280,18 +298,36 @@ namespace Tournament_Management.View
             Response.Redirect(Request.RawUrl);
         }
 
+        protected void btnSubmit_Click(object sender, CommandEventArgs e)
+        {
+            Team tmp = new Team();
+            //Controller.NewParticipant as Team;
+            /*
+            List<Person> _list;
+            int _type;
+            string _name;
+             */
+            tmp.Name = Request.Form["ctl00$TeamManagement$txtName"];
+            tmp.Type = Convert.ToInt32(Request.Form["ctl00$TeamManagement$txtType"]);
+            tmp.List = Members;
+            tmp.Put();
+        }
+
         protected void btnMember_Click(object sender, CommandEventArgs e)
         {
             string value = Request.Form[$"ctl00$TeamManagement$edittxtMembers{e.CommandArgument}"];
             Person mmbr = Members.Find(x => (x.Name + " " + x.Surname).Contains(value));
             if (mmbr != null)
             {
-                (Controller.Participants[Convert.ToInt32(e.CommandArgument)] as Team).List.Remove(mmbr);
+                // (Controller.Participants[Convert.ToInt32(e.CommandArgument)] as Team).List.Remove(mmbr);
+                Members.Remove(mmbr);
                 Candidates.Add(mmbr);
             }
             else
             {
             }
+            (tblTeam.Rows[Convert.ToInt32(e.CommandArgument)].Cells[0].FindControl($"edittxtMembers{ e.CommandArgument}") as ListBox).DataBind();
+            (tblTeam.Rows[Convert.ToInt32(e.CommandArgument)].Cells[2].FindControl($"edittxtCandidates{ e.CommandArgument}") as ListBox).DataBind();
 
             //    Response.Redirect(Request.RawUrl);
         }
@@ -303,21 +339,64 @@ namespace Tournament_Management.View
             if (mmbrNew != null)
             {
                 Candidates.Remove(mmbrNew);
-                (Controller.Participants[Convert.ToInt32(e.CommandArgument)] as Team).List.Add(mmbrNew);
+                Members.Add(mmbrNew);
+                //(Controller.Participants[Convert.ToInt32(e.CommandArgument)] as Team).List.Add(mmbrNew);
             }
             else
             {
             }
             //    Response.Redirect(Request.RawUrl);
+            (tblTeam.Rows[Convert.ToInt32(e.CommandArgument)].Cells[0].FindControl($"edittxtMembers{ e.CommandArgument}") as ListBox).DataBind();
+            (tblTeam.Rows[Convert.ToInt32(e.CommandArgument)].Cells[2].FindControl($"edittxtCandidates{ e.CommandArgument}") as ListBox).DataBind();
+        }
+
+        protected void btnNewMember_Click(object sender, CommandEventArgs e)
+        {
+            string value = Request.Form[$"ctl00$TeamManagement$edittxtMembers{e.CommandArgument}"];
+            Person mmbr = Members.Find(x => (x.Name + " " + x.Surname).Contains(value));
+            if (mmbr != null)
+            {
+                // (Controller.Participants[Convert.ToInt32(e.CommandArgument)] as Team).List.Remove(mmbr);
+                Members.Remove(mmbr);
+                Candidates.Add(mmbr);
+            }
+            else
+            {
+            }
+    (tblTeam.Rows[Convert.ToInt32(e.CommandArgument)].Cells[0].FindControl($"edittxtMembers{ e.CommandArgument}") as ListBox).DataBind();
+            (tblTeam.Rows[Convert.ToInt32(e.CommandArgument)].Cells[2].FindControl($"edittxtCandidates{ e.CommandArgument}") as ListBox).DataBind();
+
+            //    Response.Redirect(Request.RawUrl);
+        }
+
+        protected void btnNewCandidate_Click(object sender, CommandEventArgs e)
+        {
+            string value = Request.Form[$"ctl00$TeamManagement$edittxtCandidates{e.CommandArgument}"];
+            Person mmbrNew = Candidates.Find(x => (x.Name + " " + x.Surname).Contains(value));
+            if (mmbrNew != null)
+            {
+                Candidates.Remove(mmbrNew);
+                Members.Add(mmbrNew);
+                //(Controller.Participants[Convert.ToInt32(e.CommandArgument)] as Team).List.Add(mmbrNew);
+            }
+            else
+            {
+            }
+            //    Response.Redirect(Request.RawUrl);
+            (tblTeam.Rows[Convert.ToInt32(e.CommandArgument)].Cells[0].FindControl($"edittxtMembers{ e.CommandArgument}") as ListBox).DataBind();
+            (tblTeam.Rows[Convert.ToInt32(e.CommandArgument)].Cells[2].FindControl($"edittxtCandidates{ e.CommandArgument}") as ListBox).DataBind();
         }
 
         protected void btnEdit_Click(object sender, CommandEventArgs e)
         {
             string index = e.CommandArgument.ToString();
             Team tmp = Controller.Participants.First(x => x.Id == Convert.ToInt32(e.CommandArgument)) as Team;
-            tmp.Name = Request.Form[$"ctl00$PersonalManagement$edittxtName{index}"];
-            tmp.Type = Convert.ToInt32(Request.Form[$"ctl00$PersonalManagement$edittxtType{index}"]);
+            tmp.Name = Request.Form[$"ctl00$TeamManagement$edittxtName{index}"];
+            tmp.Type = Convert.ToInt32(Request.Form[$"ctl00$TeamManagement$edittxtType{index}"]);
+            tmp.List = Members;
             tmp.Update();
+
+            Response.Redirect(Request.RawUrl);
         }
 
         private void hideInputs()

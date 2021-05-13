@@ -1,17 +1,16 @@
 ﻿using System;
+
 namespace Tournament_Management.Model
 {
     [Serializable]
     public abstract class Participant
     {
-
         #region Attributes
 
         private string _name;
         private int _id;
 
-
-        #endregion
+        #endregion Attributes
 
         #region Properties
 
@@ -27,8 +26,7 @@ namespace Tournament_Management.Model
             set => _id = value;
         }
 
-
-        #endregion
+        #endregion Properties
 
         #region Constructors
 
@@ -42,7 +40,7 @@ namespace Tournament_Management.Model
             Name = name;
         }
 
-        #endregion
+        #endregion Constructors
 
         #region Methods
 
@@ -60,8 +58,12 @@ namespace Tournament_Management.Model
 
         public abstract void Get(int id);
 
-        #endregion
+        public override bool Equals(object obj)
+            => obj != null && GetType().Equals(obj.GetType()) && ((Participant)obj).Id == Id;
 
+        public override int GetHashCode()
+            => Id.GetHashCode();
+
+        #endregion Methods
     }
 }
-
