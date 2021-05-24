@@ -7,25 +7,24 @@
           <hr class="my-4">
           <p>Here you can add new players to your team, update the details and delete the inactive members.</p>
         </div>
-               <div runat="server">
-                <div class="container-fluid"> 
-                    <div id="rdbtnList1_container" runat="server">
-
-            <asp:RadioButtonList 
-                CssClass="form-check vertical-center" 
-                ID="rdbtnList1"  
-                runat="server">
-                <asp:ListItem Value="0">&nbsp;All People</asp:ListItem>
-                <asp:ListItem Value="1">&nbsp;Footballplayer</asp:ListItem>
-                <asp:ListItem Value="2">&nbsp;Basketballplayer</asp:ListItem>
-                <asp:ListItem Value="3">&nbsp;Handballplayer</asp:ListItem> 
-                <asp:ListItem Value="4">&nbsp;Physio</asp:ListItem>
-                <asp:ListItem Value="5">&nbsp;Trainer</asp:ListItem>
-                <asp:ListItem Value="6">&nbsp;Referee</asp:ListItem>
-            </asp:RadioButtonList>
-                    </div>
-                    <div id="btnShow" runat="server"></div>
+        <div runat="server">
+            <div class="container-fluid"> 
+                <div id="rdbtnList1_container" runat="server">
+                    <asp:RadioButtonList 
+                        CssClass="form-check vertical-center" 
+                        ID="rdbtnList1"  
+                        runat="server">
+                        <asp:ListItem Value="0">&nbsp;All People</asp:ListItem>
+                        <asp:ListItem Value="1">&nbsp;Footballplayer</asp:ListItem>
+                        <asp:ListItem Value="2">&nbsp;Basketballplayer</asp:ListItem>
+                        <asp:ListItem Value="3">&nbsp;Handballplayer</asp:ListItem> 
+                        <asp:ListItem Value="4">&nbsp;Physio</asp:ListItem>
+                        <asp:ListItem Value="5">&nbsp;Trainer</asp:ListItem>
+                        <asp:ListItem Value="6">&nbsp;Referee</asp:ListItem>
+                    </asp:RadioButtonList>
                 </div>
+                <div id="btnShow" runat="server"></div>
+            </div>
                    <br />  
                    <br />
                      <div class="container">
@@ -41,7 +40,7 @@
                      <div class="panel-heading">Members</div>
                         <asp:Table ID="tblPeople" CssClass="table" runat="server"></asp:Table>
                 </div>
-                   <br />
+                <br />
             </div>
 
     </asp:Content>

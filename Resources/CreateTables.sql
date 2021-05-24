@@ -21,10 +21,13 @@ CREATE TABLE `tournament`.`person` (
 );
 CREATE TABLE `tournament`.`tournament` (
                                        `id` INT(11) NOT NULL AUTO_INCREMENT, 
+                                       `type_id` INT(11) NULL DEFAULT NULL, 
                                        `name` VARCHAR(50) NULL DEFAULT NULL,
                                        `start_date` DATE NULL DEFAULT NULL,
                                        `end_date` DATE NULL DEFAULT NULL,
                                        `active` TINYINT(1) NULL,
+                                       INDEX `fk_type_tournament_id` (`type_id`),
+                                       CONSTRAINT `fk_type_tournament_id` FOREIGN KEY (`type_id`) REFERENCES `type` (`id`) ON UPDATE CASCADE,
                                        PRIMARY KEY (`id`)
 );
 CREATE TABLE `tournament`.`tournament_participants` (
@@ -32,26 +35,28 @@ CREATE TABLE `tournament`.`tournament_participants` (
                                        `tournament_id` INT(11) NULL DEFAULT NULL,
                                        `team_id` INT(11) NULL DEFAULT NULL,
                                         INDEX `fk_trnmt_team_id` (`team_id`),
-                                        CONSTRAINT `fk_trnmt_team_id` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+                                        CONSTRAINT `fk_trnmt_team_id` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`),
                                         INDEX `fk_trnmt_trnmt_id` (`tournament_id`),
                                         CONSTRAINT `fk_trnmt_trnmt_id` FOREIGN KEY (`tournament_id`) REFERENCES `tournament` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
                                         PRIMARY KEY (`id`)
 );
 CREATE TABLE `tournament`.`game` (
                                        `id` INT(11) NOT NULL AUTO_INCREMENT, 
-                                       `team_1_id` INT(11) NULL DEFAULT NULL,
-                                       `team_2_id` INT(11) NULL DEFAULT NULL,
-                                       `team_1_score` INT(3) NULL DEFAULT NULL,
-                                       `team_2_score` INT(3) NULL DEFAULT NULL,
-                                       `start_date` DATE NULL DEFAULT NULL,
-                                       `end_date` DATE NULL DEFAULT NULL,
-                                       PRIMARY KEY (`id`)
+                                       `tournament_id` INT(11) NULL DEFAULT NULL,
+                                        INDEX `fk_game_trnmt_id` (`tournament_id`),
+                                        CONSTRAINT `fk_game_trnmt_id` FOREIGN KEY (`tournament_id`) REFERENCES `tournament` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+                                        PRIMARY KEY (`id`)
 );
 CREATE TABLE `tournament`.`score` (
                                        `id` INT(11) NOT NULL AUTO_INCREMENT, 
                                        `team_id` INT(11) NULL DEFAULT NULL,
+                                       `game_id` INT(11) NULL DEFAULT NULL,
                                        `score` INT(3) NULL DEFAULT NULL,
-                                       PRIMARY KEY (`id`)
+                                        INDEX `fk_score_team_id` (`team_id`),
+                                        CONSTRAINT `fk_score_team_id` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`),
+                                        INDEX `fk_score_game_id` (`game_id`),
+                                        CONSTRAINT `fk_score_game_id` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+                                        PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `tournament`.`team_member` (

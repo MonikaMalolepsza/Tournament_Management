@@ -222,3 +222,51 @@ INSERT INTO TRAINER (id, type_id, person_id) VALUES (8, 3, 58);
 INSERT INTO TRAINER (id, type_id, person_id) VALUES (9, 3, 59);
 INSERT INTO TRAINER (id, type_id, person_id) VALUES (10, 3, 60);
 
+-- TOURNAMENT
+INSERT INTO TOURNAMENT (id, type_id, active, name) VALUES (1, 1, 1, 'Football World Championship 2021');
+INSERT INTO TOURNAMENT (id, type_id, active, name) VALUES (2, 1, 0, 'Football World Championship 2017');
+INSERT INTO TOURNAMENT (id, type_id, active, name) VALUES (10, 1, 0, 'Football World Championship 2019');
+INSERT INTO TOURNAMENT (id, type_id, active, name) VALUES (3, 1, 0, 'Football World Championship 2020');
+INSERT INTO TOURNAMENT (id, type_id, active, name) VALUES (4, 2, 0, 'Handball World Championship 2016');
+INSERT INTO TOURNAMENT (id, type_id, active, name) VALUES (5, 2, 1, 'Handball World Championship 2021');
+INSERT INTO TOURNAMENT (id, type_id, active, name) VALUES (6, 2, 0, 'Handball World Championship 2018');
+INSERT INTO TOURNAMENT (id, type_id, active, name) VALUES (7, 3, 0, 'Basketball World Championship 2016');
+INSERT INTO TOURNAMENT (id, type_id, active, name) VALUES (9, 3, 0, 'Basketball World Championship 2017');
+INSERT INTO TOURNAMENT (id, type_id, active, name) VALUES (8, 3, 1, 'Basketball World Championship 2021');
+
+-- GAME
+INSERT INTO GAME (id, tournament_id) VALUES (1, 4);
+INSERT INTO GAME (id, tournament_id) VALUES (2, 3);
+INSERT INTO GAME (id, tournament_id) VALUES (3, 4);
+INSERT INTO GAME (id, tournament_id) VALUES (4, 2);
+INSERT INTO GAME (id, tournament_id) VALUES (5, 2);
+INSERT INTO GAME (id, tournament_id) VALUES (6, 6);
+INSERT INTO GAME (id, tournament_id) VALUES (7, 7);
+INSERT INTO GAME (id, tournament_id) VALUES (8, 8);
+INSERT INTO GAME (id, tournament_id) VALUES (9, 9);
+INSERT INTO GAME (id, tournament_id) VALUES (10, 10);
+
+-- SCORE
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (1, 1, 2, 2);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (2, 2, 1, 2);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (3, 3, 0, 3);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (4, 4, 3, 3);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (5, 5, 80, 9);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (6, 6, 0, 3);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (7, 7, 15, 5);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (8, 6, 22, 5);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (9, 9, 70, 9);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (10, 3, 4, 3);
+
+-- TOURNAMENT_PARTICIPANTS
+INSERT INTO TOURNAMENT_PARTICIPANTS (id, team_id, tournament_id) VALUES (1, 1, 3);
+INSERT INTO TOURNAMENT_PARTICIPANTS (id, team_id, tournament_id) VALUES (2, 2, 4);
+INSERT INTO TOURNAMENT_PARTICIPANTS (id, team_id, tournament_id) VALUES (3, 2, 5);
+INSERT INTO TOURNAMENT_PARTICIPANTS (id, team_id, tournament_id) VALUES (4, 3, 4);
+INSERT INTO TOURNAMENT_PARTICIPANTS (id, team_id, tournament_id) VALUES (5, 4, 4);
+INSERT INTO TOURNAMENT_PARTICIPANTS (id, team_id, tournament_id) VALUES (6, 5, 9);
+INSERT INTO TOURNAMENT_PARTICIPANTS (id, team_id, tournament_id) VALUES (7, 6, 4);
+INSERT INTO TOURNAMENT_PARTICIPANTS (id, team_id, tournament_id) VALUES (8, 7, 2);
+INSERT INTO TOURNAMENT_PARTICIPANTS (id, team_id, tournament_id) VALUES (9, 9, 9);
+
+
