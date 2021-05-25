@@ -140,7 +140,7 @@ namespace Tournament_Management.Model
             try
             {
                 con.Open();
-                string query = $"SELECT * FROM Tournament WHERE G.ID = '{id}'";
+                string query = $"SELECT * FROM Tournament WHERE ID = '{id}'";
                 MySqlCommand cmd = new MySqlCommand(query, con);
                 MySqlDataReader reader = cmd.ExecuteReader();
 

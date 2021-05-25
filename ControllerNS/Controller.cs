@@ -15,6 +15,8 @@ namespace Tournament_Management.ControllerNS
         private List<Trainer> _trainers;
         private List<Physio> _physios;
         private List<Participant> _participants;
+        private List<Tournament> _tournaments;
+        private List<Game> _games;
         private Participant _newParticipant;
         private int _activeParticipant;
 
@@ -33,6 +35,8 @@ namespace Tournament_Management.ControllerNS
         public Participant NewParticipant { get => _newParticipant; set => _newParticipant = value; }
         public Dictionary<int, string> TypeList { get => _typeList; set => _typeList = value; }
         public int ActiveParticipant { get => _activeParticipant; set => _activeParticipant = value; }
+        public List<Tournament> Tournaments { get => _tournaments; set => _tournaments = value; }
+        public List<Game> Games { get => _games; set => _games = value; }
 
         #endregion Properties
 
@@ -45,21 +49,25 @@ namespace Tournament_Management.ControllerNS
             Physios = new List<Physio>();
             Trainers = new List<Trainer>();
             Referees = new List<Referee>();
+            Tournaments = new List<Tournament>();
             TypeList = new Dictionary<int, string>();
-
             Participants = new List<Participant>();
+            Games = new List<Game>();
+            ActiveParticipant = -1;
 
             GetAllTypes();
             //GetAllPeople();
         }
 
-        public Controller(List<Team> teams, List<Trainer> trainers, List<Referee> referees, List<Person> players, List<Physio> physios)
+        public Controller(List<Team> teams, List<Trainer> trainers, List<Referee> referees, List<Person> players, List<Physio> physios, List<Tournament> tournaments, List<Game> games)
         {
             Teams = teams;
             Players = players;
             Physios = physios;
             Trainers = trainers;
             Referees = referees;
+            Games = games;
+            Tournaments = tournaments;
         }
 
         #endregion Constructors
@@ -285,6 +293,62 @@ namespace Tournament_Management.ControllerNS
                     Team team = new Team();
                     team.Get((int)rdr.GetInt64("id"));
                     Participants.Add(team);
+                }
+
+                rdr.Close();
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public void GetAllTournaments()
+        {
+            Tournaments.Clear();
+            string query = "SELECT * FROM TOURNAMENT";
+            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+
+            try
+            {
+                con.Open();
+
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    Tournament t = new Tournament();
+                    t.Get((int)rdr.GetInt64("id"));
+                    Tournaments.Add(t);
+                }
+
+                rdr.Close();
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public void GetAllTournamentsForType(int type)
+        {
+            Tournaments.Clear();
+            string query = $"SELECT * FROM TOURNAMENT WHERE type_id = {type}";
+            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+
+            try
+            {
+                con.Open();
+
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    Tournament t = new Tournament();
+                    t.Get((int)rdr.GetInt64("id"));
+                    Tournaments.Add(t);
                 }
 
                 rdr.Close();
