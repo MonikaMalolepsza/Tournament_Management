@@ -89,6 +89,8 @@
             </asp:ContentPlaceHolder>
             <asp:ContentPlaceHolder ID="TeamManagement" runat="server">
             </asp:ContentPlaceHolder>
+            <asp:ContentPlaceHolder ID="TournamentManagement" runat="server">
+            </asp:ContentPlaceHolder>
             <hr />
             <footer>
                 <p>&copy; <%: DateTime.Now.Year %> - Monika Malolepsza</p>

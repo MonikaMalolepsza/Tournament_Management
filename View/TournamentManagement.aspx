@@ -1,6 +1,6 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" Title="Tournaments" MasterPageFile="~/Base.Master" CodeBehind="TournamentManagement.aspx.cs" Inherits="Tournament_Management.View.tournament" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" Title="Tournaments" MasterPageFile="~/Base.Master" CodeBehind="TournamentManagement.aspx.cs" Inherits="Tournament_Management.View.TournamentManagement" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="PersonalManagement" runat="server">
+<asp:Content ID="Content1" ContentPlaceHolderID="TournamentManagement" runat="server">
     <div class="jumbotron">
         <h1 class="display-4">Tournament Management</h1>
         <hr class="my-4">
@@ -17,8 +17,8 @@
                     runat="server">
                     <asp:ListItem Value="0">&nbsp;Show All</asp:ListItem>
                     <asp:ListItem Value="1">&nbsp;Football</asp:ListItem>
-                    <asp:ListItem Value="2">&nbsp;Basketball</asp:ListItem>
-                    <asp:ListItem Value="3">&nbsp;Handball</asp:ListItem>
+                    <asp:ListItem Value="3">&nbsp;Basketball</asp:ListItem>
+                    <asp:ListItem Value="2">&nbsp;Handball</asp:ListItem>
                 </asp:RadioButtonList>
             </div>
             <div id="btnShow" runat="server"></div>

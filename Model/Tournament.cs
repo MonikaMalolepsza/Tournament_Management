@@ -147,6 +147,7 @@ namespace Tournament_Management.Model
                 Score scoreSet = new Score();
                 while (reader.Read())
                 {
+                    Id = reader.GetInt32("id");
                     Type = reader.GetInt32("type_id");
                     Name = reader.GetString("name");
                     Active = reader.GetBoolean("active");
