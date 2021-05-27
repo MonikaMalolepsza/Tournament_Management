@@ -12,7 +12,6 @@ using Tournament_Management.Model;
  TODO:
 1. test the delete/add/update - might be that some queries have to be corrected
 2. put/update/del games
-3. fix the bug with double ids for table row!!!
  */
 
 namespace Tournament_Management.View
@@ -158,7 +157,7 @@ namespace Tournament_Management.View
                 newCell.ID = "cellDetailsButton" + t.Id;
                 Button detailsButton = new Button();
                 detailsButton.ID = "detButton_" + t.Id;
-                detailsButton.CssClass = "btn btn-info";
+                detailsButton.CssClass = "btn btn-secondary";
                 detailsButton.CommandName = "Details";
                 detailsButton.Text = "Show Games";
                 detailsButton.CommandName = currentRowIndexTemp;
@@ -259,7 +258,7 @@ namespace Tournament_Management.View
             ListControl ctrl = typeList;
             save.CommandArgument = ctrl.SelectedValue;
             save.Text = "Show me the Tournaments!";
-            save.CssClass = "btn btn-info";
+            save.CssClass = "btn btn-secondary";
             btnShow.Controls.Add(save);
         }
 
@@ -291,7 +290,11 @@ namespace Tournament_Management.View
         {
             tblGames.Visible = true;
             tblGames.Rows.Clear();
-            List<Game> games = Controller.Tournaments.First(x => x.Id == Convert.ToInt32(e.CommandArgument)).Games;
+            
+            Tournament cTournament = Controller.Tournaments.First(x => x.Id == Convert.ToInt32(e.CommandArgument));
+            List<Game> games = cTournament.GetAllGames(Convert.ToInt32(e.CommandArgument));
+            Controller.GetAllTeams();
+            
             //headerrows
             TableHeaderRow thr = new TableHeaderRow();
             thr.ID = "thrG";
@@ -329,14 +332,19 @@ namespace Tournament_Management.View
             tblGames.Rows.Add(thr);
 
             //Data
+            Team t1 = new Team();
+            Team t2 = new Team();
             foreach (Game t in games)
             {
+                 t1 = Controller.Participants.Find(y => y.Id == t.Scores[0].Team) as Team;
+                 t2 = Controller.Participants.Find(y => y.Id == t.Scores[1].Team) as Team;
+            
                 TableRow newRow = new TableRow();
                 newRow.ID = "tableRowG" + t.Id;
 
                 TableCell newCell = new TableCell();
                 newCell.ID = "cellT1G" + t.Id;
-                newCell.Text = t.Scores[0].Team.Name;
+                newCell.Text = t1.Name;
                 newRow.Cells.Add(newCell);
 
                 newCell = new TableCell();
@@ -346,7 +354,7 @@ namespace Tournament_Management.View
 
                 newCell = new TableCell();
                 newCell.ID = "cellT2G" + t.Id;
-                newCell.Text = t.Scores[1].Team.Name;
+                newCell.Text = t2.Name;
                 newRow.Cells.Add(newCell);
 
                 newCell = new TableCell();
@@ -444,6 +452,8 @@ namespace Tournament_Management.View
 
                                 tblTournaments.Rows.Add(row);
                                 */
+                 t1 = new Team();
+                 t2 = new Team();
             }
         }
 
@@ -469,11 +479,11 @@ namespace Tournament_Management.View
         {
             Tournament tmp = new Tournament();
             string index = e.CommandArgument.ToString();
-            tmp.Name = Request.Form[$"ctl00$PersonalManagement$edittxtName{index}"];
-            tmp.Active = Request.Form[$"ctl00$TournamentManagement$edittxtActive{index}"].GetTrueFalseString();
-            tmp.Type = Convert.ToInt32(Request.Form[$"ctl00$TournamentManagement$edittxtType{index}"]);
+            tmp.Name = Request.Form[$"ctl00$TournamentManagement$txtName{index}"];
+            tmp.Active = Request.Form[$"ctl00$TournamentManagement$txtActive{index}"].GetTrueFalseString();
+            tmp.Type = Convert.ToInt32(Request.Form[$"ctl00$TournamentManagement$txtType{index}"]);
             tmp.Put();
-            btnSubmit.Visible = false;
+            Controller.Tournaments.Add(tmp);
         }
     }
 }

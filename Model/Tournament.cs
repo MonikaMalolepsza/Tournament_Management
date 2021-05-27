@@ -32,7 +32,7 @@ namespace Tournament_Management.Model
 
         public Tournament()
         {
-            this.Id = 0;
+            this.Id = -1;
             this.Name = "";
             this.Active = false;
             this.Type = 0;
@@ -55,9 +55,6 @@ namespace Tournament_Management.Model
         public void Update()
         {
             MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
-
-            con.Open();
-            MySqlTransaction transaction = con.BeginTransaction();
 
             /*
                           `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -90,8 +87,6 @@ namespace Tournament_Management.Model
         {
             MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
 
-            con.Open();
-            MySqlTransaction transaction = con.BeginTransaction();
 
             try
             {
@@ -101,6 +96,7 @@ namespace Tournament_Management.Model
                 MySqlCommand cmd = new MySqlCommand(query, con);
 
                 cmd.ExecuteNonQuery();
+                Id = (int)cmd.LastInsertedId;
             }
             catch (Exception e)
             {
@@ -169,7 +165,7 @@ namespace Tournament_Management.Model
             MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
 
             List<Game> result = new List<Game>();
-            Game g = new Game();
+            
             try
             {
                 /*
@@ -177,7 +173,7 @@ namespace Tournament_Management.Model
                  */
 
                 con.Open();
-                string query = $"SELECT ID FROM GAME G WHERE G.TOURNAMENT_ID = '{Id}'";
+                string query = $"SELECT ID FROM GAME G WHERE G.TOURNAMENT_ID = '{id}'";
 
                 MySqlCommand cmd = new MySqlCommand(query, con);
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -185,6 +181,7 @@ namespace Tournament_Management.Model
                 Score scoreSet = new Score();
                 while (reader.Read())
                 {
+                    Game g = new Game();
                     g.Get((int)reader.GetInt64("ID"));
                     result.Add(g);
                 }

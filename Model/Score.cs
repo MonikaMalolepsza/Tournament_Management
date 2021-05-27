@@ -11,14 +11,14 @@ namespace Tournament_Management.Model
         #region Attributes
 
         private int _points;
-        private Team _team;
+        private int _team;
 
         #endregion Attributes
 
         #region Properties
 
         public int Points { get => _points; set => _points = value; }
-        public Team Team { get => _team; set => _team = value; }
+        public int Team { get => _team; set => _team = value; }
 
         #endregion Properties
 
@@ -27,10 +27,10 @@ namespace Tournament_Management.Model
         public Score()
         {
             this.Points = 0;
-            this.Team = new Team();
+            this.Team = -1;
         }
 
-        public Score(Team t, int points)
+        public Score(int t, int points)
         {
             this.Points = points;
             this.Team = t;
