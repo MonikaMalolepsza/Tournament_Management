@@ -70,7 +70,7 @@ namespace Tournament_Management.View
         {
             tblTournaments.Rows.Clear();
 
-            //headerrows
+            //header rows
             TableHeaderRow thr = new TableHeaderRow();
             thr.ID = "thr";
 
