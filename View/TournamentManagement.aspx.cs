@@ -12,12 +12,11 @@ using Tournament_Management.Model;
  TODO:
 1. test the delete/add/update - might be that some queries have to be corrected
 2. put/update/del games
-3. fix the bug with double ids for table row!!!
  */
 
 namespace Tournament_Management.View
 {
-    public partial class tournament : System.Web.UI.Page
+    public partial class TournamentManagement : System.Web.UI.Page
     {
         private Controller _controller;
 
@@ -28,6 +27,8 @@ namespace Tournament_Management.View
             Controller = Global.Controller;
             generateShowBtn();
             LoadInput();
+            if (Controller.ActiveParticipant !=-1) LoadTournaments();
+            typeList.SelectedValue = Controller.ActiveParticipant.ToString();
         }
 
         private void LoadInput()
@@ -110,7 +111,7 @@ namespace Tournament_Management.View
             foreach (Tournament t in Controller.Tournaments)
             {
                 TableRow newRow = new TableRow();
-                newRow.ID = "tableRow" + t.Id;
+                newRow.ID = "tournamentTableRow" + t.Id;
 
                 TableCell newCell = new TableCell();
                 newCell.ID = "cellName" + t.Id;
@@ -156,7 +157,7 @@ namespace Tournament_Management.View
                 newCell.ID = "cellDetailsButton" + t.Id;
                 Button detailsButton = new Button();
                 detailsButton.ID = "detButton_" + t.Id;
-                detailsButton.CssClass = "btn btn-info";
+                detailsButton.CssClass = "btn btn-secondary";
                 detailsButton.CommandName = "Details";
                 detailsButton.Text = "Show Games";
                 detailsButton.CommandName = currentRowIndexTemp;
@@ -213,7 +214,7 @@ namespace Tournament_Management.View
                 saveButton.Text = "Save";
                 saveButton.CssClass = "btn btn-success";
                 saveButton.CommandArgument = t.Id.ToString();
-                saveButton.Command += this.btnEdit_Click;
+                saveButton.Command += this.btnSave_Click;
                 newCell.Controls.Add(saveButton);
                 row.Cells.Add(newCell);
 
@@ -257,7 +258,7 @@ namespace Tournament_Management.View
             ListControl ctrl = typeList;
             save.CommandArgument = ctrl.SelectedValue;
             save.Text = "Show me the Tournaments!";
-            save.CssClass = "btn btn-info";
+            save.CssClass = "btn btn-secondary";
             btnShow.Controls.Add(save);
         }
 
@@ -266,25 +267,34 @@ namespace Tournament_Management.View
             Controller.ActiveParticipant = Convert.ToInt32(e.CommandArgument);
             if (Convert.ToInt32(e.CommandArgument) == 0) Controller.GetAllTournaments();
             else Controller.GetAllTournamentsForType(Convert.ToInt32(e.CommandArgument));
+
             Response.Redirect(Request.RawUrl);
-            LoadTournaments();
+       //     LoadTournaments();
+
         }
 
-        protected void btnEdit_Click(object sender, CommandEventArgs e)
+        protected void btnSave_Click(object sender, CommandEventArgs e)
         {
             string index = e.CommandArgument.ToString();
             Tournament tmp = Controller.Tournaments.First(x => x.Id == Convert.ToInt32(e.CommandArgument));
-            tmp.Name = Request.Form[$"ctl00$PersonalManagement$edittxtName{index}"];
-            tmp.Active = Convert.ToBoolean(Request.Form[$"ctl00$TournamentManagement$edittxtActive{index}"]);
+            tmp.Name = Request.Form[$"ctl00$TournamentManagement$edittxtName{index}"];
+            tmp.Active = Request.Form[$"ctl00$TournamentManagement$edittxtActive{index}"].GetTrueFalseString(); ;
             tmp.Type = Convert.ToInt32(Request.Form[$"ctl00$TournamentManagement$edittxtType{index}"]);
             tmp.Update();
+            this.hideInputs();
+
+            Response.Redirect(Request.RawUrl);
         }
 
         protected void btnOverview_Click(object sender, CommandEventArgs e)
         {
             tblGames.Visible = true;
             tblGames.Rows.Clear();
-            List<Game> games = Controller.Tournaments.First(x => x.Id == Convert.ToInt32(e.CommandArgument)).Games;
+            
+            Tournament cTournament = Controller.Tournaments.First(x => x.Id == Convert.ToInt32(e.CommandArgument));
+            List<Game> games = cTournament.GetAllGames(Convert.ToInt32(e.CommandArgument));
+            Controller.GetAllTeams();
+            
             //headerrows
             TableHeaderRow thr = new TableHeaderRow();
             thr.ID = "thrG";
@@ -319,17 +329,22 @@ namespace Tournament_Management.View
             newHeaderCell.Text = "Delete";
             thr.Cells.Add(newHeaderCell);
 
-            tblTournaments.Rows.Add(thr);
+            tblGames.Rows.Add(thr);
 
             //Data
+            Team t1 = new Team();
+            Team t2 = new Team();
             foreach (Game t in games)
             {
+                 t1 = Controller.Participants.Find(y => y.Id == t.Scores[0].Team) as Team;
+                 t2 = Controller.Participants.Find(y => y.Id == t.Scores[1].Team) as Team;
+            
                 TableRow newRow = new TableRow();
                 newRow.ID = "tableRowG" + t.Id;
 
                 TableCell newCell = new TableCell();
                 newCell.ID = "cellT1G" + t.Id;
-                newCell.Text = t.Scores[0].Team.Name;
+                newCell.Text = t1.Name;
                 newRow.Cells.Add(newCell);
 
                 newCell = new TableCell();
@@ -339,7 +354,7 @@ namespace Tournament_Management.View
 
                 newCell = new TableCell();
                 newCell.ID = "cellT2G" + t.Id;
-                newCell.Text = t.Scores[1].Team.Name;
+                newCell.Text = t2.Name;
                 newRow.Cells.Add(newCell);
 
                 newCell = new TableCell();
@@ -368,11 +383,11 @@ namespace Tournament_Management.View
                 delButton.CommandName = "Delete";
                 delButton.Text = "X";
                 delButton.CommandArgument = t.Id.ToString();
-                delButton.Command += this.btnDeleteEdit_Click;
+                delButton.Command += this.btnDelete_Click;
                 newCell.Controls.Add(delButton);
                 newRow.Cells.Add(newCell);
 
-                tblTournaments.Rows.Add(newRow);
+                tblGames.Rows.Add(newRow);
 
                 //TODO add edit row
                 /*
@@ -437,14 +452,20 @@ namespace Tournament_Management.View
 
                                 tblTournaments.Rows.Add(row);
                                 */
+                 t1 = new Team();
+                 t2 = new Team();
             }
+        }
+
+        private void btnDelete_Click(object sender, CommandEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         protected void btnDeleteEdit_Click(object sender, CommandEventArgs e)
         {
             Controller.Tournaments.First(x => x.Id == Convert.ToInt32(e.CommandArgument)).Delete();
-
-            Response.Redirect(Request.RawUrl);
+            Controller.GetAllTournaments();
         }
 
         protected void btnToggleInputs_Click(object sender, CommandEventArgs e)
@@ -458,11 +479,11 @@ namespace Tournament_Management.View
         {
             Tournament tmp = new Tournament();
             string index = e.CommandArgument.ToString();
-            tmp.Name = Request.Form[$"ctl00$PersonalManagement$edittxtName{index}"];
-            tmp.Active = Convert.ToBoolean(Request.Form[$"ctl00$TournamentManagement$edittxtActive{index}"]);
-            tmp.Type = Convert.ToInt32(Request.Form[$"ctl00$TournamentManagement$edittxtType{index}"]);
+            tmp.Name = Request.Form[$"ctl00$TournamentManagement$txtName{index}"];
+            tmp.Active = Request.Form[$"ctl00$TournamentManagement$txtActive{index}"].GetTrueFalseString();
+            tmp.Type = Convert.ToInt32(Request.Form[$"ctl00$TournamentManagement$txtType{index}"]);
             tmp.Put();
-            btnSubmit.Visible = false;
+            Controller.Tournaments.Add(tmp);
         }
     }
 }

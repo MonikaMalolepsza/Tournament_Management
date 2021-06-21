@@ -252,11 +252,11 @@ INSERT INTO SCORE (id, team_id, score, game_id) VALUES (2, 2, 1, 2);
 INSERT INTO SCORE (id, team_id, score, game_id) VALUES (3, 3, 0, 3);
 INSERT INTO SCORE (id, team_id, score, game_id) VALUES (4, 4, 3, 3);
 INSERT INTO SCORE (id, team_id, score, game_id) VALUES (5, 5, 80, 9);
-INSERT INTO SCORE (id, team_id, score, game_id) VALUES (6, 6, 0, 3);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (6, 6, 0, 4);
 INSERT INTO SCORE (id, team_id, score, game_id) VALUES (7, 7, 15, 5);
 INSERT INTO SCORE (id, team_id, score, game_id) VALUES (8, 6, 22, 5);
 INSERT INTO SCORE (id, team_id, score, game_id) VALUES (9, 9, 70, 9);
-INSERT INTO SCORE (id, team_id, score, game_id) VALUES (10, 3, 4, 3);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (10, 3, 4, 4);
 
 -- TOURNAMENT_PARTICIPANTS
 INSERT INTO TOURNAMENT_PARTICIPANTS (id, team_id, tournament_id) VALUES (1, 1, 3);

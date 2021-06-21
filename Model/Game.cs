@@ -32,7 +32,7 @@ namespace Tournament_Management.Model
             this.Scores = new List<Score>();
         }
 
-        public Game(Team t1, int score1, Team t2, int score2, int id)
+        public Game(int t1, int score1, int t2, int score2, int id)
         {
             this.Id = 0;
             this.Scores = new List<Score>();
@@ -68,7 +68,7 @@ namespace Tournament_Management.Model
                 {
                     foreach (Score s in Scores)
                     {
-                        string insertScores = $"UPDATE Score SET team_id='{s.Team.Id}', score='{s.Points}' WHERE GAME_ID='{Id}'";
+                        string insertScores = $"UPDATE Score SET team_id='{s.Team}', score='{s.Points}' WHERE GAME_ID='{Id}'";
                         cmd.CommandText = insertScores;
                         cmd.ExecuteNonQuery();
                     }
@@ -120,7 +120,7 @@ namespace Tournament_Management.Model
                 {
                     foreach (Score s in Scores)
                     {
-                        string insertScores = $"INSERT INTO SCORE (team_id, game_id, score) VALUES('{s.Team.Id}', '{Id}', '{s.Points}')";
+                        string insertScores = $"INSERT INTO SCORE (team_id, game_id, score) VALUES('{s.Team}', '{Id}', '{s.Points}')";
                         cmd.CommandText = insertScores;
                         cmd.ExecuteNonQuery();
                     }
@@ -183,7 +183,7 @@ namespace Tournament_Management.Model
                     Id = reader.GetInt32("id");
                     TournamentId = reader.GetInt32("tournament_id");
                     scoreSet.Points = reader.GetInt32("score");
-                    scoreSet.Team.Id = reader.GetInt32("team_id");
+                    scoreSet.Team = reader.GetInt32("team_id");
                     Scores.Add(scoreSet);
                     scoreSet = new Score();
                 }
