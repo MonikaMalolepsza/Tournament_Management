@@ -172,26 +172,25 @@ namespace Tournament_Management.Model
                 MySqlCommand cmd = new MySqlCommand(query, con);
                 MySqlDataReader reader = cmd.ExecuteReader();
 
-                Score scoreSet = new Score();
                 while (reader.Read())
                 {
                     /*
                      * TODO:
                      no idea if this works :D
                      */
-
+                    Score scoreSet = new Score();
                     Id = reader.GetInt32("id");
                     TournamentId = reader.GetInt32("tournament_id");
                     scoreSet.Points = reader.GetInt32("score");
                     scoreSet.Team = reader.GetInt32("team_id");
                     Scores.Add(scoreSet);
-                    scoreSet = new Score();
                 }
 
                 reader.Close();
             }
             catch (Exception e)
             {
+                throw e;
             }
             finally
             {

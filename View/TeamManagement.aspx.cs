@@ -281,7 +281,7 @@ namespace Tournament_Management.View
         {
             //update style to visibility: visible on row for index!
 
-            Members = (Controller.Participants[Convert.ToInt32(e.CommandName)-1] as Team).List;
+            Members = (Controller.Participants.First(x => x.Id == Convert.ToInt32(e.CommandName)) as Team).List;
             Candidates = Controller.GetAllCandidates(Convert.ToInt32(e.CommandName));
 
             LoadTeams();
@@ -311,6 +311,7 @@ namespace Tournament_Management.View
             tmp.Type = Convert.ToInt32(Request.Form["ctl00$TeamManagement$txtType"]);
             tmp.List = Members;
             tmp.Put();
+            Response.Redirect(Request.RawUrl);
         }
 
         protected void btnMember_Click(object sender, CommandEventArgs e)
@@ -335,7 +336,8 @@ namespace Tournament_Management.View
         protected void btnCandidate_Click(object sender, CommandEventArgs e)
         {
             string value = Request.Form[$"ctl00$TeamManagement$edittxtCandidates{e.CommandArgument}"];
-            Person mmbrNew = Candidates.Find(x => (x.Name + " " + x.Surname).Contains(value));
+            Person mmbrNew = null;
+            if (value != null) mmbrNew = Candidates.Find(x => (x.Name + " " + x.Surname).Contains(value));
             if (mmbrNew != null)
             {
                 Candidates.Remove(mmbrNew);

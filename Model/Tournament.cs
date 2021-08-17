@@ -87,7 +87,6 @@ namespace Tournament_Management.Model
         {
             MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
 
-
             try
             {
                 con.Open();
@@ -139,8 +138,6 @@ namespace Tournament_Management.Model
                 string query = $"SELECT * FROM Tournament WHERE ID = '{id}'";
                 MySqlCommand cmd = new MySqlCommand(query, con);
                 MySqlDataReader reader = cmd.ExecuteReader();
-
-                Score scoreSet = new Score();
                 while (reader.Read())
                 {
                     Id = reader.GetInt32("id");
@@ -148,11 +145,12 @@ namespace Tournament_Management.Model
                     Name = reader.GetString("name");
                     Active = reader.GetBoolean("active");
                 }
-
+                Games = GetAllGames(id);
                 reader.Close();
             }
             catch (Exception e)
             {
+                throw e;
             }
             finally
             {
@@ -165,7 +163,7 @@ namespace Tournament_Management.Model
             MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
 
             List<Game> result = new List<Game>();
-            
+
             try
             {
                 /*
@@ -190,6 +188,7 @@ namespace Tournament_Management.Model
             }
             catch (Exception e)
             {
+                throw e;
             }
             finally
             {
