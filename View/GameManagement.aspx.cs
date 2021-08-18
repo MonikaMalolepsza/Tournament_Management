@@ -23,6 +23,7 @@ namespace Tournament_Management.View
             btnShow.CommandArgument = tournamentList.SelectedValue;
             btnShow.Command += btn_show_games;
             Controller.GetAllTeams();
+            if (Controller.ActiveParticipant != -1) Show_Games(Controller.ActiveParticipant);
             //if (tournamentList.SelectedValue != null)
             //{
             //    Controller.ActiveParticipant = Convert.ToInt32(tournamentList.SelectedValue);
@@ -128,7 +129,7 @@ namespace Tournament_Management.View
                 newRow.Cells.Add(newCell);
 
                 newCell = new TableCell();
-                newCell.ID = "cellS1G" + g.Id;
+                newCell.ID = "cellS2G" + g.Id;
                 newCell.Text = g.Scores[1].Points.ToString();
                 newRow.Cells.Add(newCell);
 
@@ -215,15 +216,6 @@ namespace Tournament_Management.View
                 row.Cells.Add(newCell);
 
                 newCell = new TableCell();
-                DropDownList dropdown = new DropDownList();
-                dropdown.ID = $"edittxtType{g.Id}";
-                dropdown.CssClass = "form-control";
-                dropdown.DataSource = Controller.TypeList;
-                dropdown.DataTextField = "Value";
-                dropdown.DataValueField = "Key";
-                dropdown.DataBind();
-                newCell.Controls.Add(dropdown);
-                newCell.ID = $"editType{g.Id}";
                 row.Cells.Add(newCell);
 
                 newCell = new TableCell();
@@ -305,8 +297,10 @@ namespace Tournament_Management.View
 
         private void btnDelete_Click(object sender, CommandEventArgs e)
         {
-            Controller.Games.First(x => x.Id == Convert.ToInt32(e.CommandArgument)).Delete();
+            Controller.Tournaments.First(x => x.Id == Controller.ActiveParticipant).Games.First(g => g.Id == Convert.ToInt32(e.CommandArgument)).Delete();
             Controller.GetAllTournaments();
+
+            Response.Redirect(Request.RawUrl);
         }
     }
 }

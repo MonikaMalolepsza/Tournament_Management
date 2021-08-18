@@ -293,6 +293,7 @@ namespace Tournament_Management.ControllerNS
                     Team team = new Team();
                     team.Get((int)rdr.GetInt64("id"));
                     Participants.Add(team);
+                    Teams.Add(team);
                 }
 
                 rdr.Close();

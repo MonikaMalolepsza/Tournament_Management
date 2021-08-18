@@ -276,7 +276,7 @@ INSERT INTO SCORE (id, team_id, score, game_id) VALUES (16, 9, 2, 8);
 INSERT INTO SCORE (id, team_id, score, game_id) VALUES (17, 8, 0, 10);
 INSERT INTO SCORE (id, team_id, score, game_id) VALUES (18, 1, 0, 10);
 INSERT INTO SCORE (id, team_id, score, game_id) VALUES (19, 2, 2, 11);
-INSERT INTO SCORE (id, team_id, score, game_id) VALUES (20, 2, 2, 11);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (35, 2, 2, 11);
 INSERT INTO SCORE (id, team_id, score, game_id) VALUES (21, 4, 2, 12);
 INSERT INTO SCORE (id, team_id, score, game_id) VALUES (22, 3, 2, 12);
 INSERT INTO SCORE (id, team_id, score, game_id) VALUES (23, 5, 2, 13);
