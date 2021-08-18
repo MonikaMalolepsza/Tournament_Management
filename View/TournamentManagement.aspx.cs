@@ -238,7 +238,7 @@ namespace Tournament_Management.View
             this.hideInputs();
         }
 
-        protected void hideInputs()
+        private void hideInputs()
         {
             foreach (TableRow tr in tblTournaments.Rows)
             {
@@ -287,14 +287,9 @@ namespace Tournament_Management.View
 
         protected void btnOverview_Click(object sender, CommandEventArgs e)
         {
-            // Response.Write(e.CommandArgument.ToString());
+            //Response.Write(e.CommandArgument.ToString());
             Controller.ActiveParticipant = Convert.ToInt32(e.CommandArgument);
             Response.Redirect("~/View/GameManagement");
-        }
-
-        private void btnDelete_Click(object sender, CommandEventArgs e)
-        {
-            throw new NotImplementedException();
         }
 
         protected void btnDeleteEdit_Click(object sender, CommandEventArgs e)
