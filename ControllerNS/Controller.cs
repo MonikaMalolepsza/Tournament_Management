@@ -1,6 +1,7 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
-using MySql.Data.MySqlClient;
+using System.Data;
 using Tournament_Management.Model;
 
 namespace Tournament_Management.ControllerNS
@@ -104,7 +105,7 @@ namespace Tournament_Management.ControllerNS
 
         public List<Person> GetAllCandidates(int teamId)
         {
-            // TODO: FIX THE QUERY!
+            // TODO: FIX THE QUERY!?
             List<Person> result = new List<Person>();
             Person p = null;
             string sql = "SELECT P.ID, " +
@@ -497,6 +498,73 @@ namespace Tournament_Management.ControllerNS
             finally
             {
                 con.Close();
+            }
+        }
+
+        public DataTable GetRanking(int tournId)
+        {
+            DataTable dt = new DataTable();
+            var sql = "SELECT @`curRow` := @`curRow` +1 AS \"Position\", Total.*"
+                        + " FROM"
+                        + " (SELECT SUBVALS.NAME"
+                        + " , SUM(SUBVALS.Wins * 3) + SUM(SUBVALS.Draws * 1) / 2 AS \"Points\""
+                        + " , SUBVALS.Wins"
+                        + " , SUBVALS.Loses"
+                        + " , SUBVALS.Draws"
+                        + " , SUBVALS.Difference"
+                        + " FROM"
+                        + " (" +
+                        " SELECT SUBSTATS.NAME"
+                        + " , SUM(if (SUBSTATS.STATUS = 'Win',1,0)) as 'Wins'"
+                        + " , SUM(if (SUBSTATS.STATUS = 'Lose',1,0)) as 'Loses'"
+                        + " , SUM(if (SUBSTATS.STATUS = 'Draw',1,0)) as 'Draws'"
+                        + " , SUM(SUBSTATS.DIFFERENCE) as \"Difference\""
+                        + " FROM"
+                        + " (" +
+                        " SELECT A.NAME,"
+                        + " A.SCORE - B.SCORE as \"Difference\","
+                        + " CASE"
+                        + " WHEN A.SCORE > B.SCORE THEN 'Win'"
+                        + " WHEN A.SCORE < B.SCORE THEN 'Lose'"
+                        + " else 'Draw' end as \"status\""
+                        + " FROM"
+                        + " (SELECT T.NAME, S.*"
+                        + " FROM TEAM T"
+                        + " JOIN SCORE S"
+                        + " ON S.TEAM_ID = T.ID"
+                        + " JOIN GAME G"
+                        + " ON S.GAME_ID = G.ID"
+                        + $" WHERE G.TOURNAMENT_ID = {tournId}) AS A"
+                        + " JOIN"
+                        + " (SELECT T.NAME, S.*"
+                        + " FROM TEAM T"
+                        + " JOIN SCORE S"
+                        + " ON S.TEAM_ID = T.ID"
+                        + " JOIN GAME G"
+                        + " ON S.GAME_ID = G.ID"
+                        + $" WHERE G.TOURNAMENT_ID = {tournId}) AS B"
+                        + " ON A.GAME_ID = B.GAME_ID AND A.NAME <> B.NAME) AS SUBSTATS"
+                        + " GROUP BY SUBSTATS.NAME) AS SUBVALS"
+                        + " GROUP BY SUBVALS.NAME"
+                        + " ORDER BY Points desc, Difference DESC"
+                        + " ) As Total, (SELECT @`curRow` := 0) r";
+
+            using (MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;"))
+            {
+                try
+                {
+                    con.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                    {
+                        //cmd.Parameters.AddWithValue("@curRow", 0);
+                        dt.Load(cmd.ExecuteReader());
+                        return dt;
+                    }
+                }
+                catch (MySqlException e)
+                {
+                    throw e;
+                }
             }
         }
 

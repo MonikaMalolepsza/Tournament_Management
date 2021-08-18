@@ -203,6 +203,7 @@
     <Content Include="View\GameManagement.aspx" />
     <Content Include="View\PersonalManagement.aspx" />
     <Content Include="Bundle.config" />
+    <Content Include="View\Ranking.aspx" />
     <Content Include="View\TeamManagement.aspx" />
     <Content Include="View\TournamentManagement.aspx" />
     <Content Include="Web.config" />
@@ -263,6 +264,13 @@
     </Compile>
     <Compile Include="View\PersonalManagement.aspx.designer.cs">
       <DependentUpon>PersonalManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\Ranking.aspx.cs">
+      <DependentUpon>Ranking.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\Ranking.aspx.designer.cs">
+      <DependentUpon>Ranking.aspx</DependentUpon>
     </Compile>
     <Compile Include="View\TeamManagement.aspx.cs">
       <DependentUpon>TeamManagement.aspx</DependentUpon>

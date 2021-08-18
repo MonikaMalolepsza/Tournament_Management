@@ -75,9 +75,10 @@
                     <ul class="nav navbar-nav">
                         <li><a runat="server" href="~/Home">Home</a></li>
                         <li><a runat="server" href="~/View/TeamManagement">Teams</a></li>
+                        <li><a runat="server" href="~/View/PersonalManagement">People</a></li>
                         <li><a runat="server" href="~/View/TournamentManagement">Tournaments</a></li>
                         <li><a runat="server" href="~/View/GameManagement">Games</a></li>
-                        <li><a runat="server" href="~/View/PersonalManagement">People</a></li>
+                        <li><a runat="server" href="~/View/Ranking">Ranking</a></li>
                     </ul>
                 </div>
             </div>
@@ -92,6 +93,8 @@
             <asp:ContentPlaceHolder ID="TournamentManagement" runat="server">
             </asp:ContentPlaceHolder>
             <asp:ContentPlaceHolder ID="Games" runat="server">
+            </asp:ContentPlaceHolder>
+            <asp:ContentPlaceHolder ID="Ranking" runat="server">
             </asp:ContentPlaceHolder>
             <hr />
             <footer>

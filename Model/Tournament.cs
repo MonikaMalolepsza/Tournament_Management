@@ -11,6 +11,7 @@ namespace Tournament_Management.Model
         #region Attributes
 
         private List<Game> _games;
+        private List<Team> _teams;
         private int _type;
         private int _id;
         private string _name;
@@ -25,6 +26,7 @@ namespace Tournament_Management.Model
         public string Name { get => _name; set => _name = value; }
         public bool Active { get => _active; set => _active = value; }
         public List<Game> Games { get => _games; set => _games = value; }
+        public List<Team> Teams { get => _teams; set => _teams = value; }
 
         #endregion Properties
 
@@ -182,6 +184,43 @@ namespace Tournament_Management.Model
                     Game g = new Game();
                     g.Get((int)reader.GetInt64("ID"));
                     result.Add(g);
+                }
+
+                reader.Close();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                con.Close();
+            }
+            return result;
+        }
+
+        public List<Team> GetAllTeams()
+        {
+            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+
+            List<Team> result = new List<Team>();
+            try
+            {
+                /*
+                 TODO: TEST THIS!!
+                 */
+
+                con.Open();
+                string query = $"SELECT team_id FROM TOURNAMENT_PARTICIPANTS TP WHERE TP.tournament_id = '{Id}'";
+
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Team t = new Team();
+                    t.Get((int)reader.GetInt64("ID"));
+                    result.Add(t);
                 }
 
                 reader.Close();

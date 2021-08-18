@@ -8,12 +8,6 @@ using Tournament_Management.ControllerNS;
 using Tournament_Management.Helper;
 using Tournament_Management.Model;
 
-/*
- TODO:
-1. test the delete/add/update - might be that some queries have to be corrected
-2. put/update/del games
- */
-
 namespace Tournament_Management.View
 {
     public partial class TournamentManagement : System.Web.UI.Page
@@ -30,6 +24,30 @@ namespace Tournament_Management.View
             if (Controller.ActiveParticipant != -1) LoadTournaments();
             typeList.SelectedValue = Controller.ActiveParticipant.ToString();
         }
+
+        /* not a part of evaluation sheet!
+                public List<Team> Participants
+                {
+                    get
+                    {
+                        if (ViewState["Participants"] != null)
+                            return (List<Team>)ViewState["Participants"];
+                        return null;
+                    }
+                    set => ViewState["Participants"] = value;
+                }
+
+                public List<Team> Candidates
+                {
+                    get
+                    {
+                        if (ViewState["Candidates"] != null)
+                            return (List<Team>)ViewState["Candidates"];
+                        return null;
+                    }
+                    set => ViewState["Candidates"] = value;
+                }
+        */
 
         private void LoadInput()
         {
@@ -287,7 +305,6 @@ namespace Tournament_Management.View
 
         protected void btnOverview_Click(object sender, CommandEventArgs e)
         {
-            //Response.Write(e.CommandArgument.ToString());
             Controller.ActiveParticipant = Convert.ToInt32(e.CommandArgument);
             Response.Redirect("~/View/GameManagement");
         }
@@ -300,10 +317,55 @@ namespace Tournament_Management.View
 
         protected void btnToggleInputs_Click(object sender, CommandEventArgs e)
         {
+            //   Participants = Controller.Tournaments.First(x => x.Id == Convert.ToInt32(e.CommandName)).GetAllTeams();
+            //  Candidates = Controller.GetAllCandidates(Convert.ToInt32(e.CommandName));
+
             //update style to visibility: visible on row for index!
             tblTournaments.Rows[Convert.ToInt32(e.CommandArgument)].Style.Clear();
             tblTournaments.Rows[Convert.ToInt32(e.CommandArgument)].Style.Add("visibility", "visible");
+            //    tblTournaments.Rows[Convert.ToInt32(e.CommandArgument) + 1].Style.Clear();
+            //    tblTournaments.Rows[Convert.ToInt32(e.CommandArgument) + 1].Style.Add("visibility", "visible");
         }
+
+        /*
+                protected void btnParticipant_Click(object sender, CommandEventArgs e)
+                {
+                    string value = Request.Form[$"ctl00$TeamManagement$edittxtParticipants{e.CommandArgument}"];
+                    Team mmbr = Participants.Find(x => x.Name.Contains(value));
+                    if (mmbr != null)
+                    {
+                        // (Controller.Participants[Convert.ToInt32(e.CommandArgument)] as Team).List.Remove(mmbr);
+                        Participants.Remove(mmbr);
+                        Candidates.Add(mmbr);
+                    }
+                    else
+                    {
+                    }
+                    (tblTournaments.Rows[Convert.ToInt32(e.CommandArgument)].Cells[0].FindControl($"edittxtParticipants{ e.CommandArgument}") as ListBox).DataBind();
+                    (tblTournaments.Rows[Convert.ToInt32(e.CommandArgument)].Cells[2].FindControl($"edittxtCandidates{ e.CommandArgument}") as ListBox).DataBind();
+
+                    //    Response.Redirect(Request.RawUrl);
+                }
+
+                protected void btnCandidate_Click(object sender, CommandEventArgs e)
+                {
+                    string value = Request.Form[$"ctl00$TeamManagement$edittxtCandidates{e.CommandArgument}"];
+                    Team mmbrNew = null;
+                    if (value != null) mmbrNew = Candidates.Find(x => x.Name.Contains(value));
+                    if (mmbrNew != null)
+                    {
+                        Candidates.Remove(mmbrNew);
+                        Participants.Add(mmbrNew);
+                        //(Controller.Participants[Convert.ToInt32(e.CommandArgument)] as Team).List.Add(mmbrNew);
+                    }
+                    else
+                    {
+                    }
+                    //    Response.Redirect(Request.RawUrl);
+                    (tblTournaments.Rows[Convert.ToInt32(e.CommandArgument)].Cells[0].FindControl($"edittxtParticipants{ e.CommandArgument}") as ListBox).DataBind();
+                    (tblTournaments.Rows[Convert.ToInt32(e.CommandArgument)].Cells[2].FindControl($"edittxtCandidates{ e.CommandArgument}") as ListBox).DataBind();
+                }
+        */
 
         protected void btnSubmit_Click(object sender, CommandEventArgs e)
         {

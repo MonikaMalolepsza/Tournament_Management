@@ -47,6 +47,8 @@ namespace Tournament_Management.Model
 
         public void Update()
         {
+            // TODO smth still not working...
+
             MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
 
             con.Open();

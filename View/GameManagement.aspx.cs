@@ -106,7 +106,7 @@ namespace Tournament_Management.View
 
             foreach (Game g in cTournament.Games)
             {
-                // TODO: outofrangeexception with tournamentid = 10, 9  second game is with only 0 for every attribute initialized!??
+                // TODO: ArgumentOutOfRangeException with tournamentid = 10, 9  second game is with only 0 for every attribute initialized!??
                 t1 = Controller.Participants.FirstOrDefault(y => y.Id == g.Scores[0].Team) as Team;
                 t2 = Controller.Participants.FirstOrDefault(y => y.Id == g.Scores[1].Team) as Team;
 
@@ -133,7 +133,7 @@ namespace Tournament_Management.View
                 newCell.Text = g.Scores[1].Points.ToString();
                 newRow.Cells.Add(newCell);
 
-                String txtW;
+                string txtW;
                 int winner = findWinner(g.Scores[0], g.Scores[1]);
                 if (winner == -1) txtW = "draw";
                 else txtW = Controller.Participants.FirstOrDefault(elem => elem.Id == winner).Name;
@@ -180,6 +180,7 @@ namespace Tournament_Management.View
                 ddlist.SelectedValue = g.Scores[0].Team.ToString();
                 ddlist.DataValueField = "Id";
                 ddlist.DataTextField = "Name";
+                ddlist.DataBind();
                 ddlist.CssClass = "form-control";
                 newCell.Controls.Add(ddlist);
                 newCell.ID = $"cellT1Gedit{g.Id}";
@@ -201,6 +202,7 @@ namespace Tournament_Management.View
                 ddlist.SelectedValue = g.Scores[1].Team.ToString();
                 ddlist.DataValueField = "Id";
                 ddlist.DataTextField = "Name";
+                ddlist.DataBind();
                 ddlist.CssClass = "form-control";
                 newCell.Controls.Add(ddlist);
                 newCell.ID = $"cellT2Gedit{g.Id}";
@@ -242,7 +244,6 @@ namespace Tournament_Management.View
                 row.Cells.Add(newCell);
 
                 tblGames.Rows.Add(row);
-
                 //t1 = new Team();
                 //t2 = new Team();
             }
@@ -268,12 +269,14 @@ namespace Tournament_Management.View
         private void btnEdit_Click(object sender, CommandEventArgs e)
         {
             //update the game in a tournament ??
-            //string index = e.CommandArgument.ToString();
-            //Tournament tmp = Controller.Tournaments.First(x => x.Id == Convert.ToInt32(e.CommandArgument));
-            //tmp.Name = Request.Form[$"ctl00$TournamentManagement$edittxtName{index}"];
-            //tmp.Active = Request.Form[$"ctl00$TournamentManagement$edittxtActive{index}"].GetTrueFalseString(); ;
-            //tmp.Type = Convert.ToInt32(Request.Form[$"ctl00$TournamentManagement$edittxtType{index}"]);
-            //tmp.Update();
+            string index = e.CommandArgument.ToString();
+            Game tmp = Controller.Tournaments.First(x => x.Id == Controller.ActiveParticipant).Games.First(item => item.Id == Convert.ToInt32(e.CommandArgument));
+            tmp.Scores[0].Points = Convert.ToInt32(Request.Form[$"ctl00$Games$txtS1Gedit{index}"]);
+            tmp.Scores[0].Team = Convert.ToInt32(Request.Form[$"ctl00$Games$ddlistT1G{index}"]);
+            tmp.Scores[1].Team = Convert.ToInt32(Request.Form[$"ctl00$Games$ddlistT2G{index}"]);
+            tmp.Scores[1].Points = Convert.ToInt32(Request.Form[$"ctl00$Games$txtS2Gedit{index}"]);
+            tmp.TournamentId = Controller.ActiveParticipant;
+            tmp.Update();
             this.hideInputs();
 
             Response.Redirect(Request.RawUrl);
