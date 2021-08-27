@@ -19,9 +19,11 @@ namespace Tournament_Management.ControllerNS
         private List<Tournament> _tournaments;
         private List<Game> _games;
         private Participant _newParticipant;
+        private User _user;
         private int _activeParticipant;
 
         private Dictionary<int, string> _typeList;
+        private Dictionary<int, string> _roles;
 
         #endregion Attributes
 
@@ -38,6 +40,8 @@ namespace Tournament_Management.ControllerNS
         public int ActiveParticipant { get => _activeParticipant; set => _activeParticipant = value; }
         public List<Tournament> Tournaments { get => _tournaments; set => _tournaments = value; }
         public List<Game> Games { get => _games; set => _games = value; }
+        public User User { get => _user; set => _user = value; }
+        public Dictionary<int, string> Roles { get => _roles; set => _roles = value; }
 
         #endregion Properties
 
@@ -52,11 +56,14 @@ namespace Tournament_Management.ControllerNS
             Referees = new List<Referee>();
             Tournaments = new List<Tournament>();
             TypeList = new Dictionary<int, string>();
+            Roles = new Dictionary<int, string>();
             Participants = new List<Participant>();
+            User = new User();
             Games = new List<Game>();
             ActiveParticipant = -1;
 
             GetAllTypes();
+            GetAllRoles();
             //GetAllPeople();
         }
 
@@ -91,6 +98,34 @@ namespace Tournament_Management.ControllerNS
                 while (reader.Read())
                 {
                     TypeList.Add(reader.GetInt32("id"), reader.GetString("type"));
+                }
+                reader.Close();
+            }
+            catch (Exception e)
+            {
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public void GetAllRoles()
+        {
+            Roles.Clear();
+            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+
+            string selectTypes = "SELECT * FROM Roles";
+            try
+            {
+                con.Open();
+
+                MySqlCommand cmd = new MySqlCommand(selectTypes, con);
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Roles.Add(reader.GetInt32("id"), reader.GetString("role_d"));
                 }
                 reader.Close();
             }
@@ -565,6 +600,29 @@ namespace Tournament_Management.ControllerNS
                 {
                     throw e;
                 }
+            }
+        }
+
+        public void Authenticate(string email, string pass)
+        {
+            string query = $"SELECT ID FROM AUTH_USER WHERE email = @email, PASSWORD=@PASS";
+            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+
+            try
+            {
+                con.Open();
+
+                MySqlCommand cmd = new MySqlCommand(query, con);
+
+                cmd.Parameters.Add(new MySqlParameter("@email", email));
+                cmd.Parameters.Add(new MySqlParameter("@PASS", pass));
+
+                var result = cmd.ExecuteScalar();
+                User.Get(Convert.ToInt32(result));
+            }
+            finally
+            {
+                con.Close();
             }
         }
 

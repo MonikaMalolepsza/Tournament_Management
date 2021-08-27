@@ -6,53 +6,64 @@ using System.Web;
 
 namespace Tournament_Management.Model
 {
-    public class User : Person
+    public class User
     {
-        
         #region Attributes
 
-        private string _username;
-        private string _passwort;
+        private string _email;
+        private string _name;
+        private string _surname;
+        private string _password;
         private int _role;
+        private int _id;
 
-        #endregion
+        #endregion Attributes
 
         #region Properties
-        public string Passwort { get => _passwort; set => _passwort = value; }
-        public int Role { get => _role; set => _role = value; }
-        public string Username { get => _username; set => _username = value; }
 
-        #endregion
+        public string Password { get => _password; set => _password = value; }
+        public int Role { get => _role; set => _role = value; }
+        public string Email { get => _email; set => _email = value; }
+        public string Name { get => _name; set => _name = value; }
+        public string Surname { get => _surname; set => _surname = value; }
+        public int Id { get => _id; set => _id = value; }
+
+        #endregion Properties
 
         #region Constructors
 
         public User()
         {
-            this.Username = "";
-            this.Passwort = "";
+            this.Email = "";
+            this.Password = "";
+            this.Name = "";
+            this.Surname = "";
             this.Role = 1;
         }
 
-        public User(string name, bool active, string surname, string un, string pass, int r) : base(name, surname, active)
+        public User(string name, string surname, string un, string pass, int r)
         {
-            this.Passwort = pass;
+            this.Password = pass;
             this.Role = r;
-            this.Username = un;
-
+            this.Email = un;
+            this.Name = name;
+            this.Surname = surname;
         }
 
         public User(string username, string passwort)
         {
-            this.Passwort = passwort;
+            this.Password = passwort;
             this.Role = 1;
-            this.Username = username;
+            this.Email = username;
+            this.Name = "";
+            this.Surname = "";
         }
 
-        #endregion
+        #endregion Constructors
 
         #region Methods
 
-        public override void Update()
+        public void Update()
         {
             MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
 
@@ -61,24 +72,22 @@ namespace Tournament_Management.Model
 
             try
             {
+                /*    string updatePerson = $"UPDATE PERSON SET name='{Name}', age='{Age}', surname='{Surname}', active='{Active}' WHERE ID='{Id}'";
+                    string updateTrainer = $"UPDATE TRAINER SET type_id='{Type}' WHERE PERSON_ID= '{Id}'";
 
-            /*    string updatePerson = $"UPDATE PERSON SET name='{Name}', age='{Age}', surname='{Surname}', active='{Active}' WHERE ID='{Id}'";
-                string updateTrainer = $"UPDATE TRAINER SET type_id='{Type}' WHERE PERSON_ID= '{Id}'";
+                    MySqlCommand cmd = new MySqlCommand()
+                    {
+                        Connection = con,
+                        Transaction = transaction
+                    };
 
-                MySqlCommand cmd = new MySqlCommand()
-                {
-                    Connection = con,
-                    Transaction = transaction
-                };
+                    cmd.CommandText = updatePerson;
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = updateTrainer;
+                    cmd.ExecuteNonQuery();
 
-                cmd.CommandText = updatePerson;
-                cmd.ExecuteNonQuery();
-                cmd.CommandText = updateTrainer;
-                cmd.ExecuteNonQuery();
-
-                transaction.Commit();
-                */
-
+                    transaction.Commit();
+                    */
             }
             catch (Exception e)
             {
@@ -90,7 +99,7 @@ namespace Tournament_Management.Model
             }
         }
 
-        public override void Put()
+        public void Put()
         {
             MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
 
@@ -99,16 +108,14 @@ namespace Tournament_Management.Model
 
             try
             {
-
-                string insertParticipant = $"INSERT INTO PERSON (name, surname, age, active) VALUES ('{Name}', '{Surname}', '{Age}', '{Active}')";
-
+                // string insertParticipant = $"INSERT INTO PERSON (name, surname, age, active) VALUES ('{Name}', '{Surname}', )";
 
                 MySqlCommand cmd = new MySqlCommand()
                 {
                     Connection = con,
                     Transaction = transaction
                 };
-                
+
                 /*
                 cmd.CommandText = insertParticipant;
                 cmd.ExecuteNonQuery();
@@ -117,10 +124,8 @@ namespace Tournament_Management.Model
                 cmd.CommandText = insertTrainer;
                 cmd.ExecuteNonQuery();
 
-
                 transaction.Commit();
                 */
-
             }
             catch (Exception e)
             {
@@ -129,11 +134,10 @@ namespace Tournament_Management.Model
             finally
             {
                 con.Close();
-
             }
         }
 
-        public override void Delete()
+        public void Delete()
         {
             MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
 
@@ -148,23 +152,21 @@ namespace Tournament_Management.Model
             }
             catch (Exception e)
             {
-
             }
             finally
             {
                 con.Close();
-
             }
         }
 
-        public override void Get(int id)
+        public void Get(int id)
         {
             MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
 
             try
             {
                 con.Open();
-                string query = $"SELECT * FROM PERSON P JOIN USER U ON P.ID = U.PERSON_ID  WHERE P.ID = '{id}'";
+                string query = $"SELECT * FROM AUTH_USER U WHERE U.ID = '{id}'";
                 MySqlCommand cmd = new MySqlCommand(query, con);
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -172,26 +174,22 @@ namespace Tournament_Management.Model
                 {
                     Id = reader.GetInt32("id");
                     Name = reader.GetString("name");
-                    Username = reader.GetString("username");
+                    Email = reader.GetString("email");
                     Surname = reader.GetString("surname");
-                    Active = reader.GetBoolean("active");
-                    Age = reader.GetInt32("age");
-                    Role = reader.GetInt32("role");
+                    Role = reader.GetInt32("role_id");
                 }
 
                 reader.Close();
-
             }
             catch (Exception e)
             {
-
             }
             finally
             {
                 con.Close();
             }
         }
-        
-        #endregion
+
+        #endregion Methods
     }
 }
