@@ -49,6 +49,11 @@ namespace Tournament_Management.Model
             this.Active = active;
         }
 
+        public Person(string name, string surname, bool active) : base(name)
+        {
+            this.Active = active;
+            this.Surname = surname;
+        }
         #endregion Constructors
 
         #region Methods
