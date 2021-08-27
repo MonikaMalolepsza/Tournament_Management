@@ -10,7 +10,7 @@
 namespace Tournament_Management {
     
     
-    public partial class Home {
+    public partial class Login {
         
         /// <summary>
         /// loginForm-Steuerelement

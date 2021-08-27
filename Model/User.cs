@@ -17,7 +17,6 @@ namespace Tournament_Management.Model
 
         #endregion
 
-
         #region Properties
         public string Passwort { get => _passwort; set => _passwort = value; }
         public int Role { get => _role; set => _role = value; }

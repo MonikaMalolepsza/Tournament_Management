@@ -1,27 +1,7 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" Title="Login" MasterPageFile="~/Base.Master" CodeBehind="Login.aspx.cs" Inherits="Tournament_Management.Home" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" Title="Login" CodeBehind="Login.aspx.cs" Inherits="Tournament_Management.Login" %>
 
-<%--<asp:Content ID="Content1" ContentPlaceHolderID="Home" runat="server">
-    <div class="jumbotron">
-        <span>
-            <a runat="server" href="~/Home">
-                <img class="img-responsive" src="Static/Images/Board-Background.jpg" />
-            </a>
-        </span>
-        <h1 class="display-4">Hello,</h1>
-        <p class="lead">Please provide your username and password.</p>
-        <p>Not a user yet? Register below:</p>
-                    <a type="button" class="btn btn-info btn-lg" runat="server" href="~/View/Register">I'm new here</a>
-        <hr class="my-4">
-        <p></p>
-        <br />
-        <div> 
-
-            <a type="button" class="btn btn-info btn-lg" runat="server" href="~/View/TournamentManagement">go to tournaments</a>
-        </div>
-    </div>
-
-</asp:Content>--%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 
 <script runat="server">
 bool IsValidEmail(string strIn)
@@ -53,30 +33,47 @@ void OnLoginError(object sender, EventArgs e)
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
     <head runat="server">
-    <title>ASP.NET Example</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - Tournament Management</title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
 </head>
 <body>
-        <form id="loginForm" runat="server">
-            <asp:Login id="Login1" runat="server" 
-                BorderStyle="Solid" 
-                BackColor="#F7F7DE" 
-                BorderWidth="1px"
-                BorderColor="#CCCC99" 
-                Font-Size="10pt" 
-                Font-Names="Verdana" 
-                CreateUserText="Create a new user..."
-                CreateUserUrl="newUser.aspx" 
-                HelpPageUrl="help.aspx"
-                PasswordRecoveryUrl="getPass.aspx" 
-                UserNameLabelText="Email address:" 
-                OnLoggingIn="OnLoggingIn"
-                OnLoginError="OnLoginError" >
-                <TitleTextStyle Font-Bold="True" 
-                    ForeColor="#FFFFFF" 
-                    BackColor="#6B696B">
-                </TitleTextStyle>
-            </asp:Login>
+    <div class="container-fluid">
 
+        <form id="loginForm" runat="server">
+                           <table style="text-align:center; border:1">
+                <tr>
+                    <td align="center">
+ <asp:Login id="Login1" runat="server"
+                        CssClass="form-group"
+                        CreateUserText="Create a new user..."
+                        CreateUserUrl="newUser.aspx" 
+                        Orientation="Vertical" 
+                        TextLayout="TextOnTop"
+                        HelpPageUrl="help.aspx"
+                        PasswordRecoveryUrl="getPass.aspx" 
+                        UserNameLabelText="Email address:&nbsp;&nbsp;" 
+                        OnLoggingIn="OnLoggingIn"
+                        OnLoginError="OnLoginError" >
+                    <TextBoxStyle CssClass="form-control"  />
+                    <LabelStyle CssClass="text-left" />
+                    <FailureTextStyle CssClass="form-control" />
+                    <HyperLinkStyle CssClass="link-info" />
+                    <LoginButtonStyle CssClass="btn btn-info" />
+                </asp:Login>
+                        </td>
+                    </tr>
+            </table>
         </form>
+    </div>
+        
     </body>
 </html>
