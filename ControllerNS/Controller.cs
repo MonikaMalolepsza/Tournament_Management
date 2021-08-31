@@ -605,7 +605,7 @@ namespace Tournament_Management.ControllerNS
 
         public void Authenticate(string email, string pass)
         {
-            string query = $"SELECT ID FROM AUTH_USER WHERE email = @email, PASSWORD=@PASS";
+            string query = $"SELECT ID FROM authUser WHERE email = @email, PASSWORD=@PASS";
             MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
 
             try

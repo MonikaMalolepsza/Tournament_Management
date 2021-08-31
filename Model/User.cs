@@ -166,7 +166,7 @@ namespace Tournament_Management.Model
             try
             {
                 con.Open();
-                string query = $"SELECT * FROM AUTH_USER U WHERE U.ID = '{id}'";
+                string query = $"SELECT * FROM authUser U WHERE U.ID = '{id}'";
                 MySqlCommand cmd = new MySqlCommand(query, con);
                 MySqlDataReader reader = cmd.ExecuteReader();
 
