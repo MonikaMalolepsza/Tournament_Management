@@ -6,39 +6,57 @@ using System.Web;
 
 namespace Tournament_Management.Model
 {
-    public class Game
+    public class User
     {
         #region Attributes
 
-        private List<Score> _scores;
-        private int _tournamentId;
+        private string _email;
+        private string _name;
+        private string _surname;
+        private string _password;
+        private int _role;
         private int _id;
 
         #endregion Attributes
 
         #region Properties
 
+        public string Password { get => _password; set => _password = value; }
+        public int Role { get => _role; set => _role = value; }
+        public string Email { get => _email; set => _email = value; }
+        public string Name { get => _name; set => _name = value; }
+        public string Surname { get => _surname; set => _surname = value; }
         public int Id { get => _id; set => _id = value; }
-        public int TournamentId { get => _tournamentId; set => _tournamentId = value; }
-        public List<Score> Scores { get => _scores; set => _scores = value; }
 
         #endregion Properties
 
         #region Constructors
 
-        public Game()
+        public User()
         {
-            this.Id = 0;
-            this.Scores = new List<Score>();
+            this.Email = "";
+            this.Password = "";
+            this.Name = "";
+            this.Surname = "";
+            this.Role = 1;
         }
 
-        public Game(int t1, int score1, int t2, int score2, int id)
+        public User(string name, string surname, string un, string pass, int r)
         {
-            this.Id = 0;
-            this.Scores = new List<Score>();
-            Scores.Add(new Score(t1, score1));
-            Scores.Add(new Score(t2, score2));
-            this.Id = id;
+            this.Password = pass;
+            this.Role = r;
+            this.Email = un;
+            this.Name = name;
+            this.Surname = surname;
+        }
+
+        public User(string username, string passwort)
+        {
+            this.Password = passwort;
+            this.Role = 1;
+            this.Email = username;
+            this.Name = "";
+            this.Surname = "";
         }
 
         #endregion Constructors
@@ -47,8 +65,6 @@ namespace Tournament_Management.Model
 
         public void Update()
         {
-            // TODO smth still not working...
-
             MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
 
             con.Open();
@@ -56,28 +72,22 @@ namespace Tournament_Management.Model
 
             try
             {
-                string updatePerson = $"UPDATE Game SET tournament_id='{TournamentId}' WHERE ID='{Id}'";
+                /*    string updatePerson = $"UPDATE PERSON SET name='{Name}', age='{Age}', surname='{Surname}', active='{Active}' WHERE ID='{Id}'";
+                    string updateTrainer = $"UPDATE TRAINER SET type_id='{Type}' WHERE PERSON_ID= '{Id}'";
 
-                MySqlCommand cmd = new MySqlCommand()
-                {
-                    Connection = con,
-                    Transaction = transaction
-                };
-
-                cmd.CommandText = updatePerson;
-                cmd.ExecuteNonQuery();
-                if (Scores != null && Scores.Count > 0)
-                {
-                    foreach (Score s in Scores)
+                    MySqlCommand cmd = new MySqlCommand()
                     {
-                        string insertScores = $"UPDATE Score SET team_id='{s.Team}', score='{s.Points}' WHERE GAME_ID='{Id}'";
-                        cmd.CommandText = insertScores;
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-                cmd.ExecuteNonQuery();
+                        Connection = con,
+                        Transaction = transaction
+                    };
 
-                transaction.Commit();
+                    cmd.CommandText = updatePerson;
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = updateTrainer;
+                    cmd.ExecuteNonQuery();
+
+                    transaction.Commit();
+                    */
             }
             catch (Exception e)
             {
@@ -98,7 +108,7 @@ namespace Tournament_Management.Model
 
             try
             {
-                string insertQuery = $"INSERT INTO GAME (tournament_id) VALUES ('{TournamentId}')";
+                // string insertParticipant = $"INSERT INTO PERSON (name, surname, age, active) VALUES ('{Name}', '{Surname}', )";
 
                 MySqlCommand cmd = new MySqlCommand()
                 {
@@ -107,29 +117,15 @@ namespace Tournament_Management.Model
                 };
 
                 /*
-
-                      `team_id` INT(11) NULL DEFAULT NULL,
-                      `game_id` INT(11) NULL DEFAULT NULL,
-                      `score` INT(3) NULL DEFAULT NULL,
-
-                 */
-
-                cmd.CommandText = insertQuery;
+                cmd.CommandText = insertParticipant;
                 cmd.ExecuteNonQuery();
-                int game_id = (int)cmd.LastInsertedId;
-
-                if (Scores != null && Scores.Count > 0)
-                {
-                    foreach (Score s in Scores)
-                    {
-                        string insertScores = $"INSERT INTO SCORE (team_id, game_id, score) VALUES('{s.Team}', '{Id}', '{s.Points}')";
-                        cmd.CommandText = insertScores;
-                        cmd.ExecuteNonQuery();
-                    }
-                }
+                int person_id = (int)cmd.LastInsertedId;
+                string insertTrainer = $"INSERT INTO TRAINER (team_id, person_id, type_id) VALUES('1', '{person_id}', '{Type}')";
+                cmd.CommandText = insertTrainer;
                 cmd.ExecuteNonQuery();
 
                 transaction.Commit();
+                */
             }
             catch (Exception e)
             {
@@ -149,7 +145,7 @@ namespace Tournament_Management.Model
             {
                 con.Open();
 
-                string query = $"DELETE FROM GAME WHERE ID = '{Id}'";
+                string query = $"DELETE FROM PERSON WHERE ID = '{Id}'";
                 MySqlCommand cmd = new MySqlCommand(query, con);
 
                 cmd.ExecuteNonQuery();
@@ -170,29 +166,23 @@ namespace Tournament_Management.Model
             try
             {
                 con.Open();
-                string query = $"SELECT * FROM GAME G JOIN SCORE S ON G.ID = S.GAME_ID  WHERE G.ID = '{id}'";
+                string query = $"SELECT * FROM authUser U WHERE U.ID = '{id}'";
                 MySqlCommand cmd = new MySqlCommand(query, con);
                 MySqlDataReader reader = cmd.ExecuteReader();
 
                 while (reader.Read())
                 {
-                    /*
-                     * TODO:
-                     no idea if this works :D
-                     */
-                    Score scoreSet = new Score();
                     Id = reader.GetInt32("id");
-                    TournamentId = reader.GetInt32("tournament_id");
-                    scoreSet.Points = reader.GetInt32("score");
-                    scoreSet.Team = reader.GetInt32("team_id");
-                    Scores.Add(scoreSet);
+                    Name = reader.GetString("name");
+                    Email = reader.GetString("email");
+                    Surname = reader.GetString("surname");
+                    Role = reader.GetInt32("role_id");
                 }
 
                 reader.Close();
             }
             catch (Exception e)
             {
-                throw e;
             }
             finally
             {

@@ -3,6 +3,12 @@
                                      `type` VARCHAR(100) NULL DEFAULT NULL,
                                      PRIMARY KEY (`id`)
 );
+
+CREATE TABLE `tournament`.`roles` (
+                                     `id` INT(11) NOT NULL AUTO_INCREMENT,
+                                     `role_d` VARCHAR(100) NULL DEFAULT NULL,
+                                     PRIMARY KEY (`id`)
+);
 CREATE TABLE `tournament`.`team` (
                                      `id` INT(11) NOT NULL AUTO_INCREMENT,
                                      PRIMARY KEY (`id`),
@@ -142,4 +148,16 @@ CREATE TABLE `tournament`.`physio` (
                                        PRIMARY KEY (`id`),
                                        INDEX `fk_ph_person` (`person_id`),
                                        CONSTRAINT `fk_ph_person` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE `tournament`.`authUser` (
+                                       `id` INT(11) NOT NULL AUTO_INCREMENT,
+                                       `name` VARCHAR(50) NULL DEFAULT NULL,
+                                       `surname` VARCHAR(50) NULL DEFAULT NULL,
+                                       `email` VARCHAR(50) NOT NULL,
+                                       `password` VARCHAR(50) NOT NULL,
+                                       `role_id` INT(11) NOT NULL DEFAULT NULL,
+                                       PRIMARY KEY (`id`),
+                                       INDEX `fk_role_id` (`role_id`),
+                                       CONSTRAINT `fk_role_id` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
 );

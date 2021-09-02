@@ -38,9 +38,5 @@
             <asp:Table ID="tblTournaments" CssClass="table" runat="server"></asp:Table>
         </div>
         <br />
-        <div class="panel panel-info">
-            <asp:Table Visible="false" ID="tblGames" CssClass="table" runat="server"></asp:Table>
-        </div>
-        <br />
     </div>
 </asp:Content>

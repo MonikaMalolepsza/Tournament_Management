@@ -245,18 +245,52 @@ INSERT INTO GAME (id, tournament_id) VALUES (7, 7);
 INSERT INTO GAME (id, tournament_id) VALUES (8, 8);
 INSERT INTO GAME (id, tournament_id) VALUES (9, 9);
 INSERT INTO GAME (id, tournament_id) VALUES (10, 10);
+INSERT INTO GAME (id, tournament_id) VALUES (18, 10);
+INSERT INTO GAME (id, tournament_id) VALUES (11, 1);
+INSERT INTO GAME (id, tournament_id) VALUES (12, 1);
+INSERT INTO GAME (id, tournament_id) VALUES (13, 3);
+INSERT INTO GAME (id, tournament_id) VALUES (14, 6);
+INSERT INTO GAME (id, tournament_id) VALUES (15, 7);
+INSERT INTO GAME (id, tournament_id) VALUES (16, 8);
+INSERT INTO GAME (id, tournament_id) VALUES (17, 9);
 
 -- SCORE
 INSERT INTO SCORE (id, team_id, score, game_id) VALUES (1, 1, 2, 2);
 INSERT INTO SCORE (id, team_id, score, game_id) VALUES (2, 2, 1, 2);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (11, 1, 0, 1);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (12, 2, 10, 1);
 INSERT INTO SCORE (id, team_id, score, game_id) VALUES (3, 3, 0, 3);
 INSERT INTO SCORE (id, team_id, score, game_id) VALUES (4, 4, 3, 3);
 INSERT INTO SCORE (id, team_id, score, game_id) VALUES (5, 5, 80, 9);
-INSERT INTO SCORE (id, team_id, score, game_id) VALUES (6, 6, 0, 4);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (6, 6, 0, 6);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (19, 5, 2, 4);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (20, 6, 7, 4);
 INSERT INTO SCORE (id, team_id, score, game_id) VALUES (7, 7, 15, 5);
 INSERT INTO SCORE (id, team_id, score, game_id) VALUES (8, 6, 22, 5);
 INSERT INTO SCORE (id, team_id, score, game_id) VALUES (9, 9, 70, 9);
-INSERT INTO SCORE (id, team_id, score, game_id) VALUES (10, 3, 4, 4);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (10, 3, 4, 6);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (13, 5, 2, 7);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (14, 9, 2, 7);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (15, 5, 2, 8);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (16, 9, 2, 8);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (17, 8, 0, 10);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (18, 1, 0, 10);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (19, 2, 2, 11);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (35, 2, 2, 11);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (21, 4, 2, 12);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (22, 3, 2, 12);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (23, 5, 2, 13);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (24, 6, 2, 13);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (25, 1, 2, 14);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (26, 2, 1, 14);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (27, 2, 0, 15);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (28, 3, 0, 15);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (29, 7, 20, 16);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (30, 8, 40, 16);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (31, 7, 12, 17);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (32, 9, 20, 17);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (33, 9, 0, 18);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (34, 1, 0, 18);
 
 -- TOURNAMENT_PARTICIPANTS
 INSERT INTO TOURNAMENT_PARTICIPANTS (id, team_id, tournament_id) VALUES (1, 1, 3);
@@ -268,5 +302,21 @@ INSERT INTO TOURNAMENT_PARTICIPANTS (id, team_id, tournament_id) VALUES (6, 5, 9
 INSERT INTO TOURNAMENT_PARTICIPANTS (id, team_id, tournament_id) VALUES (7, 6, 4);
 INSERT INTO TOURNAMENT_PARTICIPANTS (id, team_id, tournament_id) VALUES (8, 7, 2);
 INSERT INTO TOURNAMENT_PARTICIPANTS (id, team_id, tournament_id) VALUES (9, 9, 9);
+
+-- AUTH_USER
+INSERT INTO AUTH_USER (id, role_id, email, password, name, surname) VALUES (1, 1, 'bb@froso.de', 'passwort1', 'Bart', 'Simpson');
+INSERT INTO AUTH_USER (id, role_id, email, password, name, surname) VALUES (2, 2, 'aa@froso.de', 'passwort2', 'Emilia', 'Clark');
+INSERT INTO AUTH_USER (id, role_id, email, password, name, surname) VALUES (3, 2, 'mm@froso.de', 'passwort3', 'Monika', 'Malolepsza');
+INSERT INTO AUTH_USER (id, role_id, email, password, name, surname) VALUES (4, 3, 'cc@froso.de', 'passwort4', 'Hashim', 'Mcleod');
+INSERT INTO AUTH_USER (id, role_id, email, password, name, surname) VALUES (5, 1, 'dd@froso.de', 'passwort5', 'Gannon', 'Paul');
+INSERT INTO AUTH_USER (id, role_id, email, password, name, surname) VALUES (6, 1, 'ee@froso.de', 'passwort6', 'Otto', 'Mccall');
+INSERT INTO AUTH_USER (id, role_id, email, password, name, surname) VALUES (7, 1, 'ff@froso.de', 'passwort7', 'Randall', 'Vance');
+INSERT INTO AUTH_USER (id, role_id, email, password, name, surname) VALUES (8, 1, 'gg@froso.de', 'passwort8', 'Acton', 'Chambers');
+INSERT INTO AUTH_USER (id, role_id, email, password, name, surname) VALUES (9, 1, 'hh@froso.de', 'passwort9', 'Aaron', 'Aaron');
+
+-- ROLES
+INSERT INTO ROLES (id, role_d) VALUES (1, 'Guest');
+INSERT INTO ROLES (id, role_d) VALUES (2, 'User');
+INSERT INTO ROLES (id, role_d) VALUES (3, 'Admin');
 
 

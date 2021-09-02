@@ -10,20 +10,25 @@ namespace Tournament_Management.Model
     public class HandballPlayer : Person
     {
         #region Attributes
+
         private int _goals;
         private double _speed;
         private int _type;
         private string _position;
 
-        #endregion
+        #endregion Attributes
+
         #region Properties
+
         public int Goals { get => _goals; set => _goals = value; }
         public string Position { get => _position; set => _position = value; }
         public double Speed { get => _speed; set => _speed = value; }
         public int Type { get => _type; set => _type = value; }
 
-        #endregion
+        #endregion Properties
+
         #region Constructors
+
         public HandballPlayer()
         {
             this.Goals = 0;
@@ -32,8 +37,10 @@ namespace Tournament_Management.Model
             this.Position = "";
         }
 
-        #endregion
+        #endregion Constructors
+
         #region Methods
+
         public override void Update()
         {
             MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
@@ -58,7 +65,6 @@ namespace Tournament_Management.Model
                 cmd.ExecuteNonQuery();
 
                 transaction.Commit();
-
             }
             catch (Exception e)
             {
@@ -67,7 +73,6 @@ namespace Tournament_Management.Model
             finally
             {
                 con.Close();
-
             }
         }
 
@@ -80,9 +85,7 @@ namespace Tournament_Management.Model
 
             try
             {
-
                 string insertParticipant = $"INSERT INTO PERSON P (name, surname, age, active) VALUES ('{Name}', '{Surname}', '{Age}', '{Active}')";
-
 
                 MySqlCommand cmd = new MySqlCommand()
                 {
@@ -90,8 +93,8 @@ namespace Tournament_Management.Model
                     Transaction = transaction
                 };
 
-                /* 
-                 
+                /*
+
                 `id` INT(11) NOT NULL AUTO_INCREMENT,
                 `position` VARCHAR(100) NULL DEFAULT NULL,
                 `speed` INT NULL,
@@ -108,7 +111,6 @@ namespace Tournament_Management.Model
                 cmd.CommandText = insertPlayer;
                 cmd.ExecuteNonQuery();
                 transaction.Commit();
-
             }
             catch (Exception e)
             {
@@ -117,10 +119,7 @@ namespace Tournament_Management.Model
             finally
             {
                 con.Close();
-
             }
-
-
         }
 
         public override void Delete()
@@ -138,14 +137,11 @@ namespace Tournament_Management.Model
             }
             catch (Exception e)
             {
-
             }
             finally
             {
                 con.Close();
-
             }
-
         }
 
         public override void Get(int id)
@@ -173,17 +169,17 @@ namespace Tournament_Management.Model
                 }
 
                 reader.Close();
-
             }
             catch (Exception e)
             {
-
             }
             finally
             {
                 con.Close();
             }
         }
-        #endregion        
+
+        #endregion Methods
+
     }
 }

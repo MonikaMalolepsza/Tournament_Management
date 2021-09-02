@@ -7,13 +7,11 @@
 // </automatisch generiert>
 //------------------------------------------------------------------------------
 
-namespace Tournament_Management
-{
-
-
-    public partial class BaseMaster
-    {
-
+namespace Tournament_Management {
+    
+    
+    public partial class BaseMaster {
+        
         /// <summary>
         /// form1-Steuerelement
         /// </summary>
@@ -22,7 +20,7 @@ namespace Tournament_Management
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-
+        
         /// <summary>
         /// Home-Steuerelement
         /// </summary>
@@ -31,7 +29,7 @@ namespace Tournament_Management
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder Home;
-
+        
         /// <summary>
         /// PersonalManagement-Steuerelement
         /// </summary>
@@ -40,7 +38,7 @@ namespace Tournament_Management
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder PersonalManagement;
-
+        
         /// <summary>
         /// TeamManagement-Steuerelement
         /// </summary>
@@ -49,7 +47,7 @@ namespace Tournament_Management
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder TeamManagement;
-
+        
         /// <summary>
         /// TournamentManagement-Steuerelement
         /// </summary>
@@ -58,5 +56,32 @@ namespace Tournament_Management
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder TournamentManagement;
+        
+        /// <summary>
+        /// Games-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder Games;
+        
+        /// <summary>
+        /// Ranking-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder Ranking;
+        
+        /// <summary>
+        /// Login-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder Login;
     }
 }

@@ -4,7 +4,7 @@
 
 <html lang="en">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%: Page.Title %> - Tournament Management</title>
@@ -13,32 +13,31 @@
         <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>
 
-    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-            <script>
+    <script>
 
-                /**
-                 * Javascript hack: find the checkbox list and add manually bootstrap classes as asp:ListItem does not support class attribute. 
-                 * We can add it dynamically after html is created.
-                 * */
-                window.onload = () => {
-                    let url = location.href
-                    console.log("Logging the current url...", url)
-                   // debugger
-                    let addClass = (id, col) => {
-                        let parentOfParent = document.getElementById(id);
-                        let parent = parentOfParent.firstElementChild.children
-                        for (let kid of parent) {
-                            console.log("Logging all the kids... ", kid)
-                            kid.className = "list-group-item well well - lg col-md-"+col
-                        }
-                    }
-                    if (url.includes("Personal")) addClass("PersonalManagement_rdbtnList1", 3)
-                    else if (url.includes("Tournament")) addClass("PersonalManagement_typeList", 4)
- 
-              }     
-               
-            </script>
+        /**
+         * Javascript hack: find the checkbox list and add manually bootstrap classes as asp:ListItem does not support class attribute.
+         * We can add it dynamically after html is created.
+         * */
+        window.onload = () => {
+            let url = location.href
+            console.log("Logging the current url...", url)
+            // debugger
+            let addClass = (id, col) => {
+                let parentOfParent = document.getElementById(id);
+                let parent = parentOfParent.firstElementChild.children
+                for (let kid of parent) {
+                    console.log("Logging all the kids... ", kid)
+                    kid.className = "list-group-item well well - lg col-md-" + col
+                }
+            }
+            if (url.includes("Personal")) addClass("PersonalManagement_rdbtnList1", 3)
+            else if (url.includes("Tournament")) addClass("PersonalManagement_typeList", 4)
+
+        }
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -74,30 +73,36 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a runat="server" href="~/Home">Home</a></li>
+                        <li><a runat="server" href="~/View/Home">Home</a></li>
                         <li><a runat="server" href="~/View/TeamManagement">Teams</a></li>
-                        <li><a runat="server" href="~/View/TournamentManagement">Tournaments</a></li>
                         <li><a runat="server" href="~/View/PersonalManagement">People</a></li>
+                        <li><a runat="server" href="~/View/TournamentManagement">Tournaments</a></li>
+                        <li><a runat="server" href="~/View/GameManagement">Games</a></li>
+                        <li><a runat="server" href="~/View/Ranking">Ranking</a></li>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="Home" runat="server">
-            </asp:ContentPlaceHolder>  
+            </asp:ContentPlaceHolder>
             <asp:ContentPlaceHolder ID="PersonalManagement" runat="server">
             </asp:ContentPlaceHolder>
             <asp:ContentPlaceHolder ID="TeamManagement" runat="server">
             </asp:ContentPlaceHolder>
             <asp:ContentPlaceHolder ID="TournamentManagement" runat="server">
             </asp:ContentPlaceHolder>
+            <asp:ContentPlaceHolder ID="Games" runat="server">
+            </asp:ContentPlaceHolder>
+            <asp:ContentPlaceHolder ID="Ranking" runat="server">
+            </asp:ContentPlaceHolder>
+            <asp:ContentPlaceHolder ID="Login" runat="server">
+            </asp:ContentPlaceHolder>
             <hr />
             <footer>
                 <p>&copy; <%: DateTime.Now.Year %> - Monika Malolepsza</p>
             </footer>
         </div>
-
     </form>
 </body>
 </html>
-
