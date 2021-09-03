@@ -150,7 +150,7 @@ CREATE TABLE `tournament`.`physio` (
                                        CONSTRAINT `fk_ph_person` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE `tournament`.`auth_user` (
+CREATE TABLE `tournament`.`authUser` (
                                        `id` INT(11) NOT NULL AUTO_INCREMENT,
                                        `name` VARCHAR(50) NULL DEFAULT NULL,
                                        `surname` VARCHAR(50) NULL DEFAULT NULL,
@@ -160,4 +160,5 @@ CREATE TABLE `tournament`.`auth_user` (
                                        PRIMARY KEY (`id`),
                                        INDEX `fk_role_id` (`role_id`),
                                        CONSTRAINT `fk_role_id` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON UPDATE CASCADE
+
 );

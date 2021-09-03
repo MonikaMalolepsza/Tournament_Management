@@ -33,7 +33,6 @@ namespace Tournament_Management.Model
 
         #endregion
 
-
         #region Methods
 
         public override void Update()
