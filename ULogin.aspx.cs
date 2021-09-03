@@ -8,7 +8,7 @@ using Tournament_Management.ControllerNS;
 
 namespace Tournament_Management
 {
-    public partial class Login : System.Web.UI.Page
+    public partial class ULogin : System.Web.UI.Page
     {
         private Controller _controller;
 
@@ -21,7 +21,7 @@ namespace Tournament_Management
 
         protected void OnAuth(object sender, AuthenticateEventArgs e)
         {
-            Controller.Authenticate((sender as Login).Login1.UserName, (sender as Login).Login1.Password);
+            Controller.Authenticate((sender as Login).UserName, (sender as Login).Password);
             e.Authenticated = true;
         }
     }

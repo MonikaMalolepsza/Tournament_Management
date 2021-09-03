@@ -263,7 +263,7 @@ INSERT INTO SCORE (id, team_id, score, game_id) VALUES (3, 3, 0, 3);
 INSERT INTO SCORE (id, team_id, score, game_id) VALUES (4, 4, 3, 3);
 INSERT INTO SCORE (id, team_id, score, game_id) VALUES (5, 5, 80, 9);
 INSERT INTO SCORE (id, team_id, score, game_id) VALUES (6, 6, 0, 6);
-INSERT INTO SCORE (id, team_id, score, game_id) VALUES (19, 5, 2, 4);
+INSERT INTO SCORE (id, team_id, score, game_id) VALUES (36, 5, 2, 4);
 INSERT INTO SCORE (id, team_id, score, game_id) VALUES (20, 6, 7, 4);
 INSERT INTO SCORE (id, team_id, score, game_id) VALUES (7, 7, 15, 5);
 INSERT INTO SCORE (id, team_id, score, game_id) VALUES (8, 6, 22, 5);
@@ -303,6 +303,13 @@ INSERT INTO TOURNAMENT_PARTICIPANTS (id, team_id, tournament_id) VALUES (7, 6, 4
 INSERT INTO TOURNAMENT_PARTICIPANTS (id, team_id, tournament_id) VALUES (8, 7, 2);
 INSERT INTO TOURNAMENT_PARTICIPANTS (id, team_id, tournament_id) VALUES (9, 9, 9);
 
+
+-- ROLES
+INSERT INTO ROLES (id, role_d) VALUES (1, 'Guest');
+INSERT INTO ROLES (id, role_d) VALUES (2, 'User');
+INSERT INTO ROLES (id, role_d) VALUES (3, 'Admin');
+
+
 -- AUTH_USER
 INSERT INTO AUTH_USER (id, role_id, email, password, name, surname) VALUES (1, 1, 'bb@froso.de', 'passwort1', 'Bart', 'Simpson');
 INSERT INTO AUTH_USER (id, role_id, email, password, name, surname) VALUES (2, 2, 'aa@froso.de', 'passwort2', 'Emilia', 'Clark');
@@ -313,10 +320,5 @@ INSERT INTO AUTH_USER (id, role_id, email, password, name, surname) VALUES (6, 1
 INSERT INTO AUTH_USER (id, role_id, email, password, name, surname) VALUES (7, 1, 'ff@froso.de', 'passwort7', 'Randall', 'Vance');
 INSERT INTO AUTH_USER (id, role_id, email, password, name, surname) VALUES (8, 1, 'gg@froso.de', 'passwort8', 'Acton', 'Chambers');
 INSERT INTO AUTH_USER (id, role_id, email, password, name, surname) VALUES (9, 1, 'hh@froso.de', 'passwort9', 'Aaron', 'Aaron');
-
--- ROLES
-INSERT INTO ROLES (id, role_d) VALUES (1, 'Guest');
-INSERT INTO ROLES (id, role_d) VALUES (2, 'User');
-INSERT INTO ROLES (id, role_d) VALUES (3, 'Admin');
 
 

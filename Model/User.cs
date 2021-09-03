@@ -50,9 +50,9 @@ namespace Tournament_Management.Model
             this.Surname = surname;
         }
 
-        public User(string username, string passwort)
+        public User(string username, string password)
         {
-            this.Password = passwort;
+            this.Password = password;
             this.Role = 1;
             this.Email = username;
             this.Name = "";
@@ -72,8 +72,7 @@ namespace Tournament_Management.Model
 
             try
             {
-                /*    string updatePerson = $"UPDATE PERSON SET name='{Name}', age='{Age}', surname='{Surname}', active='{Active}' WHERE ID='{Id}'";
-                    string updateTrainer = $"UPDATE TRAINER SET type_id='{Type}' WHERE PERSON_ID= '{Id}'";
+                /*    string updateUsr = $"UPDATE auth_user SET name='{Name}', role_id='{Role}', surname='{Surname}', email='{Email}', password='{Password}' WHERE ID='{Id}'";
 
                     MySqlCommand cmd = new MySqlCommand()
                     {
@@ -145,7 +144,7 @@ namespace Tournament_Management.Model
             {
                 con.Open();
 
-                string query = $"DELETE FROM PERSON WHERE ID = '{Id}'";
+                string query = $"DELETE FROM auth_user WHERE ID = '{Id}'";
                 MySqlCommand cmd = new MySqlCommand(query, con);
 
                 cmd.ExecuteNonQuery();

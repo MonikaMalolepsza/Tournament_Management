@@ -1,4 +1,4 @@
-﻿CREATE TABLE `tournament`.`type` (
+﻿ CREATE TABLE `tournament`.`type` (
                                      `id` INT(11) NOT NULL AUTO_INCREMENT,
                                      `type` VARCHAR(100) NULL DEFAULT NULL,
                                      PRIMARY KEY (`id`)
@@ -150,14 +150,14 @@ CREATE TABLE `tournament`.`physio` (
                                        CONSTRAINT `fk_ph_person` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE `tournament`.`authUser` (
+CREATE TABLE `tournament`.`auth_user` (
                                        `id` INT(11) NOT NULL AUTO_INCREMENT,
                                        `name` VARCHAR(50) NULL DEFAULT NULL,
                                        `surname` VARCHAR(50) NULL DEFAULT NULL,
                                        `email` VARCHAR(50) NOT NULL,
                                        `password` VARCHAR(50) NOT NULL,
-                                       `role_id` INT(11) NOT NULL DEFAULT NULL,
+                                       `role_id` INT(11) NOT NULL DEFAULT 1,
                                        PRIMARY KEY (`id`),
                                        INDEX `fk_role_id` (`role_id`),
-                                       CONSTRAINT `fk_role_id` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
+                                       CONSTRAINT `fk_role_id` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON UPDATE CASCADE
 );

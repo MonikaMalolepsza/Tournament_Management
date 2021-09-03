@@ -11,7 +11,7 @@ namespace Tournament_Management
 {
 
 
-    public partial class Login
+    public partial class ULogin
     {
 
         /// <summary>

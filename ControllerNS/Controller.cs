@@ -605,7 +605,7 @@ namespace Tournament_Management.ControllerNS
 
         public void Authenticate(string email, string pass)
         {
-            string query = $"SELECT ID FROM authUser WHERE email = @email, PASSWORD=@PASS";
+            string query = $"SELECT ID FROM auth_user WHERE email = @email AND PASSWORD = @pass";
             MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
 
             try
@@ -615,7 +615,7 @@ namespace Tournament_Management.ControllerNS
                 MySqlCommand cmd = new MySqlCommand(query, con);
 
                 cmd.Parameters.Add(new MySqlParameter("@email", email));
-                cmd.Parameters.Add(new MySqlParameter("@PASS", pass));
+                cmd.Parameters.Add(new MySqlParameter("@pass", pass));
 
                 var result = cmd.ExecuteScalar();
                 User.Get(Convert.ToInt32(result));

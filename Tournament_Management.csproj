@@ -170,7 +170,7 @@
     <EmbeddedResource Include="Resources\CreateDatabase.sql" />
     <EmbeddedResource Include="Resources\CreateTables.sql" />
     <EmbeddedResource Include="Resources\InsertData.sql" />
-    <Content Include="Login.aspx" />
+    <Content Include="ULogin.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -226,11 +226,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\ClassExtensions.cs" />
-    <Compile Include="Login.aspx.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
+    <Compile Include="ULogin.aspx.cs">
+      <DependentUpon>ULogin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Login.aspx.designer.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
+    <Compile Include="ULogin.aspx.designer.cs">
+      <DependentUpon>ULogin.aspx</DependentUpon>
     </Compile>
     <Compile Include="Model\BasketballPlayer.cs" />
     <Compile Include="Model\FootballPlayer.cs" />
