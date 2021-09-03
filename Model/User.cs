@@ -66,31 +66,19 @@ namespace Tournament_Management.Model
         public void Update()
         {
             MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
-
-            con.Open();
             MySqlTransaction transaction = con.BeginTransaction();
-
             try
             {
-                /*    string updateUsr = $"UPDATE auth_user SET name='{Name}', role_id='{Role}', surname='{Surname}', email='{Email}', password='{Password}' WHERE ID='{Id}'";
+                con.Open();
 
-                    MySqlCommand cmd = new MySqlCommand()
-                    {
-                        Connection = con,
-                        Transaction = transaction
-                    };
+                string updateUsr = $"UPDATE auth_user SET name='{Name}', role_id='{Role}', surname='{Surname}', email='{Email}', password='{Password}' WHERE ID='{Id}'";
+                MySqlCommand cmd = new MySqlCommand(updateUsr, con);
 
-                    cmd.CommandText = updatePerson;
-                    cmd.ExecuteNonQuery();
-                    cmd.CommandText = updateTrainer;
-                    cmd.ExecuteNonQuery();
-
-                    transaction.Commit();
-                    */
+                cmd.ExecuteNonQuery();
             }
             catch (Exception e)
             {
-                transaction.Rollback();
+                throw e;
             }
             finally
             {
@@ -151,6 +139,7 @@ namespace Tournament_Management.Model
             }
             catch (Exception e)
             {
+                throw e;
             }
             finally
             {
@@ -165,7 +154,7 @@ namespace Tournament_Management.Model
             try
             {
                 con.Open();
-                string query = $"SELECT * FROM authUser U WHERE U.ID = '{id}'";
+                string query = $"SELECT * FROM auth_user U WHERE U.ID = '{id}'";
                 MySqlCommand cmd = new MySqlCommand(query, con);
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -182,6 +171,7 @@ namespace Tournament_Management.Model
             }
             catch (Exception e)
             {
+                throw e;
             }
             finally
             {

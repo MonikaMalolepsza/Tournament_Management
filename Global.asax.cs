@@ -16,7 +16,10 @@ namespace Tournament_Management
         //add the list of controllers instead of one
         private static Controller _controller;
 
+        private static UserController _uController;
+
         public static Controller Controller { get => _controller; set => _controller = value; }
+        public static UserController UserController { get => _uController; set => _uController = value; }
 
         private void Application_Start(object sender, EventArgs e)
         {

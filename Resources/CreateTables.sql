@@ -150,7 +150,7 @@ CREATE TABLE `tournament`.`physio` (
                                        CONSTRAINT `fk_ph_person` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE `tournament`.`authUser` (
+CREATE TABLE `tournament`.`auth_user` (
                                        `id` INT(11) NOT NULL AUTO_INCREMENT,
                                        `name` VARCHAR(50) NULL DEFAULT NULL,
                                        `surname` VARCHAR(50) NULL DEFAULT NULL,

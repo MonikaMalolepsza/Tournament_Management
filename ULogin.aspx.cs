@@ -10,13 +10,13 @@ namespace Tournament_Management
 {
     public partial class ULogin : System.Web.UI.Page
     {
-        private Controller _controller;
+        private UserController _controller;
 
-        public Controller Controller { get => _controller; set => _controller = value; }
+        public UserController Controller { get => _controller; set => _controller = value; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Controller = Global.Controller;
+            Controller = Global.UserController;
         }
 
         protected void OnAuth(object sender, AuthenticateEventArgs e)
