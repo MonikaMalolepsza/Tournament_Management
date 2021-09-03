@@ -9,9 +9,16 @@ namespace Tournament_Management
 {
     public partial class Home : System.Web.UI.Page
     {
+        protected override void OnPreInit(EventArgs e)
+        {
+            if (!Global.UserController.isloggedin())
+            {
+                Response.Redirect("~/ULogin.aspx");
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
     }
 }

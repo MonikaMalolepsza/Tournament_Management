@@ -23,6 +23,8 @@ namespace Tournament_Management
         {
             Controller.Authenticate((sender as Login).UserName, (sender as Login).Password);
             e.Authenticated = true;
+            Response.Redirect("~/View/Home.aspx");
+
         }
     }
 }

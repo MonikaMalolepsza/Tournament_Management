@@ -30,6 +30,7 @@ namespace Tournament_Management
             DatabaseCreator.GenerateDatabase();
 
             Controller = new Controller();
+            UserController = new UserController();
         }
     }
 }

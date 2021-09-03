@@ -79,6 +79,12 @@
                         <li><a runat="server" href="~/View/TournamentManagement">Tournaments</a></li>
                         <li><a runat="server" href="~/View/GameManagement">Games</a></li>
                         <li><a runat="server" href="~/View/Ranking">Ranking</a></li>
+
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">             
+                                <li style="align-content:center; margin-top:7px">
+                                    <asp:Button runat="server" ID="logoutBtn" CssClass="btn btn-danger" Text="Logout"></asp:Button>
+                          </li>
                     </ul>
                 </div>
             </div>

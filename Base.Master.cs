@@ -11,7 +11,13 @@ namespace Tournament_Management
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            logoutBtn.Command += OnLogout;
+        }
 
+        private void OnLogout(object sender, CommandEventArgs e)
+        {
+            Global.UserController.logout();
+            Response.Redirect("~/ULogin.aspx");
         }
     }
 }

@@ -13,8 +13,15 @@ namespace Tournament_Management.View
     public partial class PersonalManagement : System.Web.UI.Page
     {
         private Controller _controller;
-
         public Controller Controller { get => _controller; set => _controller = value; }
+
+        protected override void OnPreInit(EventArgs e)
+        {
+            if (!Global.UserController.isloggedin())
+            {
+                Response.Redirect("../ULogin.aspx");
+            }
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {

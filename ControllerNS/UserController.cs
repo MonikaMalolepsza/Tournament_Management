@@ -32,6 +32,7 @@ namespace Tournament_Management.ControllerNS
         {
             User = new User();
             Users = new List<User>();
+            Roles = new Dictionary<int, string>();
             GetAllRoles();
         }
 
@@ -114,6 +115,9 @@ namespace Tournament_Management.ControllerNS
 
                 var result = cmd.ExecuteScalar();
                 User.Get(Convert.ToInt32(result));
+            }
+            catch (Exception e)
+            {
             }
             finally
             {
