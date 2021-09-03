@@ -170,6 +170,7 @@
     <EmbeddedResource Include="Resources\CreateDatabase.sql" />
     <EmbeddedResource Include="Resources\CreateTables.sql" />
     <EmbeddedResource Include="Resources\InsertData.sql" />
+    <Content Include="Static\Images\login.png" />
     <Content Include="ULogin.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

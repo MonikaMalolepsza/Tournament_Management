@@ -43,34 +43,106 @@
     <webopt:BundleReference runat="server" Path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 </head>
-<body>
-    <div class="container-fluid">
 
-        <form id="loginForm" runat="server">
-            <table style="text-align: center; border: 1">
-                <tr>
-                    <td align="center">
-                        <asp:Login ID="Login1" runat="server"
-                            BorderPadding="20"
-                            CssClass="form-group"
-                            Orientation="Vertical"
-                            TextLayout="TextOnTop"
-                            HelpPageUrl="help.aspx"
-                            PasswordRecoveryUrl="help.aspx"
-                            UserNameLabelText="Email address:&nbsp;&nbsp;"
-                            OnLoggingIn="OnLoggingIn"
-                            OnAuthenticate="OnAuth"
-                            OnLoginError="OnLoginError">
-                            <TextBoxStyle CssClass="form-control" />
-                            <LabelStyle CssClass="text-left" />
-                            <FailureTextStyle CssClass="form-control" />
-                            <HyperLinkStyle CssClass="link-info" />
-                            <LoginButtonStyle CssClass="btn btn-info" />
-                        </asp:Login>
-                    </td>
-                </tr>
-            </table>
-        </form>
+<body style="margin: 0; padding: 0; background-color: #17a2b8; height: 100vh;">
+
+    <div class="container" style="margin-top: 300px">
+
+        <div>
+            <div class="col-md-4 col-md-offset-4">
+                <div class="" style="margin-left: 20px; margin-right: 20px;">
+                        <div style="align-content:center">
+                            <a href="#">
+                                <img src="Static/Images/login.png" 
+                                    height="50%" 
+                                    style="display: block;
+                                      margin-left: auto;
+                                      margin-right: auto;
+                                      margin-bottom: 25px;
+                                      width: 50%;"
+                                    width="50%" alt="login" />
+                            </a>
+                        </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="panel panel-default" style="margin-left: 20px; margin-right: 20px;">
+                        <div class="panel-heading">
+                            <h3 class="panel-title text-center lead">WELCOME</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form id="loginForm" runat="server">
+                                <div align="center">
+                                    <asp:Login ID="Login1" runat="server"
+                                        TextBoxStyle-Width="100%"
+                                        CssClass="form-group"
+                                        Orientation="Vertical"
+                                        TitleText=""
+                                        TextLayout="TextOnTop"
+                                        DisplayRememberMe="false"
+                                        HelpPageUrl="help.aspx"
+                                        PasswordRecoveryUrl="help.aspx"
+                                        UserNameLabelText="Email address:"
+                                        OnLoggingIn="OnLoggingIn"
+                                        OnAuthenticate="OnAuth"
+                                        OnLoginError="OnLoginError">
+                                        <TextBoxStyle CssClass="form-control" Width="100%" />
+                                        <LabelStyle CssClass="text-center" Width="100%" />
+                                        <FailureTextStyle CssClass="form-control" />
+                                        <HyperLinkStyle CssClass="link-info" />
+                                        <LoginButtonStyle CssClass="btn btn-info" Width="100%" />
+                                    </asp:Login>
+                                </div>
+                            </form>
+                            <hr />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+   <%--     <div class="container" style="
+              margin-top: 120px;
+              max-width: 600px;
+              height: 320px;
+              border: 1px solid #9C9C9C;
+              background-color: #EAEAEA;">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-8">
+                    <div id="login-box" class="col-md-12">
+                     <form id="loginForm" style="padding: 20px" runat="server">
+                                <table>
+                                    <tr>
+                                        <td align="center">
+                                            <h3 class="text-center text-info">Login</h3>
+                                            <asp:Login ID="Login1" runat="server"
+                                                TitleText=""
+                                                BorderPadding="20"
+                                                CssClass="form-group"
+                                                Orientation="Vertical"
+                                                TextLayout="TextOnTop"
+                                                HelpPageUrl="help.aspx"
+                                                DisplayRememberMe="false"
+                                                PasswordRecoveryUrl="help.aspx"
+                                                UserNameLabelText="Email address:&nbsp;&nbsp;"
+                                                OnLoggingIn="OnLoggingIn"
+                                                OnAuthenticate="OnAuth"
+                                                OnLoginError="OnLoginError">
+                                                    <TextBoxStyle CssClass="form-control" />
+                                                    <LabelStyle CssClass="text-center text-info" />
+                                                    <FailureTextStyle CssClass="form-control" />
+                                                    <HyperLinkStyle CssClass="link-info" />
+                                                    <LoginButtonStyle CssClass="btn btn-info" Width="100%" />
+                                            </asp:Login>
+                                        </td>
+                                    </tr>
+                              </table>
+                         </form>
+                    </div>
+                </div>
+            </div>
+        </div>--%>
 </body>
 </html>

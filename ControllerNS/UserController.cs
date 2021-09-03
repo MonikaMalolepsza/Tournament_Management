@@ -30,7 +30,6 @@ namespace Tournament_Management.ControllerNS
 
         public UserController()
         {
-            User = new User();
             Users = new List<User>();
             Roles = new Dictionary<int, string>();
             GetAllRoles();
@@ -101,6 +100,7 @@ namespace Tournament_Management.ControllerNS
 
         public void Authenticate(string email, string pass)
         {
+            User = new User();
             string query = $"SELECT ID FROM auth_user WHERE email = @email AND PASSWORD = @pass";
             MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
 
