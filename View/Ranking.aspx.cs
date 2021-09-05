@@ -31,35 +31,26 @@ namespace Tournament_Management.View
         {
             Controller = Global.Controller;
             Controller.GetAllTournaments();
-            if (!IsPostBack) Initialize();
-            if (ActiveTournament != Convert.ToInt32(ddlTour.SelectedValue) && ddlTour.SelectedValue != "")
+            if (!IsPostBack)
             {
-                ActiveTournament = Convert.ToInt32(ddlTour.SelectedValue);
+                ddlTour.DataBind();
             }
-            tourButton.Command += TourButton_Command;
-            tourButton.CommandArgument = ddlTour.SelectedValue;
-        }
 
-        private void Initialize()
-        {
-            ddlTour.DataSource = Controller.Tournaments;
-            ddlTour.DataTextField = "Name";
-            ddlTour.DataValueField = "Id";
-            ddlTour.DataBind();
-            tblRanking.DataSource = Controller.GetRanking(1);
-            tblRanking.DataBind();
-        }
-
-        private void TourButton_Command(object sender, CommandEventArgs e)
-        {
-            // TODO: this doesn't work as intended!
-
-            tblRanking.DataSource = Controller.GetRanking(Convert.ToInt32(e.CommandArgument));
-            tblRanking.DataBind();
-
-            Response.Redirect(Request.RawUrl);
+            //if (ActiveTournament != Convert.ToInt32(ddlTour.SelectedValue) && ddlTour.SelectedValue != "")
+            //{
+            //    ActiveTournament = Convert.ToInt32(ddlTour.SelectedValue);
+            //}
+            //tourButton.Command += TourButton_Command;
+            //tourButton.CommandArgument = ddlTour.SelectedValue;
         }
 
         #endregion Methods
+
+        protected void tourButton_Command1(object sender, CommandEventArgs e)
+        {
+            tblRanking.DataSource = Controller.GetRanking(Convert.ToInt32(ddlTour.SelectedValue));
+            tblRanking.DataBind();
+            //  Response.Redirect(Request.RawUrl);
+        }
     }
 }

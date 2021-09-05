@@ -21,9 +21,9 @@
         <br />
         <br />
         <br />
-        <asp:DropDownList runat="server" CssClass="form-control" ID="ddlTour"></asp:DropDownList>
+        <asp:DropDownList runat="server" CssClass="form-control" DataSource='<%# Controller.Tournaments %>' DataTextField="Name" DataValueField="Id" ID="ddlTour"></asp:DropDownList>
         <br />
-        <asp:Button runat="server" Text="OK" CssClass="btn btn-success" ID="tourButton"></asp:Button>
+        <asp:Button runat="server" Text="OK" OnCommand="tourButton_Command1" CssClass="btn btn-info" ID="tourButton"></asp:Button>
         <br />
         <br />
         <div class="panel panel-default">
