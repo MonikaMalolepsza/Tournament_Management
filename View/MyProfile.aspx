@@ -21,13 +21,13 @@
         <div class="panel panel-default">
             <div class="panel-heading">Details</div>
             <div class="panel-body">
-                <asp:GridView ID="tblMy" 
-                    CssClass="table" 
-                    runat="server" 
-                    OnRowUpdating="tblMy_RowUpdating" 
-                    OnRowCancelingEdit="tblMy_RowCancelingEdit" 
-                    AutoGenerateEditButton="true" 
-                    OnRowEditing="tblMy_RowEditing" 
+                <asp:GridView ID="tblMy"
+                    CssClass="table"
+                    runat="server"
+                    OnRowUpdating="tblMy_RowUpdating"
+                    OnRowCancelingEdit="tblMy_RowCancelingEdit"
+                    AutoGenerateEditButton="true"
+                    OnRowEditing="tblMy_RowEditing"
                     AutoGenerateColumns="false"
                     OnRowDataBound="tblMy_DataBound">
                     <Columns>
@@ -39,14 +39,19 @@
                             HeaderText="Surname" />
                         <asp:BoundField DataField="email"
                             ReadOnly="false"
-                            HeaderText="Email" />  
+                            HeaderText="Email" />
                         <asp:BoundField DataField="role"
                             ReadOnly="true"
                             HeaderText="Role" />
-                        <asp:BoundField DataField="password"
-                            ReadOnly="false"
-                            NullDisplayText="hidden"
-                            HeaderText="Password" />
+                        <asp:TemplateField HeaderText="Password">
+                            <ItemTemplate>
+                                <asp:Label ID="labelPass" Text='hidden' runat="server">
+                                </asp:Label>
+                            </ItemTemplate>
+                            <EditItemTemplate>
+                                <asp:TextBox TextMode="Password" ID="passwordMy" runat="server" CssClass="form-control"></asp:TextBox>
+                            </EditItemTemplate>
+                        </asp:TemplateField>
                     </Columns>
                     <EditRowStyle CssClass="GridRowEditStyle" />
                     <FooterStyle CssClass="GridViewFooterStyle" />

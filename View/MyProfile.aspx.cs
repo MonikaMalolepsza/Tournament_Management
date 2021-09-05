@@ -18,10 +18,13 @@ namespace Tournament_Management.View
         protected void Page_Load(object sender, EventArgs e)
         {
             UserController = Global.UserController;
-            List<User> UsrGrid = new List<User>();
-            UsrGrid.Add(UserController.User);
-            tblMy.DataSource = UsrGrid;
-            tblMy.DataBind();
+            if (!IsPostBack)
+            {
+                List<User> UsrGrid = new List<User>();
+                UsrGrid.Add(UserController.User);
+                tblMy.DataSource = UsrGrid;
+                tblMy.DataBind();
+            }
         }
 
         protected void tblMy_RowEditing(object sender, GridViewEditEventArgs e)
@@ -47,29 +50,28 @@ namespace Tournament_Management.View
         protected void tblMy_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
             GridViewRow row = tblMy.Rows[e.RowIndex];
-            UserController.User.Name = ((TextBox)(row.Cells[2].Controls[0])).Text;
-            UserController.User.Surname = ((TextBox)(row.Cells[3].Controls[0])).Text;
-            UserController.User.Email = ((TextBox)(row.Cells[4].Controls[0])).Text;
+            TextBox tb = (TextBox)row.FindControl("passwordMy");
+            UserController.User.Name = ((TextBox)(row.Cells[1].Controls[0])).Text;
+            UserController.User.Surname = ((TextBox)(row.Cells[2].Controls[0])).Text;
+            UserController.User.Email = ((TextBox)(row.Cells[3].Controls[0])).Text;
 
-            if (((TextBox)(row.Cells[5].Controls[0])).Text != "")
+            if (tb.Text != "")
             {
-                UserController.UpdatePassword(UserController.User.Id, ((TextBox)(row.Cells[5].Controls[0])).Text);
+                UserController.User.Password = tb.Text;
+                UserController.User.UpdatePassword();
             }
             UserController.User.Update();
             tblMy.EditIndex = -1;
+            Response.Redirect(Request.RawUrl);
         }
+
         protected void tblMy_DataBound(object sender, GridViewRowEventArgs e)
         {
-
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 // Display the roles instead of ids
                 e.Row.Cells[4].Text = UserController.Roles[Convert.ToInt32(e.Row.Cells[4].Text)];
-
             }
-
         }
-
-
     }
 }
