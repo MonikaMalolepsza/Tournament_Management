@@ -2,6 +2,32 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TournamentManagement" runat="server">
     <div class="jumbotron">
+         <div class="row">
+               <div class="col-md-4">
+                    <a runat="server" href="~/#">
+                        <img class="img-responsive"
+                            src="../Static/Images/sport.png"
+                            style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 25px; width:  50%;"
+                             alt="people" />
+                    </a>
+                </div>
+             <div class="col-md-4">
+                    <a runat="server" href="~/#">
+                        <img class="img-responsive"
+                            src="../Static/Images/team.png"
+                            style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 25px; width:  50%;"
+                            alt="people" />
+                    </a>
+                </div> 
+             <div class="col-md-4">
+                    <a runat="server" href="~/#">
+                        <img class="img-responsive"
+                            src="../Static/Images/trophy.png"
+                            style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 25px; width: 50%;"
+                            alt="people" />
+                    </a>
+                </div> 
+            </div>
         <h1 class="display-4">Tournament Management</h1>
         <hr class="my-4">
         <p>Here you can initialize Tournaments, update the details and add the games.</p>

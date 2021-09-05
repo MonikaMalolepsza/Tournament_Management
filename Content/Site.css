@@ -18,7 +18,6 @@ textarea {
     max-width: 280px;
 }
 
-
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
     .jumbotron {
@@ -29,3 +28,85 @@ textarea {
         padding: 0;
     }
 }
+
+.GridViewStyle {
+    border-right: 2px solid #A7A6AA;
+    border-bottom: 2px solid #A7A6AA;
+    border-left: 2px solid white;
+    border-top: 2px solid white;
+    padding: 4px;
+}
+
+    .GridViewStyle a {
+        color: #FFFFFF;
+    }
+
+.GridViewHeaderStyle th {
+    border-left: 1px solid #EBE9ED;
+    border-right: 1px solid #EBE9ED;
+}
+
+.GridViewHeaderStyle {
+    background-color: #d9edf7;
+    font-weight: bold;
+    color: White;
+}
+
+.GridViewFooterStyle {
+    background-color: #5D7B9D;
+    font-weight: bold;
+    color: White;
+}
+
+.GridViewRowStyle {
+    background-color: #FFFFFF;
+    color: #333333;
+}
+
+.GridRowEditStyle {
+    background-color: #FFFFFF;
+    color: #333333;
+}
+
+.GridViewAlternatingRowStyle {
+    background-color: #FFFFFF;
+    color: #284775;
+}
+
+    .GridViewRowStyle td, .GridViewAlternatingRowStyle td, .GridRowEditStyle td {
+        border: 1px solid #EBE9ED;
+    }
+
+
+.GridViewSelectedRowStyle { 
+    background-color: #E2DED6;
+    font-weight: bold;
+    color: #333333;
+}
+
+.GridRowEditStyle input {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+    box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+}
+
+.GridViewPagerStyle {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+
+    .GridViewPagerStyle table /* to center the paging links*/ {
+        margin: 0 auto 0 auto;
+    }
+

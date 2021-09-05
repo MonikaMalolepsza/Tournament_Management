@@ -11,6 +11,19 @@ namespace Tournament_Management
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!Global.UserController.isloggedin())
+            {
+                Response.Redirect("~/ULogin.aspx");
+            }
+            if (Global.UserController.User.Role == 3)
+            {
+                form1.FindControl("usrsBtn").Visible = true;
+            }
+            if (Global.UserController.User.Role != 1)
+            {
+                form1.FindControl("usrBtn").Visible = true;
+            }
+
             logoutBtn.Command += OnLogout;
         }
 

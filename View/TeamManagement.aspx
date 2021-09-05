@@ -2,8 +2,17 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TeamManagement" runat="server">
     <div class="jumbotron">
+            <span>
+                <a runat="server" href="~/#">
+                    <img class="img-responsive"
+                        src="../Static/Images/baseball.png"
+                        height="20"
+                        style="display: block;  margin-left: auto; margin-right: auto; margin-bottom: 25px; width: 20%;"
+                        width="20" alt="people" />
+                </a>
+            </span>
         <h1 class="display-4">Team Management</h1>
-        <p class="lead">Under construction</p>
+        <p class="lead">Manage your favourite teams</p>
         <hr class="my-4">
         <p>...</p>
     </div>

@@ -2,6 +2,15 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Games" runat="server">
     <div class="jumbotron">
+         <span>
+            <a runat="server" href="~/#">
+                <img class="img-responsive"
+                    src="../Static/Images/sport-news.png"
+                    height="20"
+                    style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 25px; width: 20%;"
+                    width="20" alt="home" />
+            </a>
+        </span>
         <h1 class="display-4">Tournament Management - Games</h1>
         <hr class="my-4">
         <p>Here you can manage the games for given tournament.</p>

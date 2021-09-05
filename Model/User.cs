@@ -35,7 +35,6 @@ namespace Tournament_Management.Model
         public User()
         {
             this.Email = "";
-            this.Password = "";
             this.Name = "";
             this.Surname = "";
             this.Role = 1;
@@ -43,18 +42,17 @@ namespace Tournament_Management.Model
 
         public User(string name, string surname, string un, string pass, int r)
         {
-            this.Password = pass;
             this.Role = r;
             this.Email = un;
             this.Name = name;
             this.Surname = surname;
         }
 
-        public User(string username, string password)
+        public User(string username)
         {
-            this.Password = password;
             this.Role = 1;
             this.Email = username;
+            this.Password = "password";
             this.Name = "";
             this.Surname = "";
         }
@@ -66,13 +64,31 @@ namespace Tournament_Management.Model
         public void Update()
         {
             MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
-            MySqlTransaction transaction = con.BeginTransaction();
+            con.Open();
             try
             {
-                con.Open();
-
-                string updateUsr = $"UPDATE auth_user SET name='{Name}', role_id='{Role}', surname='{Surname}', email='{Email}', password='{Password}' WHERE ID='{Id}'";
+                string updateUsr = $"UPDATE auth_user SET name='{Name}', role_id='{Role}', surname='{Surname}', email='{Email}' WHERE ID='{Id}'";
                 MySqlCommand cmd = new MySqlCommand(updateUsr, con);
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+         public void UpdatePassword()
+        {
+            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            con.Open();
+            try
+            {
+                string updateUsrPass = $"UPDATE auth_user SET password='{Password}' WHERE ID='{Id}'";
+                MySqlCommand cmd = new MySqlCommand(updateUsrPass, con);
 
                 cmd.ExecuteNonQuery();
             }

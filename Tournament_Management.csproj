@@ -170,7 +170,41 @@
     <EmbeddedResource Include="Resources\CreateDatabase.sql" />
     <EmbeddedResource Include="Resources\CreateTables.sql" />
     <EmbeddedResource Include="Resources\InsertData.sql" />
+    <Content Include="Static\Images\add-user.png" />
+    <Content Include="Static\Images\athlete.png" />
+    <Content Include="Static\Images\baseball.png" />
+    <Content Include="Static\Images\basketball-ball.png" />
+    <Content Include="Static\Images\basketball-jersey.png" />
+    <Content Include="Static\Images\basketball.png" />
+    <Content Include="Static\Images\bicycle.png" />
+    <Content Include="Static\Images\football-player.png" />
+    <Content Include="Static\Images\glove.png" />
+    <Content Include="Static\Images\goal.png" />
+    <Content Include="Static\Images\gold-medal.png" />
     <Content Include="Static\Images\login.png" />
+    <Content Include="Static\Images\match.png" />
+    <Content Include="Static\Images\medal.png" />
+    <Content Include="Static\Images\people.png" />
+    <Content Include="Static\Images\playoff.png" />
+    <Content Include="Static\Images\podium %281%29.png" />
+    <Content Include="Static\Images\podium.png" />
+    <Content Include="Static\Images\referee.png" />
+    <Content Include="Static\Images\referee1.png" />
+    <Content Include="Static\Images\silver-medal.png" />
+    <Content Include="Static\Images\soccer-ball.png" />
+    <Content Include="Static\Images\soccer.png" />
+    <Content Include="Static\Images\sport %281%29.png" />
+    <Content Include="Static\Images\sport-bag.png" />
+    <Content Include="Static\Images\sport-news.png" />
+    <Content Include="Static\Images\sport.png" />
+    <Content Include="Static\Images\team.png" />
+    <Content Include="Static\Images\together.png" />
+    <Content Include="Static\Images\trophy.png" />
+    <Content Include="Static\Images\user.png" />
+    <Content Include="Static\Images\users.png" />
+    <Content Include="Static\Images\users2.png" />
+    <Content Include="Static\Images\volleyball-ball.png" />
+    <Content Include="Static\Images\volleyball.png" />
     <Content Include="ULogin.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -204,11 +238,13 @@
     <Content Include="View\GameManagement.aspx" />
     <Content Include="View\help.aspx" />
     <Content Include="View\Home.aspx" />
+    <Content Include="View\MyProfile.aspx" />
     <Content Include="View\PersonalManagement.aspx" />
     <Content Include="Bundle.config" />
     <Content Include="View\Ranking.aspx" />
     <Content Include="View\TeamManagement.aspx" />
     <Content Include="View\TournamentManagement.aspx" />
+    <Content Include="View\UserManagement.aspx" />
     <Content Include="Web.config" />
     <Content Include="Base.Master" />
     <None Include="Web.Debug.config">
@@ -277,6 +313,13 @@
     <Compile Include="View\Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
     </Compile>
+    <Compile Include="View\MyProfile.aspx.cs">
+      <DependentUpon>MyProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\MyProfile.aspx.designer.cs">
+      <DependentUpon>MyProfile.aspx</DependentUpon>
+    </Compile>
     <Compile Include="View\PersonalManagement.aspx.cs">
       <DependentUpon>PersonalManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -304,6 +347,13 @@
     </Compile>
     <Compile Include="View\TournamentManagement.aspx.designer.cs">
       <DependentUpon>TournamentManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserManagement.aspx.cs">
+      <DependentUpon>UserManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\UserManagement.aspx.designer.cs">
+      <DependentUpon>UserManagement.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

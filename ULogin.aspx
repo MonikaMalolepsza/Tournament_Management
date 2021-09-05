@@ -51,18 +51,14 @@
         <div>
             <div class="col-md-4 col-md-offset-4">
                 <div class="" style="margin-left: 20px; margin-right: 20px;">
-                        <div style="align-content:center">
-                            <a href="#">
-                                <img src="Static/Images/login.png" 
-                                    height="50%" 
-                                    style="display: block;
-                                      margin-left: auto;
-                                      margin-right: auto;
-                                      margin-bottom: 25px;
-                                      width: 50%;"
-                                    width="50%" alt="login" />
-                            </a>
-                        </div>
+                    <div style="align-content: center">
+                        <a href="#">
+                            <img src="Static/Images/login.png"
+                                height="50%"
+                                style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 25px; width: 50%;"
+                                width="50%" alt="login" />
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -86,6 +82,7 @@
                                         UserNameLabelText="Email address:"
                                         OnLoggingIn="OnLoggingIn"
                                         OnAuthenticate="OnAuth"
+                                        DestinationPageUrl="~/View/Home.aspx"
                                         OnLoginError="OnLoginError">
                                         <TextBoxStyle CssClass="form-control" Width="100%" />
                                         <LabelStyle CssClass="text-center" Width="100%" />
@@ -102,47 +99,5 @@
             </div>
         </div>
     </div>
-
-   <%--     <div class="container" style="
-              margin-top: 120px;
-              max-width: 600px;
-              height: 320px;
-              border: 1px solid #9C9C9C;
-              background-color: #EAEAEA;">
-            <div id="login-row" class="row justify-content-center align-items-center">
-                <div id="login-column" class="col-md-8">
-                    <div id="login-box" class="col-md-12">
-                     <form id="loginForm" style="padding: 20px" runat="server">
-                                <table>
-                                    <tr>
-                                        <td align="center">
-                                            <h3 class="text-center text-info">Login</h3>
-                                            <asp:Login ID="Login1" runat="server"
-                                                TitleText=""
-                                                BorderPadding="20"
-                                                CssClass="form-group"
-                                                Orientation="Vertical"
-                                                TextLayout="TextOnTop"
-                                                HelpPageUrl="help.aspx"
-                                                DisplayRememberMe="false"
-                                                PasswordRecoveryUrl="help.aspx"
-                                                UserNameLabelText="Email address:&nbsp;&nbsp;"
-                                                OnLoggingIn="OnLoggingIn"
-                                                OnAuthenticate="OnAuth"
-                                                OnLoginError="OnLoginError">
-                                                    <TextBoxStyle CssClass="form-control" />
-                                                    <LabelStyle CssClass="text-center text-info" />
-                                                    <FailureTextStyle CssClass="form-control" />
-                                                    <HyperLinkStyle CssClass="link-info" />
-                                                    <LoginButtonStyle CssClass="btn btn-info" Width="100%" />
-                                            </asp:Login>
-                                        </td>
-                                    </tr>
-                              </table>
-                         </form>
-                    </div>
-                </div>
-            </div>
-        </div>--%>
 </body>
 </html>

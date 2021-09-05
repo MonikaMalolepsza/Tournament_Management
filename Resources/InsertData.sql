@@ -313,7 +313,7 @@ INSERT INTO ROLES (id, role_d) VALUES (3, 'Admin');
 -- AUTH_USER
 INSERT INTO AUTH_USER (id, role_id, email, password, name, surname) VALUES (1, 1, 'bb@froso.de', 'passwort1', 'Bart', 'Simpson');
 INSERT INTO AUTH_USER (id, role_id, email, password, name, surname) VALUES (2, 2, 'aa@froso.de', 'passwort2', 'Emilia', 'Clark');
-INSERT INTO AUTH_USER (id, role_id, email, password, name, surname) VALUES (3, 2, 'mm@froso.de', 'passwort3', 'Monika', 'Malolepsza');
+INSERT INTO AUTH_USER (id, role_id, email, password, name, surname) VALUES (3, 3, 'mm@froso.de', 'passwort3', 'Monika', 'Malolepsza');
 INSERT INTO AUTH_USER (id, role_id, email, password, name, surname) VALUES (4, 3, 'cc@froso.de', 'passwort4', 'Hashim', 'Mcleod');
 INSERT INTO AUTH_USER (id, role_id, email, password, name, surname) VALUES (5, 1, 'dd@froso.de', 'passwort5', 'Gannon', 'Paul');
 INSERT INTO AUTH_USER (id, role_id, email, password, name, surname) VALUES (6, 1, 'ee@froso.de', 'passwort6', 'Otto', 'Mccall');

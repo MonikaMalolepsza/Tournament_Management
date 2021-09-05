@@ -65,9 +65,34 @@ namespace Tournament_Management.ControllerNS
             return User?.Role == 3;
         }
 
-        public List<User> getAllUsers()
+        public void getAllUsers()
         {
-            throw new NotImplementedException();
+            Users.Clear();
+            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+
+            string selectUser = "SELECT ID FROM auth_User";
+            try
+            {
+                con.Open();
+
+                MySqlCommand cmd = new MySqlCommand(selectUser, con);
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    User temp = new User();
+                    temp.Get(reader.GetInt32("id"));
+                    Users.Add(temp);
+                }
+                reader.Close();
+            }
+            catch (Exception e)
+            {
+            }
+            finally
+            {
+                con.Close();
+            }
         }
 
         public void GetAllRoles()
@@ -75,12 +100,12 @@ namespace Tournament_Management.ControllerNS
             Roles.Clear();
             MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
 
-            string selectTypes = "SELECT * FROM Roles";
+            string selectR = "SELECT * FROM Roles";
             try
             {
                 con.Open();
 
-                MySqlCommand cmd = new MySqlCommand(selectTypes, con);
+                MySqlCommand cmd = new MySqlCommand(selectR, con);
                 MySqlDataReader reader = cmd.ExecuteReader();
 
                 while (reader.Read())
@@ -98,8 +123,9 @@ namespace Tournament_Management.ControllerNS
             }
         }
 
-        public void Authenticate(string email, string pass)
+        public bool Authenticate(string email, string pass)
         {
+            bool authenticated = false;
             User = new User();
             string query = $"SELECT ID FROM auth_user WHERE email = @email AND PASSWORD = @pass";
             MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
@@ -114,7 +140,11 @@ namespace Tournament_Management.ControllerNS
                 cmd.Parameters.Add(new MySqlParameter("@pass", pass));
 
                 var result = cmd.ExecuteScalar();
-                User.Get(Convert.ToInt32(result));
+                if (result != null)
+                {
+                    User.Get(Convert.ToInt32(result));
+                    authenticated = true;
+                }
             }
             catch (Exception e)
             {
@@ -123,6 +153,7 @@ namespace Tournament_Management.ControllerNS
             {
                 con.Close();
             }
+            return authenticated;
         }
 
         public void DeleteUser(int id)
@@ -130,9 +161,9 @@ namespace Tournament_Management.ControllerNS
             Users.First(u => u.Id == id).Delete();
         }
 
-        public void AddUser(string username, string password)
+        public void AddUser(string username)
         {
-            User newU = new User(username, password);
+            User newU = new User(username);
             newU.Put();
         }
 
@@ -147,7 +178,7 @@ namespace Tournament_Management.ControllerNS
         {
             User usrToUpdate = Users.First(u => u.Id == id);
             usrToUpdate.Password = password;
-            usrToUpdate.Update();
+            usrToUpdate.UpdatePassword();
         }
 
         #endregion Methods

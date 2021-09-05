@@ -21,10 +21,7 @@ namespace Tournament_Management
 
         protected void OnAuth(object sender, AuthenticateEventArgs e)
         {
-            Controller.Authenticate((sender as Login).UserName, (sender as Login).Password);
-            e.Authenticated = true;
-            Response.Redirect("~/View/Home.aspx");
-
+            e.Authenticated = (Controller.Authenticate((sender as Login).UserName, (sender as Login).Password));
         }
     }
 }

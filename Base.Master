@@ -79,12 +79,27 @@
                         <li><a runat="server" href="~/View/TournamentManagement">Tournaments</a></li>
                         <li><a runat="server" href="~/View/GameManagement">Games</a></li>
                         <li><a runat="server" href="~/View/Ranking">Ranking</a></li>
-
                     </ul>
-                    <ul class="nav navbar-nav navbar-right">             
-                                <li style="align-content:center; margin-top:7px">
-                                    <asp:Button runat="server" ID="logoutBtn" CssClass="btn btn-danger" Text="Logout"></asp:Button>
-                          </li>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a class="navbar-brand" href="~/View/UserManagement.aspx" runat="server" id="usrsBtn" visible="false">
+                                <img class="img-responsive"
+                                    src="../Static/Images/users.png"
+                                    style="max-width: 30px; margin-top: -7px;"
+                                    alt="people" />
+                            </a>
+                        </li>
+                        <li>
+                            <a class="navbar-brand" href="~/View/MyProfile.aspx" runat="server" id="usrBtn" visible="false">
+                                <img class="img-responsive"
+                                    src="../Static/Images/user.png"
+                                    style="max-width: 30px; margin-top: -7px;"
+                                    alt="people" />
+                            </a>
+                        </li>
+                        <li style="align-content: center; margin-top: 7px">
+                            <asp:Button runat="server" ID="logoutBtn" CssClass="btn btn-danger" Text="Logout"></asp:Button>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -104,9 +119,14 @@
             </asp:ContentPlaceHolder>
             <asp:ContentPlaceHolder ID="Login" runat="server">
             </asp:ContentPlaceHolder>
+            <asp:ContentPlaceHolder ID="Users" runat="server">
+            </asp:ContentPlaceHolder>
+            <asp:ContentPlaceHolder ID="MyProfile" runat="server">
+            </asp:ContentPlaceHolder>
             <hr />
             <footer>
                 <p>&copy; <%: DateTime.Now.Year %> - Monika Malolepsza</p>
+                <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
             </footer>
         </div>
     </form>

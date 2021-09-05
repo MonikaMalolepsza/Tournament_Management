@@ -4,7 +4,11 @@
     <div class="jumbotron">
         <span>
             <a runat="server" href="~/Home">
-                <img class="img-responsive" src="Static/Images/Board-Background.jpg" />
+                <img class="img-responsive"
+                    src="../Static/Images/playoff.png"
+                    height="20"
+                    style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 25px; width: 20%;"
+                    width="20" alt="home" />
             </a>
         </span>
         <h1 class="display-4">Hello,</h1>
@@ -12,15 +16,7 @@
         <hr class="my-4">
         <p></p>
         <br />
-        <div class="btn-group" role="group">
-            <a type="button" class="btn btn-info btn-lg" runat="server" href="~/View/TeamManagement">manage my team</a>
-        </div>
-        <div class="btn-group" role="group">
-            <a type="button" class="btn btn-info btn-lg" runat="server" href="~/View/PersonalManagement">add new members</a>
-        </div> 
-        <div class="btn-group" role="group"> 
-            <a type="button" class="btn btn-info btn-lg" runat="server" href="~/View/TournamentManagement">go to tournaments</a>
-        </div>
+
     </div>
     <div id="form1" runat="server">
         <div class="container-fluid">
