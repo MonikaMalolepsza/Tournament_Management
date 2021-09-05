@@ -24,6 +24,7 @@ namespace Tournament_Management.View
             {
                 tblUsers.DataSource = UserController.Users;
                 tblUsers.DataBind();
+                addNewURole.DataBind();
             }
         }
 
@@ -35,11 +36,12 @@ namespace Tournament_Management.View
             temp.Name = ((TextBox)(row.Cells[1].Controls[0])).Text;
             temp.Surname = ((TextBox)(row.Cells[2].Controls[0])).Text;
             temp.Email = ((TextBox)(row.Cells[3].Controls[0])).Text;
-            //TODO: map the roles dictionary here, best would be to display the dropdown on edit
-            temp.Role = 1;
-            if (((TextBox)(row.Cells[4].Controls[0])).Text != "")
+            DropDownList cur = (DropDownList)row.FindControl("ddlist");
+            temp.Role = Convert.ToInt32(cur.SelectedValue);
+            TextBox tb = (TextBox)row.FindControl("passwordOU");
+            if (tb.Text != "")
             {
-                temp.Password = ((TextBox)(row.Cells[4].Controls[0])).Text;
+                temp.Password = tb.Text;
                 temp.UpdatePassword();
             }
             temp.Update();
@@ -73,13 +75,21 @@ namespace Tournament_Management.View
             Response.Redirect(Request.RawUrl);
         }
 
-        protected void tblUsers_RowDataBound(object sender, GridViewRowEventArgs e)
+        public string roleConverter(object role_id)
         {
-            if (e.Row.RowType == DataControlRowType.DataRow && tblUsers.EditIndex == -1)
-            {
-                // Display the roles instead of ids
-                e.Row.Cells[5].Text = UserController.Roles[Convert.ToInt32(e.Row.Cells[5].Text)];
-            }
+            return UserController.Roles[Convert.ToInt32(role_id)];
+        }
+
+        protected void btnAdd_SubmitUser(object sender, CommandEventArgs e)
+        {
+            User newUser = new User();
+            newUser.Role = Convert.ToInt32(addNewURole.SelectedValue);
+            newUser.Name = nameU.Text;
+            newUser.Surname = surnameU.Text;
+            newUser.Email = emailU.Text;
+            newUser.Password = passU.Text;
+            newUser.Put();
+            Response.Redirect(Request.RawUrl);
         }
     }
 }

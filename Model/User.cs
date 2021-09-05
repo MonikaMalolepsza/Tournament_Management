@@ -105,39 +105,23 @@ namespace Tournament_Management.Model
         public void Put()
         {
             MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
-
             con.Open();
-            MySqlTransaction transaction = con.BeginTransaction();
-
             try
             {
-                // string insertParticipant = $"INSERT INTO PERSON (name, surname, age, active) VALUES ('{Name}', '{Surname}', )";
+                string addNewUsr = $"INSERT INTO auth_user (name, surname, Email, role_id, password) VALUES ('{Name}', '{Surname}', '{Email}', '{Role}', '{Password}')";
+                MySqlCommand cmd = new MySqlCommand(addNewUsr, con);
 
-                MySqlCommand cmd = new MySqlCommand()
-                {
-                    Connection = con,
-                    Transaction = transaction
-                };
-
-                /*
-                cmd.CommandText = insertParticipant;
                 cmd.ExecuteNonQuery();
-                int person_id = (int)cmd.LastInsertedId;
-                string insertTrainer = $"INSERT INTO TRAINER (team_id, person_id, type_id) VALUES('1', '{person_id}', '{Type}')";
-                cmd.CommandText = insertTrainer;
-                cmd.ExecuteNonQuery();
-
-                transaction.Commit();
-                */
             }
             catch (Exception e)
             {
-                transaction.Rollback();
+                throw e;
             }
             finally
             {
                 con.Close();
             }
+
         }
 
         public void Delete()
