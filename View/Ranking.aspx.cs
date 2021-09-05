@@ -35,13 +35,6 @@ namespace Tournament_Management.View
             {
                 ddlTour.DataBind();
             }
-
-            //if (ActiveTournament != Convert.ToInt32(ddlTour.SelectedValue) && ddlTour.SelectedValue != "")
-            //{
-            //    ActiveTournament = Convert.ToInt32(ddlTour.SelectedValue);
-            //}
-            //tourButton.Command += TourButton_Command;
-            //tourButton.CommandArgument = ddlTour.SelectedValue;
         }
 
         #endregion Methods
