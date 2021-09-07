@@ -19,10 +19,12 @@ namespace Tournament_Management.View
         protected void Page_Load(object sender, EventArgs e)
         {
             Controller = Global.Controller;
-            generateShowBtn();
-            LoadInput();
-            if (Controller.ActiveParticipant != -1) LoadTournaments();
-            typeList.SelectedValue = Controller.ActiveParticipant.ToString();
+            Controller.GetAllTournaments();
+            if (!IsPostBack)
+            {
+                tblTournament.DataBind();
+                ddlTour2.DataBind();
+            }
         }
 
         /* not a part of evaluation sheet!
@@ -49,236 +51,171 @@ namespace Tournament_Management.View
                 }
         */
 
-        private void LoadInput()
-        {
-            Label lbl = new Label();
-            lbl.Text = "Name";
-            form1.Controls.Add(lbl);
+        //private void LoadTournaments()
+        //{
+        //    tblTournaments.Rows.Clear();
 
-            TextBox txt = new TextBox();
-            txt.ID = "txtName";
-            txt.Text = "";
-            txt.CssClass = "form-control";
-            form1.Controls.Add(txt);
+        //    //header rows
+        //    TableHeaderRow thr = new TableHeaderRow();
+        //    thr.ID = "thr";
 
-            lbl = new Label();
-            lbl.Text = "Discipline";
-            form1.Controls.Add(lbl);
+        //    TableHeaderCell newHeaderCell = new TableHeaderCell();
+        //    newHeaderCell.ID = "headerName";
+        //    newHeaderCell.Text = "Name";
+        //    thr.Cells.Add(newHeaderCell);
 
-            DropDownList dropdown = new DropDownList();
-            dropdown.ID = "txtType";
-            dropdown.CssClass = "form-control";
-            dropdown.DataSource = Controller.TypeList;
-            dropdown.DataTextField = "Value";
-            dropdown.DataValueField = "Key";
-            dropdown.DataBind();
-            form1.Controls.Add(dropdown);
+        //    newHeaderCell = new TableHeaderCell();
+        //    newHeaderCell.ID = "headerActive";
+        //    newHeaderCell.Text = "Active";
+        //    thr.Cells.Add(newHeaderCell);
 
-            lbl = new Label();
-            lbl.Text = "Active";
-            form1.Controls.Add(lbl);
+        //    newHeaderCell = new TableHeaderCell();
+        //    newHeaderCell.ID = "headerType";
+        //    newHeaderCell.Text = "Discipline";
+        //    thr.Cells.Add(newHeaderCell);
 
-            txt = new TextBox();
-            txt.ID = "txtActive";
-            txt.Text = "";
-            txt.CssClass = "form-control";
-            form1.Controls.Add(txt);
-        }
+        //    newHeaderCell = new TableHeaderCell();
+        //    newHeaderCell.ID = "headerEdit";
+        //    newHeaderCell.Text = "Edit";
+        //    thr.Cells.Add(newHeaderCell);
 
-        private void LoadTournaments()
-        {
-            tblTournaments.Rows.Clear();
+        //    newHeaderCell = new TableHeaderCell();
+        //    newHeaderCell.ID = "headerDel";
+        //    newHeaderCell.Text = "Delete";
+        //    thr.Cells.Add(newHeaderCell);
 
-            //header rows
-            TableHeaderRow thr = new TableHeaderRow();
-            thr.ID = "thr";
+        //    newHeaderCell = new TableHeaderCell();
+        //    newHeaderCell.ID = "headerGames";
+        //    newHeaderCell.Text = "Games";
+        //    thr.Cells.Add(newHeaderCell);
 
-            TableHeaderCell newHeaderCell = new TableHeaderCell();
-            newHeaderCell.ID = "headerName";
-            newHeaderCell.Text = "Name";
-            thr.Cells.Add(newHeaderCell);
+        //    tblTournaments.Rows.Add(thr);
 
-            newHeaderCell = new TableHeaderCell();
-            newHeaderCell.ID = "headerActive";
-            newHeaderCell.Text = "Active";
-            thr.Cells.Add(newHeaderCell);
+        //    //Data
+        //    foreach (Tournament t in Controller.Tournaments)
+        //    {
+        //        TableRow newRow = new TableRow();
+        //        newRow.ID = "tournamentTableRow" + t.Id;
 
-            newHeaderCell = new TableHeaderCell();
-            newHeaderCell.ID = "headerType";
-            newHeaderCell.Text = "Discipline";
-            thr.Cells.Add(newHeaderCell);
+        //        TableCell newCell = new TableCell();
+        //        newCell.ID = "cellName" + t.Id;
+        //        newCell.Text = t.Name;
+        //        newRow.Cells.Add(newCell);
 
-            newHeaderCell = new TableHeaderCell();
-            newHeaderCell.ID = "headerEdit";
-            newHeaderCell.Text = "Edit";
-            thr.Cells.Add(newHeaderCell);
+        //        newCell = new TableCell();
+        //        newCell.ID = "cellActive" + t.Id;
+        //        newCell.Text = t.Active.GetYesNoString();
+        //        newRow.Cells.Add(newCell);
 
-            newHeaderCell = new TableHeaderCell();
-            newHeaderCell.ID = "headerDel";
-            newHeaderCell.Text = "Delete";
-            thr.Cells.Add(newHeaderCell);
+        //        newCell = new TableCell();
+        //        newCell.ID = "cellType" + t.Id;
+        //        newCell.Text = Controller.TypeList[t.Type];
+        //        newRow.Cells.Add(newCell);
 
-            newHeaderCell = new TableHeaderCell();
-            newHeaderCell.ID = "headerGames";
-            newHeaderCell.Text = "Games";
-            thr.Cells.Add(newHeaderCell);
+        //        string currentRowIndexTemp = (tblTournaments.Rows.Count + 1).ToString();
+        //        newCell = new TableCell();
+        //        newCell.ID = "cellEditButton" + t.Id;
+        //        Button editButton = new Button();
+        //        editButton.ID = "editButton_" + t.Id;
+        //        editButton.Text = "Edit";
+        //        editButton.CssClass = "btn btn-warning";
+        //        editButton.CommandArgument = currentRowIndexTemp;
+        //        editButton.CommandName = t.Id.ToString();
+        //        editButton.Command += this.btnToggleInputs_Click;
+        //        newCell.Controls.Add(editButton);
+        //        newRow.Cells.Add(newCell);
 
-            tblTournaments.Rows.Add(thr);
+        //        newCell = new TableCell();
+        //        newCell.ID = "cellDelButton" + t.Id;
+        //        Button delButton = new Button();
+        //        delButton.ID = "delButton_" + t.Id;
+        //        delButton.CssClass = "btn btn-danger";
+        //        delButton.CommandName = "Delete";
+        //        delButton.Text = "X";
+        //        delButton.CommandArgument = t.Id.ToString();
+        //        delButton.Command += this.btnDeleteEdit_Click;
+        //        newCell.Controls.Add(delButton);
+        //        newRow.Cells.Add(newCell);
 
-            //Data
-            foreach (Tournament t in Controller.Tournaments)
-            {
-                TableRow newRow = new TableRow();
-                newRow.ID = "tournamentTableRow" + t.Id;
+        //        newCell = new TableCell();
+        //        newCell.ID = "cellDetailsButton" + t.Id;
+        //        Button detailsButton = new Button();
+        //        detailsButton.ID = "detButton_" + t.Id;
+        //        detailsButton.CssClass = "btn btn-secondary";
+        //        detailsButton.CommandName = "Details";
+        //        detailsButton.Text = "Show Games";
+        //        detailsButton.CommandName = currentRowIndexTemp;
+        //        detailsButton.CommandArgument = t.Id.ToString();
+        //        detailsButton.Command += this.btnOverview_Click;
+        //        newCell.Controls.Add(detailsButton);
+        //        newRow.Cells.Add(newCell);
 
-                TableCell newCell = new TableCell();
-                newCell.ID = "cellName" + t.Id;
-                newCell.Text = t.Name;
-                newRow.Cells.Add(newCell);
+        //        tblTournaments.Rows.Add(newRow);
 
-                newCell = new TableCell();
-                newCell.ID = "cellActive" + t.Id;
-                newCell.Text = t.Active.GetYesNoString();
-                newRow.Cells.Add(newCell);
+        //        //add edit row
 
-                newCell = new TableCell();
-                newCell.ID = "cellType" + t.Id;
-                newCell.Text = Controller.TypeList[t.Type];
-                newRow.Cells.Add(newCell);
+        //        TableRow row = new TableRow();
+        //        row.Style.Add("visibility", "collapse");
+        //        row.ID = $"editRow{t.Id}";
 
-                string currentRowIndexTemp = (tblTournaments.Rows.Count + 1).ToString();
-                newCell = new TableCell();
-                newCell.ID = "cellEditButton" + t.Id;
-                Button editButton = new Button();
-                editButton.ID = "editButton_" + t.Id;
-                editButton.Text = "Edit";
-                editButton.CssClass = "btn btn-warning";
-                editButton.CommandArgument = currentRowIndexTemp;
-                editButton.CommandName = t.Id.ToString();
-                editButton.Command += this.btnToggleInputs_Click;
-                newCell.Controls.Add(editButton);
-                newRow.Cells.Add(newCell);
+        //        newCell = new TableCell();
+        //        TextBox txt = new TextBox();
+        //        txt.ID = $"edittxtName{t.Id}";
+        //        txt.Text = t.Name;
+        //        txt.CssClass = "form-control";
+        //        newCell.Controls.Add(txt);
+        //        newCell.ID = $"editName{t.Id}";
+        //        row.Cells.Add(newCell);
 
-                newCell = new TableCell();
-                newCell.ID = "cellDelButton" + t.Id;
-                Button delButton = new Button();
-                delButton.ID = "delButton_" + t.Id;
-                delButton.CssClass = "btn btn-danger";
-                delButton.CommandName = "Delete";
-                delButton.Text = "X";
-                delButton.CommandArgument = t.Id.ToString();
-                delButton.Command += this.btnDeleteEdit_Click;
-                newCell.Controls.Add(delButton);
-                newRow.Cells.Add(newCell);
+        //        newCell = new TableCell();
+        //        txt = new TextBox();
+        //        txt.ID = $"edittxtActive{t.Id}";
+        //        txt.Text = t.Active.GetYesNoString();
+        //        txt.CssClass = "form-control";
+        //        form1.Controls.Add(txt);
+        //        form1.Controls.Add(txt);
+        //        newCell.Controls.Add(txt);
+        //        newCell.ID = $"editActive{t.Id}";
+        //        row.Cells.Add(newCell);
 
-                newCell = new TableCell();
-                newCell.ID = "cellDetailsButton" + t.Id;
-                Button detailsButton = new Button();
-                detailsButton.ID = "detButton_" + t.Id;
-                detailsButton.CssClass = "btn btn-secondary";
-                detailsButton.CommandName = "Details";
-                detailsButton.Text = "Show Games";
-                detailsButton.CommandName = currentRowIndexTemp;
-                detailsButton.CommandArgument = t.Id.ToString();
-                detailsButton.Command += this.btnOverview_Click;
-                newCell.Controls.Add(detailsButton);
-                newRow.Cells.Add(newCell);
+        //        newCell = new TableCell();
+        //        DropDownList dropdown = new DropDownList();
+        //        dropdown.ID = $"edittxtType{t.Id}";
+        //        dropdown.CssClass = "form-control";
+        //        dropdown.DataSource = Controller.TypeList;
+        //        dropdown.DataTextField = "Value";
+        //        dropdown.DataValueField = "Key";
+        //        dropdown.DataBind();
+        //        newCell.Controls.Add(dropdown);
+        //        newCell.ID = $"editType{t.Id}";
+        //        row.Cells.Add(newCell);
 
-                tblTournaments.Rows.Add(newRow);
+        //        newCell = new TableCell();
+        //        newCell.ID = $"cellSaveButton{t.Id}";
+        //        Button saveButton = new Button();
+        //        saveButton.ID = $"saveButton{t.Id}";
+        //        saveButton.CommandName = "Edit";
+        //        saveButton.Text = "Save";
+        //        saveButton.CssClass = "btn btn-success";
+        //        saveButton.CommandArgument = t.Id.ToString();
+        //        saveButton.Command += this.btnSave_Click;
+        //        newCell.Controls.Add(saveButton);
+        //        row.Cells.Add(newCell);
 
-                //add edit row
+        //        newCell = new TableCell();
+        //        newCell.ID = $"cellCancelButton{t.Id}";
+        //        Button cancelButton = new Button();
+        //        cancelButton.ID = $"cancelButton{t.Id}";
+        //        cancelButton.Text = "Cancel";
+        //        cancelButton.CssClass = "btn btn-secondary";
+        //        cancelButton.CommandArgument = t.Id.ToString();
+        //        cancelButton.Command += this.btnCancel_Click;
+        //        newCell.Controls.Add(cancelButton);
+        //        row.Cells.Add(newCell);
 
-                TableRow row = new TableRow();
-                row.Style.Add("visibility", "collapse");
-                row.ID = $"editRow{t.Id}";
-
-                newCell = new TableCell();
-                TextBox txt = new TextBox();
-                txt.ID = $"edittxtName{t.Id}";
-                txt.Text = t.Name;
-                txt.CssClass = "form-control";
-                newCell.Controls.Add(txt);
-                newCell.ID = $"editName{t.Id}";
-                row.Cells.Add(newCell);
-
-                newCell = new TableCell();
-                txt = new TextBox();
-                txt.ID = $"edittxtActive{t.Id}";
-                txt.Text = t.Active.GetYesNoString();
-                txt.CssClass = "form-control";
-                form1.Controls.Add(txt);
-                form1.Controls.Add(txt);
-                newCell.Controls.Add(txt);
-                newCell.ID = $"editActive{t.Id}";
-                row.Cells.Add(newCell);
-
-                newCell = new TableCell();
-                DropDownList dropdown = new DropDownList();
-                dropdown.ID = $"edittxtType{t.Id}";
-                dropdown.CssClass = "form-control";
-                dropdown.DataSource = Controller.TypeList;
-                dropdown.DataTextField = "Value";
-                dropdown.DataValueField = "Key";
-                dropdown.DataBind();
-                newCell.Controls.Add(dropdown);
-                newCell.ID = $"editType{t.Id}";
-                row.Cells.Add(newCell);
-
-                newCell = new TableCell();
-                newCell.ID = $"cellSaveButton{t.Id}";
-                Button saveButton = new Button();
-                saveButton.ID = $"saveButton{t.Id}";
-                saveButton.CommandName = "Edit";
-                saveButton.Text = "Save";
-                saveButton.CssClass = "btn btn-success";
-                saveButton.CommandArgument = t.Id.ToString();
-                saveButton.Command += this.btnSave_Click;
-                newCell.Controls.Add(saveButton);
-                row.Cells.Add(newCell);
-
-                newCell = new TableCell();
-                newCell.ID = $"cellCancelButton{t.Id}";
-                Button cancelButton = new Button();
-                cancelButton.ID = $"cancelButton{t.Id}";
-                cancelButton.Text = "Cancel";
-                cancelButton.CssClass = "btn btn-secondary";
-                cancelButton.CommandArgument = t.Id.ToString();
-                cancelButton.Command += this.btnCancel_Click;
-                newCell.Controls.Add(cancelButton);
-                row.Cells.Add(newCell);
-
-                tblTournaments.Rows.Add(row);
-            }
-        }
-
-        protected void btnCancel_Click(object sender, CommandEventArgs e)
-        {
-            this.hideInputs();
-        }
-
-        private void hideInputs()
-        {
-            foreach (TableRow tr in tblTournaments.Rows)
-            {
-                if (tr.Style.Count > 0)
-                {
-                    tr.Style.Clear();
-                    tr.Style.Add("visibility", "collapse");
-                }
-            }
-        }
-
-        protected void generateShowBtn()
-        {
-            Button save = new Button();
-            save.ID = "btnConfirm";
-            save.Command += btnShow_Click;
-            ListControl ctrl = typeList;
-            save.CommandArgument = ctrl.SelectedValue;
-            save.Text = "Show me the Tournaments!";
-            save.CssClass = "btn btn-secondary";
-            btnShow.Controls.Add(save);
-        }
+        //        tblTournaments.Rows.Add(row);
+        //    }
+        //}
 
         protected void btnShow_Click(object sender, CommandEventArgs e)
         {
@@ -298,7 +235,6 @@ namespace Tournament_Management.View
             tmp.Active = Request.Form[$"ctl00$TournamentManagement$edittxtActive{index}"].GetTrueFalseString(); ;
             tmp.Type = Convert.ToInt32(Request.Form[$"ctl00$TournamentManagement$edittxtType{index}"]);
             tmp.Update();
-            this.hideInputs();
 
             Response.Redirect(Request.RawUrl);
         }
@@ -321,8 +257,7 @@ namespace Tournament_Management.View
             //  Candidates = Controller.GetAllCandidates(Convert.ToInt32(e.CommandName));
 
             //update style to visibility: visible on row for index!
-            tblTournaments.Rows[Convert.ToInt32(e.CommandArgument)].Style.Clear();
-            tblTournaments.Rows[Convert.ToInt32(e.CommandArgument)].Style.Add("visibility", "visible");
+
             //    tblTournaments.Rows[Convert.ToInt32(e.CommandArgument) + 1].Style.Clear();
             //    tblTournaments.Rows[Convert.ToInt32(e.CommandArgument) + 1].Style.Add("visibility", "visible");
         }
@@ -376,6 +311,12 @@ namespace Tournament_Management.View
             tmp.Type = Convert.ToInt32(Request.Form[$"ctl00$TournamentManagement$txtType{index}"]);
             tmp.Put();
             Controller.Tournaments.Add(tmp);
+        }
+
+        protected void tourButton_Command(object sender, CommandEventArgs e)
+        {
+            tblTournament.DataSource = Controller.Tournaments.FindAll(x => x.Type == Convert.ToInt32(ddlTour2.SelectedValue));
+            tblTournament.DataBind();
         }
     }
 }

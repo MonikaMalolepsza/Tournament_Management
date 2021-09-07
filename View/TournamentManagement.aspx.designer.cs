@@ -15,40 +15,31 @@ namespace Tournament_Management.View
     {
 
         /// <summary>
-        /// rdbtnList1_container control.
+        /// ddlTour2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl rdbtnList1_container;
+        protected global::System.Web.UI.WebControls.DropDownList ddlTour2;
 
         /// <summary>
-        /// typeList control.
+        /// tourButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList typeList;
+        protected global::System.Web.UI.WebControls.Button tourButton;
 
         /// <summary>
-        /// btnShow control.
+        /// tblTournament control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl btnShow;
-
-        /// <summary>
-        /// form1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl form1;
+        protected global::System.Web.UI.WebControls.GridView tblTournament;
 
         /// <summary>
         /// btnSubmit control.
@@ -58,14 +49,5 @@ namespace Tournament_Management.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSubmit;
-
-        /// <summary>
-        /// tblTournaments control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Table tblTournaments;
     }
 }
