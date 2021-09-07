@@ -277,7 +277,8 @@ namespace Tournament_Management.ControllerNS
 
         public void GetAllTeams()
         {
-            Participants.Clear();
+            //Participants.Clear();
+            Teams.Clear();
             string query = "SELECT * FROM TEAM";
             MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
 
@@ -292,7 +293,7 @@ namespace Tournament_Management.ControllerNS
                 {
                     Team team = new Team();
                     team.Get((int)rdr.GetInt64("id"));
-                    Participants.Add(team);
+                //    Participants.Add(team);
                     Teams.Add(team);
                 }
 

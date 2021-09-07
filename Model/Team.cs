@@ -11,7 +11,6 @@ namespace Tournament_Management.Model
         #region Attributes
 
         private List<Person> _list;
-        private string _foundingDate;
         private int _type;
 
         #endregion Attributes
@@ -19,7 +18,6 @@ namespace Tournament_Management.Model
         #region Properties
 
         public List<Person> List { get => _list; set => _list = value; }
-        public string FoundingDate { get => _foundingDate; set => _foundingDate = value; }
         public int Type { get => _type; set => _type = value; }
 
         #endregion Properties

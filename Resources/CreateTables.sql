@@ -41,7 +41,7 @@ CREATE TABLE `tournament`.`tournament_participants` (
                                        `tournament_id` INT(11) NULL DEFAULT NULL,
                                        `team_id` INT(11) NULL DEFAULT NULL,
                                         INDEX `fk_trnmt_team_id` (`team_id`),
-                                        CONSTRAINT `fk_trnmt_team_id` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`),
+                                        CONSTRAINT `fk_trnmt_team_id` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
                                         INDEX `fk_trnmt_trnmt_id` (`tournament_id`),
                                         CONSTRAINT `fk_trnmt_trnmt_id` FOREIGN KEY (`tournament_id`) REFERENCES `tournament` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
                                         PRIMARY KEY (`id`)
@@ -59,7 +59,7 @@ CREATE TABLE `tournament`.`score` (
                                        `game_id` INT(11) NULL DEFAULT NULL,
                                        `score` INT(3) NULL DEFAULT NULL,
                                         INDEX `fk_score_team_id` (`team_id`),
-                                        CONSTRAINT `fk_score_team_id` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`),
+                                        CONSTRAINT `fk_score_team_id` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
                                         INDEX `fk_score_game_id` (`game_id`),
                                         CONSTRAINT `fk_score_game_id` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
                                         PRIMARY KEY (`id`)
