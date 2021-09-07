@@ -25,9 +25,10 @@ namespace Tournament_Management.View
             {
                 teamGrid.DataSource = Controller.Teams;
                 teamGrid.DataBind();
+                MembersFront.DataBind();
+                CandidatesFront.DataBind();
+                addNewT.DataBind();
             }
-            //LoadInputTeam();
-            //LoadInputMembers();
         }
 
         public List<Person> Members
@@ -52,136 +53,17 @@ namespace Tournament_Management.View
             set => ViewState["Candidates"] = value;
         }
 
-        //    private void LoadInputTeam()
-        //    {
-        //        Label lbl = new Label();
-        //        lbl.Text = "Name";
-        //        addTeam.Controls.Add(lbl);
-
-        //        TextBox txt = new TextBox();
-        //        txt.ID = "txtName";
-        //        txt.Text = "";
-        //        txt.CssClass = "form-control";
-        //        addTeam.Controls.Add(txt);
-
-        //        lbl = new Label();
-        //        lbl.Text = "Discipline";
-        //        addTeam.Controls.Add(lbl);
-
-        //        DropDownList dropdown = new DropDownList();
-        //        dropdown.ID = $"txtType";
-        //        dropdown.CssClass = "form-control";
-        //        dropdown.DataSource = Controller.TypeList;
-        //        dropdown.DataTextField = "Value";
-        //        dropdown.DataValueField = "Key";
-        //        dropdown.DataBind();
-        //        addTeam.Controls.Add(dropdown);
-        //    }
-
-        //    private void LoadInputMembers()
-        //    {
-        //        TableRow row = new TableRow();
-        //        row.ID = "addMembers";
-
-        //        TableCell newCell = new TableCell();
-
-        //        Label lbl = new Label();
-        //        lbl.Text = "Members";
-        //        newCell.Controls.Add(lbl);
-        //    }
-
-        //    protected void btnMember_Click(object sender, CommandEventArgs e)
-        //    {
-        //        string value = Request.Form[$"ctl00$TeamManagement$edittxtMembers{e.CommandArgument}"];
-        //        Person mmbr = Members.Find(x => (x.Name + " " + x.Surname).Contains(value));
-        //        if (mmbr != null)
-        //        {
-        //            // (Controller.Participants[Convert.ToInt32(e.CommandArgument)] as Team).List.Remove(mmbr);
-        //            Members.Remove(mmbr);
-        //            Candidates.Add(mmbr);
-        //        }
-        //        else
-        //        {
-        //        }
-        //        (teamGrid.Rows[Convert.ToInt32(e.CommandArgument)].Cells[0].FindControl($"edittxtMembers{ e.CommandArgument}") as ListBox).DataBind();
-        //        (teamGrid.Rows[Convert.ToInt32(e.CommandArgument)].Cells[2].FindControl($"edittxtCandidates{ e.CommandArgument}") as ListBox).DataBind();
-
-        //        //    Response.Redirect(Request.RawUrl);
-        //    }
-
-        //    protected void btnCandidate_Click(object sender, CommandEventArgs e)
-        //    {
-        //        string value = Request.Form[$"ctl00$TeamManagement$edittxtCandidates{e.CommandArgument}"];
-        //        Person mmbrNew = null;
-        //        if (value != null) mmbrNew = Candidates.Find(x => (x.Name + " " + x.Surname).Contains(value));
-        //        if (mmbrNew != null)
-        //        {
-        //            Candidates.Remove(mmbrNew);
-        //            Members.Add(mmbrNew);
-        //            //(Controller.Participants[Convert.ToInt32(e.CommandArgument)] as Team).List.Add(mmbrNew);
-        //        }
-        //        else
-        //        {
-        //        }
-        //        //    Response.Redirect(Request.RawUrl);
-        //        (teamGrid.Rows[Convert.ToInt32(e.CommandArgument)].Cells[0].FindControl($"edittxtMembers{ e.CommandArgument}") as ListBox).DataBind();
-        //        (teamGrid.Rows[Convert.ToInt32(e.CommandArgument)].Cells[2].FindControl($"edittxtCandidates{ e.CommandArgument}") as ListBox).DataBind();
-        //    }
-
-        //    protected void btnNewMember_Click(object sender, CommandEventArgs e)
-        //    {
-        //        string value = Request.Form[$"ctl00$TeamManagement$edittxtMembers{e.CommandArgument}"];
-        //        Person mmbr = Members.Find(x => (x.Name + " " + x.Surname).Contains(value));
-        //        if (mmbr != null)
-        //        {
-        //            // (Controller.Participants[Convert.ToInt32(e.CommandArgument)] as Team).List.Remove(mmbr);
-        //            Members.Remove(mmbr);
-        //            Candidates.Add(mmbr);
-        //        }
-        //        else
-        //        {
-        //        }
-        //(teamGrid.Rows[Convert.ToInt32(e.CommandArgument)].Cells[0].FindControl($"edittxtMembers{ e.CommandArgument}") as ListBox).DataBind();
-        //        (teamGrid.Rows[Convert.ToInt32(e.CommandArgument)].Cells[2].FindControl($"edittxtCandidates{ e.CommandArgument}") as ListBox).DataBind();
-
-        //        //    Response.Redirect(Request.RawUrl);
-        //    }
-
-        //    protected void btnNewCandidate_Click(object sender, CommandEventArgs e)
-        //    {
-        //        string value = Request.Form[$"ctl00$TeamManagement$edittxtCandidates{e.CommandArgument}"];
-        //        Person mmbrNew = Candidates.Find(x => (x.Name + " " + x.Surname).Contains(value));
-        //        if (mmbrNew != null)
-        //        {
-        //            Candidates.Remove(mmbrNew);
-        //            Members.Add(mmbrNew);
-        //            //(Controller.Participants[Convert.ToInt32(e.CommandArgument)] as Team).List.Add(mmbrNew);
-        //        }
-        //        else
-        //        {
-        //        }
-        //        //    Response.Redirect(Request.RawUrl);
-        //        (teamGrid.Rows[Convert.ToInt32(e.CommandArgument)].Cells[0].FindControl($"edittxtMembers{ e.CommandArgument}") as ListBox).DataBind();
-        //        (teamGrid.Rows[Convert.ToInt32(e.CommandArgument)].Cells[2].FindControl($"edittxtCandidates{ e.CommandArgument}") as ListBox).DataBind();
-        //    }
-
-        //    protected void btnEdit_Click(object sender, CommandEventArgs e)
-        //    {
-        //        string index = e.CommandArgument.ToString();
-        //        Team tmp = Controller.Participants.First(x => x.Id == Convert.ToInt32(e.CommandArgument)) as Team;
-        //        tmp.Name = Request.Form[$"ctl00$TeamManagement$edittxtName{index}"];
-        //        tmp.Type = Convert.ToInt32(Request.Form[$"ctl00$TeamManagement$edittxtType{index}"]);
-        //        tmp.List = Members;
-        //        tmp.Update();
-
-        //        Response.Redirect(Request.RawUrl);
-        //    }
-
         protected void teamGrid_RowEditing(object sender, GridViewEditEventArgs e)
         {
             teamGrid.EditIndex = e.NewEditIndex;
             teamGrid.DataSource = Controller.Teams;
             teamGrid.DataBind();
+            int activeId = (int)teamGrid.DataKeys[e.NewEditIndex].Value;
+            Members = Controller.Teams.First(x => x.Id == activeId).List;
+            Candidates = Controller.GetAllCandidates(activeId);
+            MembersFront.DataBind();
+            CandidatesFront.DataBind();
+            editMembersTeam.Visible = true;
         }
 
         protected void teamGrid_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -216,6 +98,59 @@ namespace Tournament_Management.View
             teamGrid.PageIndex = e.NewPageIndex;
             teamGrid.DataSource = Controller.Teams;
             teamGrid.DataBind();
+        }
+
+        protected void RemoveBtn_Click(object sender, EventArgs e)
+        {
+            if (CandidatesFront.SelectedIndex != -1)
+            {
+                Person mmbrNew = null;
+                mmbrNew = Candidates.Find(x => (x.Name + " " + x.Surname).Contains(MembersFront.SelectedValue));
+                if (mmbrNew != null)
+                {
+                    Candidates.Remove(mmbrNew);
+                    Members.Add(mmbrNew);
+                }
+            }
+            CandidatesFront.DataBind();
+            MembersFront.DataBind();
+        }
+
+        protected void AddBtn_Click(object sender, EventArgs e)
+        {
+            if (MembersFront.SelectedIndex != -1)
+            {
+                Person mmbr = Members.Find(x => (x.Name + " " + x.Surname).Contains(MembersFront.SelectedValue));
+                if (mmbr != null)
+                {
+                    // (Controller.Participants[Convert.ToInt32(e.CommandArgument)] as Team).List.Remove(mmbr);
+                    Members.Remove(mmbr);
+                    Candidates.Add(mmbr);
+                }
+            }
+            CandidatesFront.DataBind();
+            MembersFront.DataBind();
+        }
+
+        protected void btnAdd_Submit(object sender, CommandEventArgs e)
+        {
+            Team newTeam = new Team();
+            newTeam.Type = Convert.ToInt32(addNewT.SelectedValue);
+            newTeam.List = Members;
+            newTeam.Name = (nameT.Text !="" ? nameT.Text : newTeam.Name);
+            newTeam.Update();
+            Response.Redirect(Request.RawUrl);
+        }
+
+        protected void SaveNewI_Command(object sender, CommandEventArgs e)
+        {
+            Team newTeam = new Team();
+            newTeam.Type = Convert.ToInt32(addNewT.SelectedValue);
+            newTeam.List = Members;
+            newTeam.Name = nameT.Text;
+            newTeam.Put();
+            Controller.ActiveParticipant = newTeam.Id;
+            Response.Redirect(Request.RawUrl);
         }
     }
 }
