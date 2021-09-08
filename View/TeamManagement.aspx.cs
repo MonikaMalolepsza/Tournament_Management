@@ -19,10 +19,11 @@ namespace Tournament_Management.View
         protected void Page_Load(object sender, EventArgs e)
         {
             Controller = Global.Controller;
-            Controller.GetAllTeams();
+
 
             if (!IsPostBack)
             {
+                Controller.GetAllTeams();
                 teamGrid.DataSource = Controller.Teams;
                 teamGrid.DataBind();
                 MembersFront.DataBind();
@@ -59,6 +60,7 @@ namespace Tournament_Management.View
             teamGrid.DataSource = Controller.Teams;
             teamGrid.DataBind();
             int activeId = (int)teamGrid.DataKeys[e.NewEditIndex].Value;
+            Controller.ActiveParticipant = activeId;
             Members = Controller.Teams.First(x => x.Id == activeId).List;
             Candidates = Controller.GetAllCandidates(activeId);
             MembersFront.DataBind();
@@ -135,9 +137,10 @@ namespace Tournament_Management.View
         protected void btnAdd_Submit(object sender, CommandEventArgs e)
         {
             Team newTeam = new Team();
+            newTeam.Get(Controller.ActiveParticipant);
             newTeam.Type = Convert.ToInt32(addNewT.SelectedValue);
             newTeam.List = Members;
-            newTeam.Name = (nameT.Text !="" ? nameT.Text : newTeam.Name);
+            newTeam.Name = (nameT.Text != "" ? nameT.Text : newTeam.Name);
             newTeam.Update();
             Response.Redirect(Request.RawUrl);
         }
