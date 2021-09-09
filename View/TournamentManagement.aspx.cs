@@ -39,15 +39,14 @@ namespace Tournament_Management.View
             set => ViewState["Candidates"] = value;
         }
 
-
         protected void Page_Load(object sender, EventArgs e)
         {
             Controller = Global.Controller;
-            UserController = Global.UserController;    
+            UserController = Global.UserController;
 
             if (!IsPostBack)
             {
-                Controller.GetAllTournaments();      
+                Controller.GetAllTournaments();
                 tblTournament.DataBind();
                 MembersFront.DataBind();
                 CandidatesFront.DataBind();
