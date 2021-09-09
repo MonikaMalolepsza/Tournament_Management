@@ -55,9 +55,9 @@
             </div>
             <br />
             <asp:Button ID="btnSubmit" OnCommand="btnSubmit_Click" Visible="true" runat="server" Text="Save" CssClass="btn btn-success" />
-            <div runat="server" id="editTeam" visible="true">
+            <div runat="server" id="editTourn" visible="true">
                 <div class="h4">
-                    Add new Team
+                    Add new Tournament
                 </div>
                 <div class="row">
                     <div class="col-md-6">
@@ -74,7 +74,7 @@
                     </div>
                 </div>
                 <hr class="my-4">
-                <div id="editMembersTeam" runat="server" visible="false">
+                <div id="editMembersTournaments" runat="server" visible="false">
                     <div class="row">
                         <div class="col-md-5">
                             <asp:Label
@@ -112,6 +112,6 @@
                 </div>
             </div>
         </div>
-    <br />
+        <br />
     </div>
 </asp:Content>
