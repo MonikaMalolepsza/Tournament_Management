@@ -55,7 +55,63 @@
             </div>
             <br />
             <asp:Button ID="btnSubmit" OnCommand="btnSubmit_Click" Visible="true" runat="server" Text="Save" CssClass="btn btn-success" />
+            <div runat="server" id="editTeam" visible="true">
+                <div class="h4">
+                    Add new Team
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <asp:Label runat="server" AssociatedControlID="addNewT" Text="Discipline">
+                        </asp:Label>
+                        <asp:DropDownList runat="server" DataTextField="Value" DataValueField="Key" CssClass="form-control" DataSource='<%# Controller.TypeList %>' ID="addNewT">
+                        </asp:DropDownList>
+                    </div>
+                    <div class="col-md-6">
+                        <asp:Label runat="server" AssociatedControlID="nameT" Text="Name"></asp:Label>
+                        <asp:TextBox runat="server" ID="nameT" CssClass="form-control"></asp:TextBox>
+                        <br />
+                        <asp:Button runat="server" ID="SaveNewT" CssClass="btn btn-secondary" Text="Add" OnCommand="SaveNewI_Command" />
+                    </div>
+                </div>
+                <hr class="my-4">
+                <div id="editMembersTeam" runat="server" visible="false">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <asp:Label
+                                runat="server"
+                                AssociatedControlID="MembersFront"
+                                Text="Members"></asp:Label>
+                            <asp:ListBox
+                                CssClass="form-control"
+                                ID="MembersFront"
+                                SelectionMode="Single"
+                                DataSource='<%# Members %>'
+                                runat="server"></asp:ListBox>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="btn-group" role="group">
+                                <asp:Button ID="Button2" CssClass="btn btn-secondary" Text="<" OnClick="RemoveBtn_Click" runat="server" />
+                                <asp:Button ID="Button3" CssClass="btn btn-secondary" Text=">" OnClick="AddBtn_Click" runat="server" />
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <asp:Label
+                                runat="server"
+                                AssociatedControlID="CandidatesFront"
+                                Text="Candidates"></asp:Label>
+                            <asp:ListBox
+                                SelectionMode="Single"
+                                CssClass="form-control"
+                                ID="CandidatesFront"
+                                DataSource='<%# Candidates %>'
+                                runat="server"></asp:ListBox>
+                        </div>
+                    </div>
+                    <br />
+                    <asp:Button ID="btnAdd" OnCommand="btnAdd_Submit" runat="server" Text="Save" CssClass="btn btn-info" />
+                </div>
+            </div>
         </div>
-        <br />
+    <br />
     </div>
 </asp:Content>

@@ -24,6 +24,15 @@ namespace Tournament_Management.View
         protected global::System.Web.UI.WebControls.GridView teamGrid;
 
         /// <summary>
+        /// editTeam control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl editTeam;
+
+        /// <summary>
         /// addNewT control.
         /// </summary>
         /// <remarks>

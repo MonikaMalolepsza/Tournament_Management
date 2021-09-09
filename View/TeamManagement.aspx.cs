@@ -13,24 +13,10 @@ namespace Tournament_Management.View
     public partial class TeamManagement : System.Web.UI.Page
     {
         private Controller _controller;
+        private UserController _userController;
 
         public Controller Controller { get => _controller; set => _controller = value; }
-
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            Controller = Global.Controller;
-
-
-            if (!IsPostBack)
-            {
-                Controller.GetAllTeams();
-                teamGrid.DataSource = Controller.Teams;
-                teamGrid.DataBind();
-                MembersFront.DataBind();
-                CandidatesFront.DataBind();
-                addNewT.DataBind();
-            }
-        }
+        public UserController UserController { get => _userController; set => _userController = value; }
 
         public List<Person> Members
         {
@@ -52,6 +38,27 @@ namespace Tournament_Management.View
                 return null;
             }
             set => ViewState["Candidates"] = value;
+        }
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            Controller = Global.Controller;
+
+            //TODO: Implement the roles controll on buttons in grid!
+            if (UserController.isGuest())
+            {
+                editTeam.Visible = false;
+            }
+
+            if (!IsPostBack)
+            {
+                Controller.GetAllTeams();
+                teamGrid.DataSource = Controller.Teams;
+                teamGrid.DataBind();
+                MembersFront.DataBind();
+                CandidatesFront.DataBind();
+                addNewT.DataBind();
+            }
         }
 
         protected void teamGrid_RowEditing(object sender, GridViewEditEventArgs e)
