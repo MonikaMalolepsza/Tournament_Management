@@ -15,16 +15,12 @@ namespace Tournament_Management.View
 
         public Controller Controller { get => _controller; set => _controller = value; }
 
-        protected override void OnPreInit(EventArgs e)
-        {
-            if (!Global.UserController.isloggedin())
-            {
-                Response.Redirect("../ULogin.aspx");
-            }
-        }
-
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                string id = Request.QueryString["TournamentId"];
+            }
             Controller = Global.Controller;
             Controller.GetAllTournaments();
             if (!IsPostBack) initialize_Dropdown();

@@ -43,7 +43,7 @@ namespace Tournament_Management.View
         protected void Page_Load(object sender, EventArgs e)
         {
             Controller = Global.Controller;
-
+            UserController = Global.UserController;
             //TODO: Implement the roles controll on buttons in grid!
             if (UserController.isGuest())
             {
@@ -95,6 +95,13 @@ namespace Tournament_Management.View
 
         protected void teamGrid_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
+            Team newTeam = new Team();
+            newTeam.Get(Controller.ActiveParticipant);
+            newTeam.Type = Convert.ToInt32(addNewT.SelectedValue);
+            newTeam.List = Members;
+            newTeam.Name = (nameT.Text != "" ? nameT.Text : newTeam.Name);
+            newTeam.Update();
+            Response.Redirect(Request.RawUrl);
         }
 
         public string typeConverter(object type_id)

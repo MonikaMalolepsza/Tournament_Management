@@ -13,8 +13,9 @@ namespace Tournament_Management.View
     public partial class TournamentManagement : System.Web.UI.Page
     {
         private Controller _controller;
-
+        private UserController _userController;
         public Controller Controller { get => _controller; set => _controller = value; }
+        public UserController UserController { get => _userController; set => _userController = value; }
 
         public List<Team> Members
         {
@@ -38,25 +39,19 @@ namespace Tournament_Management.View
             set => ViewState["Candidates"] = value;
         }
 
+
         protected void Page_Load(object sender, EventArgs e)
         {
             Controller = Global.Controller;
-            Controller.GetAllTournaments();
+            UserController = Global.UserController;    
+
             if (!IsPostBack)
             {
+                Controller.GetAllTournaments();      
                 tblTournament.DataBind();
-                ddlTour2.DataBind();
+                MembersFront.DataBind();
+                CandidatesFront.DataBind();
             }
-        }
-
-        protected void btnShow_Click(object sender, CommandEventArgs e)
-        {
-            Controller.ActiveParticipant = Convert.ToInt32(e.CommandArgument);
-            if (Convert.ToInt32(e.CommandArgument) == 0) Controller.GetAllTournaments();
-            else Controller.GetAllTournamentsForType(Convert.ToInt32(e.CommandArgument));
-
-            Response.Redirect(Request.RawUrl);
-            //     LoadTournaments();
         }
 
         protected void RemoveBtn_Click(object sender, EventArgs e)
@@ -75,7 +70,7 @@ namespace Tournament_Management.View
             MembersFront.DataBind();
         }
 
-        protected void teamGrid_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        protected void tblTournament_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             tblTournament.PageIndex = e.NewPageIndex;
             tblTournament.DataSource = Controller.Teams;
@@ -98,28 +93,10 @@ namespace Tournament_Management.View
             MembersFront.DataBind();
         }
 
-        protected void btnSave_Click(object sender, CommandEventArgs e)
-        {
-            string index = e.CommandArgument.ToString();
-            Tournament tmp = Controller.Tournaments.First(x => x.Id == Convert.ToInt32(e.CommandArgument));
-            tmp.Name = Request.Form[$"ctl00$TournamentManagement$edittxtName{index}"];
-            tmp.Active = Request.Form[$"ctl00$TournamentManagement$edittxtActive{index}"].GetTrueFalseString(); ;
-            tmp.Type = Convert.ToInt32(Request.Form[$"ctl00$TournamentManagement$edittxtType{index}"]);
-            tmp.Update();
-
-            Response.Redirect(Request.RawUrl);
-        }
-
         protected void btnOverview_Click(object sender, CommandEventArgs e)
         {
             Controller.ActiveParticipant = Convert.ToInt32(e.CommandArgument);
             Response.Redirect("~/View/GameManagement");
-        }
-
-        protected void btnDeleteEdit_Click(object sender, CommandEventArgs e)
-        {
-            Controller.Tournaments.First(x => x.Id == Convert.ToInt32(e.CommandArgument)).Delete();
-            Controller.GetAllTournaments();
         }
 
         public string typeConverter(object type_id)
@@ -128,6 +105,22 @@ namespace Tournament_Management.View
         }
 
         protected void btnAdd_Submit(object sender, CommandEventArgs e)
+        {
+            Tournament newTournament = new Tournament();
+            newTournament.Type = Convert.ToInt32(addNewT.SelectedValue);
+            newTournament.Teams = Members;
+            newTournament.Name = nameT.Text;
+            newTournament.Put();
+            Controller.ActiveParticipant = newTournament.Id;
+            Response.Redirect(Request.RawUrl);
+        }
+
+        protected void gotoGames_Command(object sender, CommandEventArgs e)
+        {
+            Response.Redirect(string.Format("~/View/GameManagement?TournamentId={0}", tblTournament.DataKeys[((sender as Button).NamingContainer as GridViewRow).RowIndex]));
+        }
+
+        protected void tblTournament_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
             Tournament newTeam = new Tournament();
             newTeam.Get(Controller.ActiveParticipant);
@@ -138,21 +131,34 @@ namespace Tournament_Management.View
             Response.Redirect(Request.RawUrl);
         }
 
-        protected void SaveNewI_Command(object sender, CommandEventArgs e)
+        protected void tblTournament_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
-            Tournament newTeam = new Tournament();
-            newTeam.Type = Convert.ToInt32(addNewT.SelectedValue);
-            newTeam.Teams = Members;
-            newTeam.Name = nameT.Text;
-            newTeam.Put();
-            Controller.ActiveParticipant = newTeam.Id;
+            tblTournament.EditIndex = -1;
+        }
+
+        protected void tblTournament_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            GridViewRow row = tblTournament.Rows[e.RowIndex];
+            Tournament temp = new Tournament();
+            temp = Controller.Tournaments.First(team => team.Id == (int)e.Keys["id"]);
+            temp.Delete();
+            tblTournament.EditIndex = -1;
+            tblTournament.DataBind();
             Response.Redirect(Request.RawUrl);
         }
 
-        protected void tourButton_Command(object sender, CommandEventArgs e)
+        protected void tblTournament_RowEditing(object sender, GridViewEditEventArgs e)
         {
-            tblTournament.DataSource = Controller.Tournaments.FindAll(x => x.Type == Convert.ToInt32(ddlTour2.SelectedValue));
+            tblTournament.EditIndex = e.NewEditIndex;
+            tblTournament.DataSource = Controller.Tournaments;
             tblTournament.DataBind();
+            int activeId = (int)tblTournament.DataKeys[e.NewEditIndex].Value;
+            Controller.ActiveParticipant = activeId;
+            Members = Controller.Tournaments.First(x => x.Id == activeId).Teams;
+            Candidates = Controller.GetAllTournamentCandidates(activeId);
+            MembersFront.DataBind();
+            CandidatesFront.DataBind();
+            editMembersTournaments.Visible = true;
         }
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using Tournament_Management.Model;
 
 namespace Tournament_Management.ControllerNS
@@ -329,6 +330,36 @@ namespace Tournament_Management.ControllerNS
             {
                 con.Close();
             }
+        }
+
+        public List<Team> GetAllTournamentCandidates(int Id)
+        {
+            List<Team> result = new List<Team>();  
+          
+            string query = $"SELECT T.ID FROM TEAM T WHERE NOT EXISTS(SELECT NULL FROM TOURNAMENT_PARTICIPANTS TP WHERE TP.TOURNAMENT_ID={Id} AND TP.TEAM_ID=T.ID)";
+            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+
+            try
+            {
+                con.Open();
+
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    Team t = new Team();
+                    t.Get((int)rdr.GetInt64("id"));
+                    result.Add(t);
+                }
+
+                rdr.Close();
+            }
+            finally
+            {
+                con.Close();
+            }
+            return result;
         }
 
         public void GetAllTournamentsForType(int type)
