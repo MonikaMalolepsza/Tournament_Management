@@ -264,6 +264,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\ClassExtensions.cs" />
+    <Compile Include="Helper\GlobalConst.cs" />
     <Compile Include="ULogin.aspx.cs">
       <DependentUpon>ULogin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

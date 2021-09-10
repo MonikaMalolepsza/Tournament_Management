@@ -66,6 +66,12 @@
                             </asp:DropDownList>
                         </EditItemTemplate>
                     </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Export">
+                        <ItemTemplate>
+                            <asp:Button ID="Export" ID="exportTeam" OnCommand="Export_Command" CssClass="form-control" Text='export' runat="server">
+                            </asp:Button>
+                        </ItemTemplate>
+                    </asp:TemplateField>
                 </Columns>
                 <EditRowStyle CssClass="GridRowEditStyle" />
                 <FooterStyle CssClass="GridViewFooterStyle" />

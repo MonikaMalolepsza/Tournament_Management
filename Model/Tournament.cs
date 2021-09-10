@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Tournament_Management.Helper;
 
 namespace Tournament_Management.Model
 {
@@ -56,7 +57,7 @@ namespace Tournament_Management.Model
 
         public void Update()
         {
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             /*
                           `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -87,7 +88,7 @@ namespace Tournament_Management.Model
 
         public void Put()
         {
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             try
             {
@@ -110,7 +111,7 @@ namespace Tournament_Management.Model
 
         public void Delete()
         {
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             try
             {
@@ -132,7 +133,7 @@ namespace Tournament_Management.Model
 
         public void Get(int id)
         {
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             try
             {
@@ -162,7 +163,7 @@ namespace Tournament_Management.Model
 
         public List<Game> GetAllGames(int id)
         {
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             List<Game> result = new List<Game>();
 
@@ -201,7 +202,7 @@ namespace Tournament_Management.Model
 
         public List<Team> GetAllTeams()
         {
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             List<Team> result = new List<Team>();
             try

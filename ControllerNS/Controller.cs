@@ -3,7 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Xml.Serialization;
+using System.IO;
+using System.Xml;
+using System.Xml.XPath;
 using Tournament_Management.Model;
+using Tournament_Management.Helper;
+
 
 namespace Tournament_Management.ControllerNS
 {
@@ -78,7 +84,7 @@ namespace Tournament_Management.ControllerNS
         public void GetAllTypes()
         {
             TypeList.Clear();
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             string selectTypes = "SELECT * FROM TYPE";
             try
@@ -123,7 +129,7 @@ namespace Tournament_Management.ControllerNS
             $"WHERE pm.TEAM_ID <> {teamId} " +
             "OR pm.PERSON_ID IS NULL";
 
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
             try
             {
                 con.Open();
@@ -192,7 +198,7 @@ namespace Tournament_Management.ControllerNS
                 "when((SELECT 1 from REFEREE R where R.PERSON_ID = P.id) is not null) then 'Referee' " +
                 "end as Profession " +
                 "FROM PERSON P";
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
             try
             {
                 con.Open();
@@ -252,7 +258,7 @@ namespace Tournament_Management.ControllerNS
         {
             Participants.Clear();
             string query = "SELECT P.ID FROM PERSON P JOIN FOOTBALLPLAYER FP ON P.ID = FP.PERSON_ID";
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             try
             {
@@ -280,7 +286,7 @@ namespace Tournament_Management.ControllerNS
         {
             Teams.Clear();
             string query = "SELECT * FROM TEAM";
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             try
             {
@@ -308,7 +314,7 @@ namespace Tournament_Management.ControllerNS
         {
             Tournaments.Clear();
             string query = "SELECT * FROM TOURNAMENT";
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             try
             {
@@ -337,7 +343,7 @@ namespace Tournament_Management.ControllerNS
             List<Team> result = new List<Team>();  
           
             string query = $"SELECT T.ID FROM TEAM T WHERE NOT EXISTS(SELECT NULL FROM TOURNAMENT_PARTICIPANTS TP WHERE TP.TOURNAMENT_ID={Id} AND TP.TEAM_ID=T.ID)";
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             try
             {
@@ -366,7 +372,7 @@ namespace Tournament_Management.ControllerNS
         {
             Tournaments.Clear();
             string query = $"SELECT * FROM TOURNAMENT WHERE type_id = {type}";
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             try
             {
@@ -394,7 +400,7 @@ namespace Tournament_Management.ControllerNS
         {
             Participants.Clear();
             string query = "SELECT P.ID FROM PERSON P JOIN BASKETBALLPLAYER BP ON P.ID = BP.PERSON_ID";
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             try
             {
@@ -422,7 +428,7 @@ namespace Tournament_Management.ControllerNS
         {
             Participants.Clear();
             string query = "SELECT P.ID FROM PERSON P JOIN HANDBALLPLAYER HB ON P.ID = HB.PERSON_ID";
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             try
             {
@@ -450,7 +456,7 @@ namespace Tournament_Management.ControllerNS
         {
             Participants.Clear();
             string query = "SELECT P.ID FROM PERSON P JOIN PHYSIO HB ON P.ID = HB.PERSON_ID";
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             try
             {
@@ -478,7 +484,7 @@ namespace Tournament_Management.ControllerNS
         {
             Participants.Clear();
             string query = "SELECT P.ID FROM PERSON P JOIN TRAINER HB ON P.ID = HB.PERSON_ID";
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             try
             {
@@ -506,7 +512,7 @@ namespace Tournament_Management.ControllerNS
         {
             Participants.Clear();
             string query = "SELECT P.ID FROM PERSON P JOIN REFEREE HB ON P.ID = HB.PERSON_ID";
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             try
             {
@@ -578,7 +584,7 @@ namespace Tournament_Management.ControllerNS
                         + " ORDER BY Points desc, Difference DESC"
                         + " ) As Total, (SELECT @`curRow` := 0) r";
 
-            using (MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;"))
+            using (MySqlConnection con = new MySqlConnection(GlobalConst.connectionString))
             {
                 try
                 {
@@ -595,6 +601,22 @@ namespace Tournament_Management.ControllerNS
                     throw e;
                 }
             }
+        }
+
+        public string SerializeFromTable<T>(List<T> toSerialize)
+        {
+            string result = string.Empty;
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
+
+            XmlSerializer ser = new XmlSerializer(typeof(Team));
+            StringWriter stringWriter = new StringWriter();
+            XmlWriter writer = XmlWriter.Create(stringWriter);
+
+            ser.Serialize(writer, toSerialize);
+
+            result = stringWriter.ToString();
+            
+            return result;
         }
 
         #endregion Methods

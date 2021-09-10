@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Tournament_Management.Model;
+using Tournament_Management.Helper;
+
 
 namespace Tournament_Management.ControllerNS
 {
@@ -68,7 +70,7 @@ namespace Tournament_Management.ControllerNS
         public void getAllUsers()
         {
             Users.Clear();
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             string selectUser = "SELECT ID FROM auth_User";
             try
@@ -98,7 +100,7 @@ namespace Tournament_Management.ControllerNS
         public void GetAllRoles()
         {
             Roles.Clear();
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             string selectR = "SELECT * FROM Roles";
             try
@@ -128,7 +130,7 @@ namespace Tournament_Management.ControllerNS
             bool authenticated = false;
             User = new User();
             string query = $"SELECT ID FROM auth_user WHERE email = @email AND PASSWORD = @pass";
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             try
             {

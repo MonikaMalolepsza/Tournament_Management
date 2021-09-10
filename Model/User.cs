@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Tournament_Management.Helper;
+
 
 namespace Tournament_Management.Model
 {
@@ -63,7 +65,7 @@ namespace Tournament_Management.Model
 
         public void Update()
         {
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
             con.Open();
             try
             {
@@ -83,7 +85,7 @@ namespace Tournament_Management.Model
         }
          public void UpdatePassword()
         {
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
             con.Open();
             try
             {
@@ -104,7 +106,7 @@ namespace Tournament_Management.Model
 
         public void Put()
         {
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
             con.Open();
             try
             {
@@ -126,7 +128,7 @@ namespace Tournament_Management.Model
 
         public void Delete()
         {
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             try
             {
@@ -149,7 +151,7 @@ namespace Tournament_Management.Model
 
         public void Get(int id)
         {
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             try
             {

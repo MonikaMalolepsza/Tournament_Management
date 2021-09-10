@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Tournament_Management.Helper;
 
 namespace Tournament_Management.Model
 {
@@ -62,7 +63,7 @@ namespace Tournament_Management.Model
         {
             string updateTeam = $"UPDATE TEAM SET NAME = '{Name}', TYPE_ID = '{Type}' WHERE ID = '{Id}'";
 
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
             try
             {
                 con.Open();
@@ -82,7 +83,7 @@ namespace Tournament_Management.Model
 
         public override void Put()
         {
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             con.Open();
             MySqlTransaction transaction = con.BeginTransaction();
@@ -125,7 +126,7 @@ namespace Tournament_Management.Model
 
         public override void Delete()
         {
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             try
             {
@@ -149,7 +150,7 @@ namespace Tournament_Management.Model
         {
             List<Person> result = new List<Person>();
             Person p = null;
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             try
             {
@@ -222,7 +223,7 @@ namespace Tournament_Management.Model
 
         public override void Get(int id)
         {
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             try
             {
@@ -260,7 +261,7 @@ namespace Tournament_Management.Model
 
             string deleteSql = $"DELETE FROM TEAM_MEMBER WHERE TEAM_ID = '{Id}' AND PERSON_ID IN ('{string.Join("', '", membersToRemove.Select(x => x.Id))}')";
 
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
             try
             {
                 con.Open();

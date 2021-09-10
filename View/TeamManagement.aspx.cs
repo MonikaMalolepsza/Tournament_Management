@@ -8,6 +8,7 @@ using Tournament_Management.ControllerNS;
 using Tournament_Management.Model;
 using Tournament_Management.Helper;
 
+
 namespace Tournament_Management.View
 {
     public partial class TeamManagement : System.Web.UI.Page
@@ -90,6 +91,7 @@ namespace Tournament_Management.View
         {
             teamGrid.EditIndex = -1;
             teamGrid.DataSource = Controller.Teams;
+            Controller.ActiveParticipant = -1;
             teamGrid.DataBind();
         }
 
@@ -168,6 +170,12 @@ namespace Tournament_Management.View
             newTeam.Put();
             Controller.ActiveParticipant = newTeam.Id;
             Response.Redirect(Request.RawUrl);
+        }
+
+        protected void Export_Command(object sender, CommandEventArgs e)
+        {
+            List<Team> teamToExport = Controller.Teams.FindAll(t => t.Id == Controller.ActiveParticipant);
+            Controller.SerializeFromTable(teamToExport);
         }
     }
 }

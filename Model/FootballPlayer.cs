@@ -1,5 +1,6 @@
 ﻿using System;
 using MySql.Data.MySqlClient;
+using Tournament_Management.Helper;
 
 namespace Tournament_Management.Model
 {
@@ -37,7 +38,7 @@ namespace Tournament_Management.Model
 
         public override void Update()
         {
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             con.Open();
             MySqlTransaction transaction = con.BeginTransaction();
@@ -74,7 +75,7 @@ namespace Tournament_Management.Model
 
         public override void Put()
         {
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             con.Open();
             MySqlTransaction transaction = con.BeginTransaction();
@@ -128,7 +129,7 @@ namespace Tournament_Management.Model
 
         public override void Delete()
         {
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             try
             {
@@ -153,7 +154,7 @@ namespace Tournament_Management.Model
 
         public override void Get(int id)
         {
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             try
             {
