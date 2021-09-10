@@ -174,8 +174,17 @@ namespace Tournament_Management.View
 
         protected void Export_Command(object sender, CommandEventArgs e)
         {
-            List<Team> teamToExport = Controller.Teams.FindAll(t => t.Id == Controller.ActiveParticipant);
-            Controller.SerializeFromTable(teamToExport);
+            //  List<Team> teamToExport = Controller.Teams.FindAll(t => t.Id == Controller.ActiveParticipant);
+            string xml = Controller.SerializeFromGrid(Controller.Teams);
+            string fileName = "xmlDump.xml";
+            HttpResponse response = HttpContext.Current.Response;
+            response.StatusCode = 200;
+            response.AppendHeader("Content - Type", "application-download; charset = utf-8");
+            response.AppendHeader("Content - Disposition", "attachment" + fileName);
+            response.Write(xml);
+            response.Flush();
+            response.End();
+
         }
     }
 }

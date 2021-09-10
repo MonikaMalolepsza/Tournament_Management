@@ -22,6 +22,15 @@ namespace Tournament_Management.View {
         protected global::System.Web.UI.WebControls.GridView teamGrid;
         
         /// <summary>
+        /// Export-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Export;
+        
+        /// <summary>
         /// editTeam-Steuerelement
         /// </summary>
         /// <remarks>

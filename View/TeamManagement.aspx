@@ -52,7 +52,7 @@
                             </asp:DropDownList>
                         </ItemTemplate>
                         <EditItemTemplate>
-                            <asp:Label ID="labelDD" Text='Add members below' runat="server">
+                            <asp:Label ID="labelD" Text='Add members below' runat="server">
                             </asp:Label>
                         </EditItemTemplate>
                     </asp:TemplateField>
@@ -66,12 +66,6 @@
                             </asp:DropDownList>
                         </EditItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Export">
-                        <ItemTemplate>
-                            <asp:Button ID="Export" ID="exportTeam" OnCommand="Export_Command" CssClass="form-control" Text='export' runat="server">
-                            </asp:Button>
-                        </ItemTemplate>
-                    </asp:TemplateField>
                 </Columns>
                 <EditRowStyle CssClass="GridRowEditStyle" />
                 <FooterStyle CssClass="GridViewFooterStyle" />
@@ -81,6 +75,7 @@
                 <AlternatingRowStyle CssClass="GridViewAlternatingRowStyle" />
                 <HeaderStyle CssClass="GridViewPagerStyle" />
             </asp:GridView>
+            <asp:Button ID="Export" ID="exportTeam" OnCommand="Export_Command" CssClass="form-control" Text='export' runat="server"></asp:Button>
             <br />
             <div runat="server" id="editTeam" visible="true">
                 <div class="h4">

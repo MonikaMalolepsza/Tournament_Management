@@ -603,19 +603,17 @@ namespace Tournament_Management.ControllerNS
             }
         }
 
-        public string SerializeFromTable<T>(List<T> toSerialize)
+        public string SerializeFromGrid<T>(List<T> toSerialize)
         {
             string result = string.Empty;
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
 
             XmlSerializer ser = new XmlSerializer(typeof(Team));
-            StringWriter stringWriter = new StringWriter();
-            XmlWriter writer = XmlWriter.Create(stringWriter);
-
+            StringWriter writer = new StringWriter();
             ser.Serialize(writer, toSerialize);
 
-            result = stringWriter.ToString();
-            
+            result = writer.ToString();
+           
             return result;
         }
 
