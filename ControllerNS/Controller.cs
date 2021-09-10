@@ -2,11 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Xml.Serialization;
 using System.IO;
-using System.Xml;
-using System.Xml.XPath;
 using Tournament_Management.Model;
 using Tournament_Management.Helper;
 using Newtonsoft.Json;
@@ -609,6 +606,7 @@ namespace Tournament_Management.ControllerNS
 
             if (type == 1)
             {
+                //XML
                 XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
                 XmlSerializer ser = new XmlSerializer(typeof(Team));
                 StringWriter writer = new StringWriter();
@@ -619,7 +617,29 @@ namespace Tournament_Management.ControllerNS
             {
                 //JSON
                 result = JsonConvert.SerializeObject(toSerialize);
-                
+            }
+
+           
+            return result;
+        }
+
+        public string SerializeToObject<T>(List<T> toSerialize, int type)
+        {
+            string result = string.Empty;
+
+            if (type == 1)
+            {
+                //XML
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
+                XmlSerializer ser = new XmlSerializer(typeof(Team));
+                StringWriter writer = new StringWriter();
+                ser.Serialize(writer, toSerialize);
+                result = writer.ToString();
+            }
+            else if (type == 2)
+            {
+                //JSON
+                result = JsonConvert.SerializeObject(toSerialize);
             }
 
            

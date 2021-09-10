@@ -75,8 +75,12 @@
                 <AlternatingRowStyle CssClass="GridViewAlternatingRowStyle" />
                 <HeaderStyle CssClass="GridViewPagerStyle" />
             </asp:GridView>
-            <asp:Button  ID="exportTeamXML" OnCommand="Export_CommandXML" CssClass="form-control" Text='export XML' runat="server"></asp:Button>
-            <asp:Button  ID="exportTeamJSON" OnCommand="Export_CommandJSON" CssClass="form-control" Text='export JSON' runat="server"></asp:Button>
+            <div class="col-md-2">
+                <div class="btn-group" role="group">
+                    <asp:Button ID="exportTeamXML" OnCommand="Export_CommandXML" CssClass="form-control" Text='export XML' runat="server"></asp:Button>
+                    <asp:Button ID="exportTeamJSON" OnCommand="Export_CommandJSON" CssClass="form-control" Text='export JSON' runat="server"></asp:Button>
+                </div>
+            </div>
             <br />
             <div runat="server" id="editTeam" visible="true">
                 <div class="h4">
