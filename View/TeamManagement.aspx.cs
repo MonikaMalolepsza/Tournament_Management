@@ -172,10 +172,10 @@ namespace Tournament_Management.View
             Response.Redirect(Request.RawUrl);
         }
 
-        protected void Export_Command(object sender, CommandEventArgs e)
+        protected void Export_CommandXML(object sender, CommandEventArgs e)
         {
             //  List<Team> teamToExport = Controller.Teams.FindAll(t => t.Id == Controller.ActiveParticipant);
-            string xml = Controller.SerializeFromGrid(Controller.Teams);
+            string xml = Controller.SerializeFromGrid(Controller.Teams, 1);
             string fileName = "xmlDump.xml";
             HttpResponse response = HttpContext.Current.Response;
             response.StatusCode = 200;
@@ -185,6 +185,19 @@ namespace Tournament_Management.View
             response.Flush();
             response.End();
 
+        }
+
+        protected void Export_CommandJSON(object sender, CommandEventArgs e)
+        {
+            string json = Controller.SerializeFromGrid(Controller.Teams, 2);
+            string fileName = "jsonDump.json";
+            HttpResponse response = HttpContext.Current.Response;
+            response.StatusCode = 200;
+            response.AppendHeader("Content - Type", "application-download; charset = utf-8");
+            response.AppendHeader("Content - Disposition", "attachment" + fileName);
+            response.Write(json);
+            response.Flush();
+            response.End();
         }
     }
 }

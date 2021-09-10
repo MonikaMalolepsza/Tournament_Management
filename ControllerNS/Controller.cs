@@ -9,7 +9,7 @@ using System.Xml;
 using System.Xml.XPath;
 using Tournament_Management.Model;
 using Tournament_Management.Helper;
-
+using Newtonsoft.Json;
 
 namespace Tournament_Management.ControllerNS
 {
@@ -603,16 +603,25 @@ namespace Tournament_Management.ControllerNS
             }
         }
 
-        public string SerializeFromGrid<T>(List<T> toSerialize)
+        public string SerializeFromGrid<T>(List<T> toSerialize, int type)
         {
             string result = string.Empty;
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
 
-            XmlSerializer ser = new XmlSerializer(typeof(Team));
-            StringWriter writer = new StringWriter();
-            ser.Serialize(writer, toSerialize);
+            if (type == 1)
+            {
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
+                XmlSerializer ser = new XmlSerializer(typeof(Team));
+                StringWriter writer = new StringWriter();
+                ser.Serialize(writer, toSerialize);
+                result = writer.ToString();
+            }
+            else if (type == 2)
+            {
+                //JSON
+                result = JsonConvert.SerializeObject(toSerialize);
+                
+            }
 
-            result = writer.ToString();
            
             return result;
         }
