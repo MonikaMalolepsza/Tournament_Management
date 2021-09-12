@@ -152,6 +152,8 @@ namespace Tournament_Management.View
             tblTournament.EditIndex = -1;
             tblTournament.DataBind();
             Response.Redirect(Request.RawUrl);
+            editMembersTournaments.Visible = true;
+            addNewTournament.Visible = false;
         }
 
         protected void tblTournament_RowEditing(object sender, GridViewEditEventArgs e)

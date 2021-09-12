@@ -100,12 +100,12 @@
                 <AlternatingRowStyle CssClass="GridViewAlternatingRowStyle" />
                 <HeaderStyle CssClass="GridViewPagerStyle" />
             </asp:GridView>
-            <br />
             <div runat="server" id="editTourn" visible="true">
-
                 <div class="row" id="addNewTournament" visible="true" runat="server">
-                    <div class="h4">
-                        Add new Tournament
+                    <div class="panel-body">
+                        <div class="h4">
+                            Add new Tournament
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <asp:Label runat="server" AssociatedControlID="addNewT" Text="Discipline">

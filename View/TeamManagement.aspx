@@ -12,13 +12,9 @@
             </a>
         </span>
         <h1 class="display-4">Team Management</h1>
-        <p class="lead">Manage your favourite teams</p>
         <hr class="my-4">
-        <p>...</p>
+        <p>Here you can initialize Teams, update the details and add the players.</p>
     </div>
-    <div class="container-fluid">
-    </div>
-    <br />
     <br />
     <br />
     <div class="panel panel-default">
@@ -75,12 +71,13 @@
                 <AlternatingRowStyle CssClass="GridViewAlternatingRowStyle" />
                 <HeaderStyle CssClass="GridViewPagerStyle" />
             </asp:GridView>
-            <br />
             <div runat="server" id="editTeam" visible="true">
-                <div class="h4">
-                    Add new Team
-                </div>
-                <div class="row">
+                <div class="row" id="addNewTeam" visible="true" runat="server">
+                    <div class="panel-body">
+                        <div class="h4">
+                            Add new Team
+                        </div>
+                    </div>
                     <div class="col-md-6">
                         <asp:Label runat="server" AssociatedControlID="addNewT" Text="Discipline">
                         </asp:Label>
@@ -94,48 +91,47 @@
                         <asp:Button runat="server" ID="SaveNewT" CssClass="btn btn-secondary" Text="Add" OnCommand="SaveNewI_Command" />
                     </div>
                 </div>
-                <div id="editMembersTeam" runat="server" visible="false">
-                    <hr class="my-4">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <asp:Label
-                                runat="server"
-                                AssociatedControlID="MembersFront"
-                                Text="Members"></asp:Label>
-                            <asp:ListBox
-                                CssClass="form-control"
-                                ID="MembersFront"
-                                SelectionMode="Single"
-                                DataSource='<%# Members %>'
-                                runat="server"></asp:ListBox>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="btn-group" role="group">
-                                <asp:Button ID="Button2" CssClass="btn btn-secondary" Text="<" OnClick="RemoveBtn_Click" runat="server" />
-                                <asp:Button ID="Button3" CssClass="btn btn-secondary" Text=">" OnClick="AddBtn_Click" runat="server" />
-                            </div>
-                        </div>
-                        <div class="col-md-5">
-                            <asp:Label
-                                runat="server"
-                                AssociatedControlID="CandidatesFront"
-                                Text="Candidates"></asp:Label>
-                            <asp:ListBox
-                                SelectionMode="Single"
-                                CssClass="form-control"
-                                ID="CandidatesFront"
-                                DataSource='<%# Candidates %>'
-                                runat="server"></asp:ListBox>
+            <div id="editMembersTeam" runat="server" visible="false">
+                <hr class="my-4">
+                <div class="row">
+                    <div class="col-md-5">
+                        <asp:Label
+                            runat="server"
+                            AssociatedControlID="MembersFront"
+                            Text="Members"></asp:Label>
+                        <asp:ListBox
+                            CssClass="form-control"
+                            ID="MembersFront"
+                            SelectionMode="Single"
+                            DataSource='<%# Members %>'
+                            runat="server"></asp:ListBox>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="btn-group" role="group">
+                            <asp:Button ID="Button2" CssClass="btn btn-secondary" Text="<" OnClick="RemoveBtn_Click" runat="server" />
+                            <asp:Button ID="Button3" CssClass="btn btn-secondary" Text=">" OnClick="AddBtn_Click" runat="server" />
                         </div>
                     </div>
-                    <br />
-                    <asp:Button ID="btnAdd" OnCommand="btnAdd_Submit" runat="server" Text="Save" CssClass="btn btn-info" />
+                    <div class="col-md-5">
+                        <asp:Label
+                            runat="server"
+                            AssociatedControlID="CandidatesFront"
+                            Text="Candidates"></asp:Label>
+                        <asp:ListBox
+                            SelectionMode="Single"
+                            CssClass="form-control"
+                            ID="CandidatesFront"
+                            DataSource='<%# Candidates %>'
+                            runat="server"></asp:ListBox>
+                    </div>
                 </div>
-                <div id="exportButtons" runat="server">
-                    <hr class="my-4">
-                    <asp:Button ID="exportTeamXML" OnCommand="Export_CommandXML" CssClass="btn btn-secondary" Text='export XML' runat="server"></asp:Button>
-                    <asp:Button ID="exportTeamJSON" OnCommand="Export_CommandJSON" CssClass="btn btn-secondary" Text='export JSON' runat="server"></asp:Button>
-                </div>
+                <br />
+            </div>
+            <div id="exportButtons" runat="server">
+                <hr class="my-4">
+                <asp:Button ID="exportTeamXML" OnCommand="Export_CommandXML" CssClass="btn btn-secondary" Text='export XML' runat="server"></asp:Button>
+                <asp:Button ID="exportTeamJSON" OnCommand="Export_CommandJSON" CssClass="btn btn-secondary" Text='export JSON' runat="server"></asp:Button>
+            </div>
             </div>
             <br />
             <br />

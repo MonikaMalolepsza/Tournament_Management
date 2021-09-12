@@ -73,6 +73,7 @@ namespace Tournament_Management.View
             MembersFront.DataBind();
             CandidatesFront.DataBind();
             editMembersTeam.Visible = true;
+            addNewTeam.Visible = false;
         }
 
         protected void teamGrid_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -84,6 +85,8 @@ namespace Tournament_Management.View
             teamGrid.EditIndex = -1;
             teamGrid.DataBind();
             Response.Redirect(Request.RawUrl);
+            editMembersTeam.Visible = false;
+            addNewTeam.Visible = true;
         }
 
         protected void teamGrid_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
@@ -92,15 +95,19 @@ namespace Tournament_Management.View
             teamGrid.DataSource = Controller.Teams;
             Controller.ActiveParticipant = -1;
             teamGrid.DataBind();
+            editMembersTeam.Visible = false;
+            addNewTeam.Visible = true;
         }
 
         protected void teamGrid_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
+            GridViewRow row = teamGrid.Rows[e.RowIndex];
             Team newTeam = new Team();
-            newTeam.Get(Controller.ActiveParticipant);
-            newTeam.Type = Convert.ToInt32(addNewT.SelectedValue);
+            newTeam.Get((int)e.Keys["id"]);
+            DropDownList cur = (DropDownList)row.FindControl("ddlist");
+            newTeam.Type = Convert.ToInt32(cur.SelectedValue);
             newTeam.List = Members;
-            newTeam.Name = (nameT.Text != "" ? nameT.Text : newTeam.Name);
+            newTeam.Name = ((TextBox)(row.Cells[1].Controls[0])).Text;
             newTeam.Update();
             Response.Redirect(Request.RawUrl);
         }

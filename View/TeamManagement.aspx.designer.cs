@@ -33,6 +33,15 @@ namespace Tournament_Management.View
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl editTeam;
 
         /// <summary>
+        /// addNewTeam control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl addNewTeam;
+
+        /// <summary>
         /// addNewT control.
         /// </summary>
         /// <remarks>
@@ -103,15 +112,6 @@ namespace Tournament_Management.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ListBox CandidatesFront;
-
-        /// <summary>
-        /// btnAdd control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAdd;
 
         /// <summary>
         /// exportButtons control.
