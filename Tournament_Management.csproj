@@ -236,7 +236,6 @@
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="Static\Images\Board-Background.jpg" />
     <Content Include="View\GameManagement.aspx" />
-    <Content Include="View\help.aspx" />
     <Content Include="View\Home.aspx" />
     <Content Include="View\MyProfile.aspx" />
     <Content Include="View\PersonalManagement.aspx" />
@@ -299,13 +298,6 @@
     </Compile>
     <Compile Include="View\GameManagement.aspx.designer.cs">
       <DependentUpon>GameManagement.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="View\help.aspx.cs">
-      <DependentUpon>help.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="View\help.aspx.designer.cs">
-      <DependentUpon>help.aspx</DependentUpon>
     </Compile>
     <Compile Include="View\Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>

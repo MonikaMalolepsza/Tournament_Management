@@ -14,8 +14,8 @@
         if (!IsValidEmail(Login1.UserName))
         {
             Login1.InstructionText = "Enter a valid email address.";
-            Login1.CssClass="alert alert-danger";
-           // Login1.InstructionTextStyle.ForeColor = System.Drawing.Color.RosyBrown;
+            Login1.CssClass = "alert alert-danger";
+            // Login1.InstructionTextStyle.ForeColor = System.Drawing.Color.RosyBrown;
             e.Cancel = true;
         }
         else
@@ -26,8 +26,8 @@
 
     void OnLoginError(object sender, EventArgs e)
     {
-        Login1.HelpPageText = "Help with logging in...";
-        Login1.PasswordRecoveryText = "Forgot your password?";
+        Login1.HelpPageText = "Contact Admin";
+        Login1.HelpPageUrl = "mailto:mmalolepsza@hhek.de";
     }
 </script>
 
@@ -78,8 +78,6 @@
                                         TitleText=""
                                         TextLayout="TextOnTop"
                                         DisplayRememberMe="false"
-                                        HelpPageUrl="help.aspx"
-                                        PasswordRecoveryUrl="help.aspx"
                                         UserNameLabelText="Email address:"
                                         OnLoggingIn="OnLoggingIn"
                                         OnAuthenticate="OnAuth"
