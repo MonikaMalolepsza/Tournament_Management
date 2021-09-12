@@ -21,22 +21,22 @@ namespace Tournament_Management.View
         {
             get
             {
-                if (ViewState["Members"] != null)
-                    return (List<Team>)ViewState["Members"];
+                if (ViewState["MembersTournament"] != null)
+                    return (List<Team>)ViewState["MembersTournament"];
                 return null;
             }
-            set => ViewState["Members"] = value;
+            set => ViewState["MembersTournament"] = value;
         }
 
         public List<Team> Candidates
         {
             get
             {
-                if (ViewState["Candidates"] != null)
-                    return (List<Team>)ViewState["Candidates"];
+                if (ViewState["CandidatesTournament"] != null)
+                    return (List<Team>)ViewState["CandidatesTournament"];
                 return null;
             }
-            set => ViewState["Candidates"] = value;
+            set => ViewState["CandidatesTournament"] = value;
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -47,9 +47,11 @@ namespace Tournament_Management.View
             if (!IsPostBack)
             {
                 Controller.GetAllTournaments();
+                tblTournament.DataSource = Controller.Tournaments;
                 tblTournament.DataBind();
                 MembersFront.DataBind();
                 CandidatesFront.DataBind();
+                addNewT.DataBind();
             }
         }
 
@@ -71,8 +73,10 @@ namespace Tournament_Management.View
 
         protected void tblTournament_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
+            tblTournament.EditIndex = -1;
             tblTournament.PageIndex = e.NewPageIndex;
-            tblTournament.DataSource = Controller.Teams;
+            tblTournament.DataSource = Controller.Tournaments;
+            Controller.ActiveParticipant = -1;
             tblTournament.DataBind();
         }
 
@@ -92,18 +96,24 @@ namespace Tournament_Management.View
             MembersFront.DataBind();
         }
 
-        protected void btnOverview_Click(object sender, CommandEventArgs e)
-        {
-            Controller.ActiveParticipant = Convert.ToInt32(e.CommandArgument);
-            Response.Redirect("~/View/GameManagement");
-        }
-
         public string typeConverter(object type_id)
         {
             return Controller.TypeList[Convert.ToInt32(type_id)];
         }
 
-        protected void btnAdd_Submit(object sender, CommandEventArgs e)
+        //protected void btnAdd_Submit(object sender, CommandEventArgs e)
+        //{
+        //    Tournament newTournament = new Tournament();
+        //    newTournament.Get(Controller.ActiveParticipant);
+        //    newTournament.Type = Convert.ToInt32(addNewT.SelectedValue);
+        //    newTournament.Teams = Members;
+        //    newTournament.Name = ;
+        //    newTournament.Update();
+        //    Controller.ActiveParticipant = newTournament.Id;
+        //    Response.Redirect(Request.RawUrl);
+        //}
+
+        protected void SaveNewT_Command(object sender, CommandEventArgs e)
         {
             Tournament newTournament = new Tournament();
             newTournament.Type = Convert.ToInt32(addNewT.SelectedValue);
@@ -121,18 +131,27 @@ namespace Tournament_Management.View
 
         protected void tblTournament_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
-            Tournament newTeam = new Tournament();
-            newTeam.Get(Controller.ActiveParticipant);
-            newTeam.Type = Convert.ToInt32(addNewT.SelectedValue);
-            newTeam.Teams = Members;
-            newTeam.Name = (nameT.Text != "" ? nameT.Text : newTeam.Name);
-            newTeam.Update();
+            GridViewRow row = tblTournament.Rows[e.RowIndex];
+            Tournament newT = new Tournament();
+            newT.Get((int)e.Keys["id"]);
+            DropDownList cur = (DropDownList)row.FindControl("tournamentTypes");
+            newT.Type = Convert.ToInt32(cur.SelectedValue);
+            newT.Teams = Members;
+            newT.Name = ((TextBox)(row.Cells[1].Controls[0])).Text;
+            newT.Update();
+            newT = null;
+            Controller.GetAllTournaments();
+            tblTournament.DataBind();
             Response.Redirect(Request.RawUrl);
         }
 
         protected void tblTournament_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
             tblTournament.EditIndex = -1;
+            tblTournament.DataSource = Controller.Tournaments;
+            Controller.ActiveParticipant = -1;
+            tblTournament.DataBind();
+            addNewTournament.Visible = true;
         }
 
         protected void tblTournament_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -158,11 +177,12 @@ namespace Tournament_Management.View
             MembersFront.DataBind();
             CandidatesFront.DataBind();
             editMembersTournaments.Visible = true;
+            addNewTournament.Visible = false;
         }
+
         protected void Export_CommandXML(object sender, CommandEventArgs e)
         {
-            //  List<Team> teamToExport = Controller.Teams.FindAll(t => t.Id == Controller.ActiveParticipant);
-            string xml = Controller.SerializeFromGrid(Controller.Teams, 1);
+            string xml = Controller.SerializeFromGrid(Controller.Tournaments, 1);
             string fileName = "xmlDump.xml";
             HttpResponse response = HttpContext.Current.Response;
             response.StatusCode = 200;
@@ -175,7 +195,7 @@ namespace Tournament_Management.View
 
         protected void Export_CommandJSON(object sender, CommandEventArgs e)
         {
-            string json = Controller.SerializeFromGrid(Controller.Teams, 2);
+            string json = Controller.SerializeFromGrid(Controller.Tournaments, 2);
             string fileName = "jsonDump.json";
             HttpResponse response = HttpContext.Current.Response;
             response.StatusCode = 200;

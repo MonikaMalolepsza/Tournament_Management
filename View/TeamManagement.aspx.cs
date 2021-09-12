@@ -114,6 +114,7 @@ namespace Tournament_Management.View
         {
             teamGrid.PageIndex = e.NewPageIndex;
             teamGrid.DataSource = Controller.Teams;
+            Controller.ActiveParticipant = -1;
             teamGrid.DataBind();
         }
 
@@ -178,7 +179,7 @@ namespace Tournament_Management.View
             string fileName = "xmlDump.xml";
             HttpResponse response = HttpContext.Current.Response;
             response.StatusCode = 200;
-            response.ContentType="application-download";
+            response.ContentType = "application-download";
             response.AppendHeader("Content-Disposition", "attachment; filename=" + fileName);
             response.Write(xml);
             response.Flush();

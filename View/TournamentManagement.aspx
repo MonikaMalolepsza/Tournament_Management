@@ -40,7 +40,6 @@
         <div class="panel-body">
             <asp:GridView ID="tblTournament"
                 CssClass="table"
-                DataSource='<%# Controller.Tournaments %>'
                 runat="server"
                 AllowPaging="true"
                 PagerSettings-Mode="NextPrevious"
@@ -69,9 +68,9 @@
                             </asp:Label>
                         </EditItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Role">
+                    <asp:TemplateField HeaderText="Discipline">
                         <ItemTemplate>
-                            <asp:Label ID="tourRole" Text='<%# typeConverter(Eval("Type"))%>' runat="server">
+                            <asp:Label ID="tourType" Text='<%# typeConverter(Eval("Type"))%>' runat="server">
                             </asp:Label>
                         </ItemTemplate>
                         <EditItemTemplate>
@@ -106,7 +105,7 @@
                 <div class="h4">
                     Add new Tournament
                 </div>
-                <div class="row">
+                <div class="row" id="addNewTournament" visible="true" runat="server">
                     <div class="col-md-6">
                         <asp:Label runat="server" AssociatedControlID="addNewT" Text="Discipline">
                         </asp:Label>
@@ -117,7 +116,7 @@
                         <asp:Label runat="server" AssociatedControlID="nameT" Text="Name"></asp:Label>
                         <asp:TextBox runat="server" ID="nameT" CssClass="form-control"></asp:TextBox>
                         <br />
-                        <asp:Button runat="server" ID="SaveNewT" CssClass="btn btn-secondary" Text="Add" OnCommand="btnAdd_Submit" />
+                        <asp:Button runat="server" ID="SaveNewT" CssClass="btn btn-secondary" Text="Add" OnCommand="SaveNewT_Command" />
                     </div>
                 </div>
                 <hr class="my-4">
@@ -154,8 +153,10 @@
                                 runat="server"></asp:ListBox>
                         </div>
                     </div>
+                    <div class="lead">To save your changes click update.</div>
+
                     <br />
-                    <asp:Button ID="btnAdd" OnCommand="btnAdd_Submit" runat="server" Text="Save" CssClass="btn btn-info" />
+                    <%--                    <asp:Button ID="btnAdd" OnCommand="btnAdd_Submit" runat="server" Text="Save" CssClass="btn btn-info" />--%>
                 </div>
                 <div id="exportButtons" runat="server">
                     <hr class="my-4">

@@ -7,6 +7,7 @@ using Tournament_Management.Helper;
 
 namespace Tournament_Management.Model
 {
+    [Serializable]
     public class Score
     {
         #region Attributes

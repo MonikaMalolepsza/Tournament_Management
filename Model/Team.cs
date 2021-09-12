@@ -49,6 +49,11 @@ namespace Tournament_Management.Model
             List.Add(teilnehmer);
         }
 
+        public override string ToString()
+        {
+            return Name.ToString();
+        }
+
         public string OutputTeamInformation()
         {
             string res = $"Team: {Name}\r\n";
@@ -74,6 +79,7 @@ namespace Tournament_Management.Model
             }
             catch (Exception e)
             {
+                throw e;
             }
             finally
             {
@@ -255,7 +261,6 @@ namespace Tournament_Management.Model
         {
             List<Person> oldMembers = GetMembers(Id);
 
-            //TODO:Hier funktioniert etwas mit dem Vergleichen noch nicht so ganz
             List<Person> membersToRemove = oldMembers.Except(List).ToList();
             List<Person> membersToAdd = List.Except(oldMembers).ToList();
 
