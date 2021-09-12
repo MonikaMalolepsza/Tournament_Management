@@ -15,6 +15,24 @@ namespace Tournament_Management.View
     {
 
         /// <summary>
+        /// ddlTour control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlTour;
+
+        /// <summary>
+        /// tourButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button tourButton;
+
+        /// <summary>
         /// tblGames control.
         /// </summary>
         /// <remarks>
@@ -33,85 +51,76 @@ namespace Tournament_Management.View
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl editTourn;
 
         /// <summary>
-        /// addNewTournament control.
+        /// addNewGame control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl addNewTournament;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl addNewGame;
 
         /// <summary>
-        /// addNewT control.
+        /// newGameTournDD control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList addNewT;
+        protected global::System.Web.UI.WebControls.DropDownList newGameTournDD;
 
         /// <summary>
-        /// nameT control.
+        /// addNewT1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox nameT;
+        protected global::System.Web.UI.WebControls.DropDownList addNewT1;
 
         /// <summary>
-        /// SaveNewT control.
+        /// addNewT2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button SaveNewT;
+        protected global::System.Web.UI.WebControls.DropDownList addNewT2;
 
         /// <summary>
-        /// editMembersTournaments control.
+        /// addNewGamePoints control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl editMembersTournaments;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl addNewGamePoints;
 
         /// <summary>
-        /// MembersFront control.
+        /// Score1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox MembersFront;
+        protected global::System.Web.UI.WebControls.TextBox Score1;
 
         /// <summary>
-        /// Button2 control.
+        /// Score2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button2;
+        protected global::System.Web.UI.WebControls.TextBox Score2;
 
         /// <summary>
-        /// Button3 control.
+        /// btnAdd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button3;
-
-        /// <summary>
-        /// CandidatesFront control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox CandidatesFront;
+        protected global::System.Web.UI.WebControls.Button btnAdd;
 
         /// <summary>
         /// exportButtons control.

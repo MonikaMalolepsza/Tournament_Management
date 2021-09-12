@@ -120,8 +120,9 @@
                         <asp:Button runat="server" ID="SaveNewT" CssClass="btn btn-secondary" Text="Add" OnCommand="SaveNewT_Command" />
                     </div>
                 </div>
-                <hr class="my-4">
                 <div id="editMembersTournaments" runat="server" visible="false">
+                    <hr class="my-4">
+
                     <div class="row">
                         <div class="col-md-5">
                             <asp:Label

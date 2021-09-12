@@ -31,7 +31,7 @@ namespace Tournament_Management.Model
         public Game()
         {
             this.Id = 0;
-            this.Scores = new List<Score>();
+            this.Scores = new List<Score>(2);
         }
 
         public Game(int t1, int score1, int t2, int score2, int id)
@@ -124,7 +124,7 @@ namespace Tournament_Management.Model
                 {
                     foreach (Score s in Scores)
                     {
-                        string insertScores = $"INSERT INTO SCORE (team_id, game_id, score) VALUES('{s.Team}', '{Id}', '{s.Points}')";
+                        string insertScores = $"INSERT INTO SCORE (team_id, game_id, score) VALUES('{s.Team}', '{game_id}', '{s.Points}')";
                         cmd.CommandText = insertScores;
                         cmd.ExecuteNonQuery();
                     }
