@@ -60,7 +60,7 @@ namespace Tournament_Management.View
             if (CandidatesFront.SelectedIndex != -1)
             {
                 Team mmbrNew = null;
-                mmbrNew = Candidates.Find(x => (x.Name).Contains(MembersFront.SelectedValue));
+                mmbrNew = Candidates.Find(x => x.Name == CandidatesFront.SelectedValue);
                 if (mmbrNew != null)
                 {
                     Candidates.Remove(mmbrNew);
@@ -84,7 +84,7 @@ namespace Tournament_Management.View
         {
             if (MembersFront.SelectedIndex != -1)
             {
-                Team mmbr = Members.Find(x => (x.Name).Contains(MembersFront.SelectedValue));
+                Team mmbr = Members.Find(x => x.Name == MembersFront.SelectedValue);
                 if (mmbr != null)
                 {
                     // (Controller.Participants[Convert.ToInt32(e.CommandArgument)] as Team).List.Remove(mmbr);
@@ -100,18 +100,6 @@ namespace Tournament_Management.View
         {
             return Controller.TypeList[Convert.ToInt32(type_id)];
         }
-
-        //protected void btnAdd_Submit(object sender, CommandEventArgs e)
-        //{
-        //    Tournament newTournament = new Tournament();
-        //    newTournament.Get(Controller.ActiveParticipant);
-        //    newTournament.Type = Convert.ToInt32(addNewT.SelectedValue);
-        //    newTournament.Teams = Members;
-        //    newTournament.Name = ;
-        //    newTournament.Update();
-        //    Controller.ActiveParticipant = newTournament.Id;
-        //    Response.Redirect(Request.RawUrl);
-        //}
 
         protected void SaveNewT_Command(object sender, CommandEventArgs e)
         {
@@ -152,6 +140,7 @@ namespace Tournament_Management.View
             Controller.ActiveParticipant = -1;
             tblTournament.DataBind();
             addNewTournament.Visible = true;
+            editMembersTournaments.Visible = false;
         }
 
         protected void tblTournament_RowDeleting(object sender, GridViewDeleteEventArgs e)

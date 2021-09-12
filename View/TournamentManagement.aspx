@@ -102,10 +102,11 @@
             </asp:GridView>
             <br />
             <div runat="server" id="editTourn" visible="true">
-                <div class="h4">
-                    Add new Tournament
-                </div>
+
                 <div class="row" id="addNewTournament" visible="true" runat="server">
+                    <div class="h4">
+                        Add new Tournament
+                    </div>
                     <div class="col-md-6">
                         <asp:Label runat="server" AssociatedControlID="addNewT" Text="Discipline">
                         </asp:Label>
@@ -153,10 +154,9 @@
                                 runat="server"></asp:ListBox>
                         </div>
                     </div>
-                    <div class="lead">To save your changes click update.</div>
-
                     <br />
-                    <%--                    <asp:Button ID="btnAdd" OnCommand="btnAdd_Submit" runat="server" Text="Save" CssClass="btn btn-info" />--%>
+                    <div class="lead">To save your changes click update.</div>
+                    <br />
                 </div>
                 <div id="exportButtons" runat="server">
                     <hr class="my-4">
