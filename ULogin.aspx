@@ -14,7 +14,8 @@
         if (!IsValidEmail(Login1.UserName))
         {
             Login1.InstructionText = "Enter a valid email address.";
-            Login1.InstructionTextStyle.ForeColor = System.Drawing.Color.RosyBrown;
+            Login1.CssClass="alert alert-danger";
+           // Login1.InstructionTextStyle.ForeColor = System.Drawing.Color.RosyBrown;
             e.Cancel = true;
         }
         else

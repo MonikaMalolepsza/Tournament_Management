@@ -75,12 +75,6 @@
                 <AlternatingRowStyle CssClass="GridViewAlternatingRowStyle" />
                 <HeaderStyle CssClass="GridViewPagerStyle" />
             </asp:GridView>
-            <div class="col-md-2">
-                <div class="btn-group" role="group">
-                    <asp:Button ID="exportTeamXML" OnCommand="Export_CommandXML" CssClass="form-control" Text='export XML' runat="server"></asp:Button>
-                    <asp:Button ID="exportTeamJSON" OnCommand="Export_CommandJSON" CssClass="form-control" Text='export JSON' runat="server"></asp:Button>
-                </div>
-            </div>
             <br />
             <div runat="server" id="editTeam" visible="true">
                 <div class="h4">
@@ -100,8 +94,8 @@
                         <asp:Button runat="server" ID="SaveNewT" CssClass="btn btn-secondary" Text="Add" OnCommand="SaveNewI_Command" />
                     </div>
                 </div>
-                <hr class="my-4">
                 <div id="editMembersTeam" runat="server" visible="false">
+                    <hr class="my-4">
                     <div class="row">
                         <div class="col-md-5">
                             <asp:Label
@@ -137,8 +131,15 @@
                     <br />
                     <asp:Button ID="btnAdd" OnCommand="btnAdd_Submit" runat="server" Text="Save" CssClass="btn btn-info" />
                 </div>
+                <div id="exportButtons" runat="server">
+                    <hr class="my-4">
+                        <asp:Button ID="exportTeamXML" OnCommand="Export_CommandXML" CssClass="btn btn-secondary" Text='export XML' runat="server"></asp:Button>
+                        <asp:Button ID="exportTeamJSON" OnCommand="Export_CommandJSON" CssClass="btn btn-secondary" Text='export JSON' runat="server"></asp:Button>
+                </div>
             </div>
+            <br />
+
+            <br />
         </div>
-        <br />
     </div>
 </asp:Content>

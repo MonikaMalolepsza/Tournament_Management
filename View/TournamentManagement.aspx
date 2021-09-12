@@ -157,6 +157,11 @@
                     <br />
                     <asp:Button ID="btnAdd" OnCommand="btnAdd_Submit" runat="server" Text="Save" CssClass="btn btn-info" />
                 </div>
+                <div id="exportButtons" runat="server">
+                    <hr class="my-4">
+                    <asp:Button ID="exportTeamXML" OnCommand="Export_CommandXML" CssClass="btn btn-secondary" Text='export XML' runat="server"></asp:Button>
+                    <asp:Button ID="exportTeamJSON" OnCommand="Export_CommandJSON" CssClass="btn btn-secondary" Text='export JSON' runat="server"></asp:Button>
+                </div>
             </div>
         </div>
         <br />

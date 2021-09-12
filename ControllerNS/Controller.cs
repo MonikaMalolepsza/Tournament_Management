@@ -337,8 +337,8 @@ namespace Tournament_Management.ControllerNS
 
         public List<Team> GetAllTournamentCandidates(int Id)
         {
-            List<Team> result = new List<Team>();  
-          
+            List<Team> result = new List<Team>();
+
             string query = $"SELECT T.ID FROM TEAM T WHERE NOT EXISTS(SELECT NULL FROM TOURNAMENT_PARTICIPANTS TP WHERE TP.TOURNAMENT_ID={Id} AND TP.TEAM_ID=T.ID)";
             MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
@@ -607,10 +607,9 @@ namespace Tournament_Management.ControllerNS
             if (type == 1)
             {
                 //XML
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
-                XmlSerializer ser = new XmlSerializer(typeof(Team));
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<T>));
                 StringWriter writer = new StringWriter();
-                ser.Serialize(writer, toSerialize);
+                xmlSerializer.Serialize(writer, toSerialize);
                 result = writer.ToString();
             }
             else if (type == 2)
@@ -619,7 +618,6 @@ namespace Tournament_Management.ControllerNS
                 result = JsonConvert.SerializeObject(toSerialize);
             }
 
-           
             return result;
         }
 
@@ -642,7 +640,6 @@ namespace Tournament_Management.ControllerNS
                 result = JsonConvert.SerializeObject(toSerialize);
             }
 
-           
             return result;
         }
 

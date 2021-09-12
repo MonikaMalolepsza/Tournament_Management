@@ -8,7 +8,6 @@ using Tournament_Management.ControllerNS;
 using Tournament_Management.Model;
 using Tournament_Management.Helper;
 
-
 namespace Tournament_Management.View
 {
     public partial class TeamManagement : System.Web.UI.Page
@@ -179,12 +178,11 @@ namespace Tournament_Management.View
             string fileName = "xmlDump.xml";
             HttpResponse response = HttpContext.Current.Response;
             response.StatusCode = 200;
-            response.AppendHeader("Content - Type", "application-download; charset = utf-8");
-            response.AppendHeader("Content - Disposition", "attachment" + fileName);
+            response.ContentType="application-download";
+            response.AppendHeader("Content-Disposition", "attachment; filename=" + fileName);
             response.Write(xml);
             response.Flush();
             response.End();
-
         }
 
         protected void Export_CommandJSON(object sender, CommandEventArgs e)
@@ -193,8 +191,8 @@ namespace Tournament_Management.View
             string fileName = "jsonDump.json";
             HttpResponse response = HttpContext.Current.Response;
             response.StatusCode = 200;
-            response.AppendHeader("Content - Type", "application-download; charset = utf-8");
-            response.AppendHeader("Content - Disposition", "attachment" + fileName);
+            response.ContentType = "application-download";
+            response.AppendHeader("Content-Disposition", "attachment; filename=" + fileName);
             response.Write(json);
             response.Flush();
             response.End();
