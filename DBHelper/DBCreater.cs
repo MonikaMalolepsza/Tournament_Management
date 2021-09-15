@@ -11,7 +11,7 @@ namespace Tournament_Management.DBHelper
 {
     public static class DatabaseCreator
     {
-        private const string _connectionString = "Server=127.0.0.1;Uid=user;Pwd=user;";
+        private const string _connectionString = "Server=127.0.0.1;Uid=root;Pwd=;";
         private static string _structurePath;
         public static void GenerateDatabase()
         {

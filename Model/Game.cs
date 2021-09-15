@@ -3,9 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Tournament_Management.Helper;
 
 namespace Tournament_Management.Model
 {
+    [Serializable]
     public class Game
     {
         #region Attributes
@@ -29,7 +31,7 @@ namespace Tournament_Management.Model
         public Game()
         {
             this.Id = 0;
-            this.Scores = new List<Score>();
+            this.Scores = new List<Score>(2);
         }
 
         public Game(int t1, int score1, int t2, int score2, int id)
@@ -49,7 +51,7 @@ namespace Tournament_Management.Model
         {
             // TODO smth still not working...
 
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             con.Open();
             MySqlTransaction transaction = con.BeginTransaction();
@@ -91,7 +93,7 @@ namespace Tournament_Management.Model
 
         public void Put()
         {
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             con.Open();
             MySqlTransaction transaction = con.BeginTransaction();
@@ -122,7 +124,7 @@ namespace Tournament_Management.Model
                 {
                     foreach (Score s in Scores)
                     {
-                        string insertScores = $"INSERT INTO SCORE (team_id, game_id, score) VALUES('{s.Team}', '{Id}', '{s.Points}')";
+                        string insertScores = $"INSERT INTO SCORE (team_id, game_id, score) VALUES('{s.Team}', '{game_id}', '{s.Points}')";
                         cmd.CommandText = insertScores;
                         cmd.ExecuteNonQuery();
                     }
@@ -143,7 +145,7 @@ namespace Tournament_Management.Model
 
         public void Delete()
         {
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             try
             {
@@ -165,7 +167,7 @@ namespace Tournament_Management.Model
 
         public void Get(int id)
         {
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             try
             {

@@ -2,7 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Xml.Serialization;
+using System.IO;
 using Tournament_Management.Model;
+using Tournament_Management.Helper;
+using Newtonsoft.Json;
 
 namespace Tournament_Management.ControllerNS
 {
@@ -77,7 +81,7 @@ namespace Tournament_Management.ControllerNS
         public void GetAllTypes()
         {
             TypeList.Clear();
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             string selectTypes = "SELECT * FROM TYPE";
             try
@@ -122,7 +126,7 @@ namespace Tournament_Management.ControllerNS
             $"WHERE pm.TEAM_ID <> {teamId} " +
             "OR pm.PERSON_ID IS NULL";
 
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
             try
             {
                 con.Open();
@@ -191,7 +195,7 @@ namespace Tournament_Management.ControllerNS
                 "when((SELECT 1 from REFEREE R where R.PERSON_ID = P.id) is not null) then 'Referee' " +
                 "end as Profession " +
                 "FROM PERSON P";
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
             try
             {
                 con.Open();
@@ -251,7 +255,7 @@ namespace Tournament_Management.ControllerNS
         {
             Participants.Clear();
             string query = "SELECT P.ID FROM PERSON P JOIN FOOTBALLPLAYER FP ON P.ID = FP.PERSON_ID";
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             try
             {
@@ -277,9 +281,9 @@ namespace Tournament_Management.ControllerNS
 
         public void GetAllTeams()
         {
-            Participants.Clear();
+            Teams.Clear();
             string query = "SELECT * FROM TEAM";
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             try
             {
@@ -292,7 +296,6 @@ namespace Tournament_Management.ControllerNS
                 {
                     Team team = new Team();
                     team.Get((int)rdr.GetInt64("id"));
-                    Participants.Add(team);
                     Teams.Add(team);
                 }
 
@@ -308,7 +311,7 @@ namespace Tournament_Management.ControllerNS
         {
             Tournaments.Clear();
             string query = "SELECT * FROM TOURNAMENT";
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             try
             {
@@ -332,11 +335,41 @@ namespace Tournament_Management.ControllerNS
             }
         }
 
+        public List<Team> GetAllTournamentCandidates(int Id)
+        {
+            List<Team> result = new List<Team>();
+
+            string query = $"SELECT T.ID FROM TEAM T WHERE NOT EXISTS(SELECT NULL FROM TOURNAMENT_PARTICIPANTS TP WHERE TP.TOURNAMENT_ID={Id} AND TP.TEAM_ID=T.ID)";
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
+
+            try
+            {
+                con.Open();
+
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    Team t = new Team();
+                    t.Get((int)rdr.GetInt64("id"));
+                    result.Add(t);
+                }
+
+                rdr.Close();
+            }
+            finally
+            {
+                con.Close();
+            }
+            return result;
+        }
+
         public void GetAllTournamentsForType(int type)
         {
             Tournaments.Clear();
             string query = $"SELECT * FROM TOURNAMENT WHERE type_id = {type}";
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             try
             {
@@ -364,7 +397,7 @@ namespace Tournament_Management.ControllerNS
         {
             Participants.Clear();
             string query = "SELECT P.ID FROM PERSON P JOIN BASKETBALLPLAYER BP ON P.ID = BP.PERSON_ID";
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             try
             {
@@ -392,7 +425,7 @@ namespace Tournament_Management.ControllerNS
         {
             Participants.Clear();
             string query = "SELECT P.ID FROM PERSON P JOIN HANDBALLPLAYER HB ON P.ID = HB.PERSON_ID";
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             try
             {
@@ -420,7 +453,7 @@ namespace Tournament_Management.ControllerNS
         {
             Participants.Clear();
             string query = "SELECT P.ID FROM PERSON P JOIN PHYSIO HB ON P.ID = HB.PERSON_ID";
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             try
             {
@@ -448,7 +481,7 @@ namespace Tournament_Management.ControllerNS
         {
             Participants.Clear();
             string query = "SELECT P.ID FROM PERSON P JOIN TRAINER HB ON P.ID = HB.PERSON_ID";
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             try
             {
@@ -476,7 +509,7 @@ namespace Tournament_Management.ControllerNS
         {
             Participants.Clear();
             string query = "SELECT P.ID FROM PERSON P JOIN REFEREE HB ON P.ID = HB.PERSON_ID";
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             try
             {
@@ -548,7 +581,7 @@ namespace Tournament_Management.ControllerNS
                         + " ORDER BY Points desc, Difference DESC"
                         + " ) As Total, (SELECT @`curRow` := 0) r";
 
-            using (MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;"))
+            using (MySqlConnection con = new MySqlConnection(GlobalConst.connectionString))
             {
                 try
                 {
@@ -565,6 +598,49 @@ namespace Tournament_Management.ControllerNS
                     throw e;
                 }
             }
+        }
+
+        public string SerializeFromGrid<T>(List<T> toSerialize, int type)
+        {
+            string result = string.Empty;
+
+            if (type == 1)
+            {
+                //XML
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<T>));
+                StringWriter writer = new StringWriter();
+                xmlSerializer.Serialize(writer, toSerialize);
+                result = writer.ToString();
+            }
+            else if (type == 2)
+            {
+                //JSON
+                result = JsonConvert.SerializeObject(toSerialize);
+            }
+
+            return result;
+        }
+
+        public string SerializeToObject<T>(List<T> toSerialize, int type)
+        {
+            string result = string.Empty;
+
+            if (type == 1)
+            {
+                //XML
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
+                XmlSerializer ser = new XmlSerializer(typeof(Team));
+                StringWriter writer = new StringWriter();
+                ser.Serialize(writer, toSerialize);
+                result = writer.ToString();
+            }
+            else if (type == 2)
+            {
+                //JSON
+                result = JsonConvert.SerializeObject(toSerialize);
+            }
+
+            return result;
         }
 
         #endregion Methods

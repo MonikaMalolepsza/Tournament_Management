@@ -3,9 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Tournament_Management.Helper;
 
 namespace Tournament_Management.Model
 {
+    [Serializable]
     public class Tournament
     {
         #region Attributes
@@ -56,7 +58,7 @@ namespace Tournament_Management.Model
 
         public void Update()
         {
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             /*
                           `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -75,6 +77,41 @@ namespace Tournament_Management.Model
                 MySqlCommand cmd = new MySqlCommand(query, con);
 
                 cmd.ExecuteNonQuery();
+                SaveMembers();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        private void SaveMembers()
+        {
+            List<Team> oldMembers = GetAllTeams(Id);
+
+            List<Team> membersToRemove = oldMembers.Except(Teams).ToList();
+            List<Team> membersToAdd = Teams.Except(oldMembers).ToList();
+
+            string deleteSql = $"DELETE FROM TOURNAMENT_PARTICIPANTS WHERE TEAM_ID = '{Id}' AND TOURNAMENT_ID IN ('{string.Join("', '", membersToRemove.Select(x => x.Id))}')";
+
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
+            try
+            {
+                con.Open();
+                MySqlCommand cmd = new MySqlCommand { Connection = con };
+                cmd.CommandText = deleteSql;
+                cmd.ExecuteNonQuery();
+
+                foreach (Team t in membersToAdd)
+                {
+                    string insertSql = $"INSERT INTO TOURNAMENT_PARTICIPANTS (TEAM_ID, TOURNAMENT_ID) VALUES ('{Id}', '{t.Id}')";
+                    cmd.CommandText = insertSql;
+                    cmd.ExecuteNonQuery();
+                }
             }
             catch (Exception e)
             {
@@ -87,7 +124,7 @@ namespace Tournament_Management.Model
 
         public void Put()
         {
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             try
             {
@@ -110,7 +147,7 @@ namespace Tournament_Management.Model
 
         public void Delete()
         {
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             try
             {
@@ -132,7 +169,7 @@ namespace Tournament_Management.Model
 
         public void Get(int id)
         {
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             try
             {
@@ -148,6 +185,7 @@ namespace Tournament_Management.Model
                     Active = reader.GetBoolean("active");
                 }
                 Games = GetAllGames(id);
+                Teams = GetAllTeams(id);
                 reader.Close();
             }
             catch (Exception e)
@@ -162,7 +200,7 @@ namespace Tournament_Management.Model
 
         public List<Game> GetAllGames(int id)
         {
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             List<Game> result = new List<Game>();
 
@@ -199,9 +237,9 @@ namespace Tournament_Management.Model
             return result;
         }
 
-        public List<Team> GetAllTeams()
+        public List<Team> GetAllTeams(int id)
         {
-            MySqlConnection con = new MySqlConnection("Server=127.0.0.1;Database=tournament;Uid=user;Pwd=user;");
+            MySqlConnection con = new MySqlConnection(GlobalConst.connectionString);
 
             List<Team> result = new List<Team>();
             try
@@ -211,7 +249,7 @@ namespace Tournament_Management.Model
                  */
 
                 con.Open();
-                string query = $"SELECT team_id FROM TOURNAMENT_PARTICIPANTS TP WHERE TP.tournament_id = '{Id}'";
+                string query = $"SELECT team_id FROM TOURNAMENT_PARTICIPANTS TP WHERE TP.tournament_id = '{id}'";
 
                 MySqlCommand cmd = new MySqlCommand(query, con);
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -219,7 +257,7 @@ namespace Tournament_Management.Model
                 while (reader.Read())
                 {
                     Team t = new Team();
-                    t.Get((int)reader.GetInt64("ID"));
+                    t.Get((int)reader.GetInt64("team_id"));
                     result.Add(t);
                 }
 

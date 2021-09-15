@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Xml.Serialization;
+using Tournament_Management.Helper;
 
 namespace Tournament_Management.Model
 {
     [Serializable]
+    [XmlInclude(typeof(Team))]
+    [XmlInclude(typeof(Person))]
     public abstract class Participant
     {
         #region Attributes

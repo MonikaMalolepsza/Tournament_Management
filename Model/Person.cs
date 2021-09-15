@@ -1,9 +1,17 @@
 ﻿using System;
+using System.Xml.Serialization;
 using MySql.Data.MySqlClient;
+using Tournament_Management.Helper;
 
 namespace Tournament_Management.Model
 {
     [Serializable]
+    [XmlInclude(typeof(BasketballPlayer))]
+    [XmlInclude(typeof(FootballPlayer))]
+    [XmlInclude(typeof(HandballPlayer))]
+    [XmlInclude(typeof(Physio))]
+    [XmlInclude(typeof(Trainer))]
+    [XmlInclude(typeof(Referee))]
     public abstract class Person : Participant
     {
         #region Attributes
@@ -54,6 +62,7 @@ namespace Tournament_Management.Model
             this.Active = active;
             this.Surname = surname;
         }
+
         #endregion Constructors
 
         #region Methods
@@ -85,6 +94,7 @@ namespace Tournament_Management.Model
         public abstract override void Delete();
 
         public abstract override void Get(int id);
+
         public override bool Equals(object obj)
         {
             return base.Equals(obj);
