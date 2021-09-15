@@ -242,6 +242,13 @@
     <Content Include="Bundle.config" />
     <Content Include="View\Ranking.aspx" />
     <Content Include="View\TeamManagement.aspx" />
+    <Content Include="View\templates\BasketballPlayer.ascx" />
+    <Content Include="View\templates\FootbalPlayer.ascx" />
+    <Content Include="View\templates\HandballPlayer.ascx" />
+    <Content Include="View\templates\People.ascx" />
+    <Content Include="View\templates\Physio.ascx" />
+    <Content Include="View\templates\Referee.ascx" />
+    <Content Include="View\templates\Trainer.ascx" />
     <Content Include="View\TournamentManagement.aspx" />
     <Content Include="View\UserManagement.aspx" />
     <Content Include="Web.config" />
@@ -333,6 +340,55 @@
     </Compile>
     <Compile Include="View\TeamManagement.aspx.designer.cs">
       <DependentUpon>TeamManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\templates\BasketballPlayer.ascx.cs">
+      <DependentUpon>BasketballPlayer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\templates\BasketballPlayer.ascx.designer.cs">
+      <DependentUpon>BasketballPlayer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="View\templates\FootbalPlayer.ascx.cs">
+      <DependentUpon>FootbalPlayer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\templates\FootbalPlayer.ascx.designer.cs">
+      <DependentUpon>FootbalPlayer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="View\templates\HandballPlayer.ascx.cs">
+      <DependentUpon>HandballPlayer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\templates\HandballPlayer.ascx.designer.cs">
+      <DependentUpon>HandballPlayer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="View\templates\People.ascx.cs">
+      <DependentUpon>People.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\templates\People.ascx.designer.cs">
+      <DependentUpon>People.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="View\templates\Physio.ascx.cs">
+      <DependentUpon>Physio.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\templates\Physio.ascx.designer.cs">
+      <DependentUpon>Physio.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="View\templates\Referee.ascx.cs">
+      <DependentUpon>Referee.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\templates\Referee.ascx.designer.cs">
+      <DependentUpon>Referee.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="View\templates\Trainer.ascx.cs">
+      <DependentUpon>Trainer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\templates\Trainer.ascx.designer.cs">
+      <DependentUpon>Trainer.ascx</DependentUpon>
     </Compile>
     <Compile Include="View\TournamentManagement.aspx.cs">
       <DependentUpon>TournamentManagement.aspx</DependentUpon>
