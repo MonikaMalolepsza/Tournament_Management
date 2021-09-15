@@ -182,9 +182,9 @@ namespace Tournament_Management.ControllerNS
 
         public void GetAllPeople()
         {
-            Participants.Clear();
+            Players.Clear();
 
-            Participant p = null;
+            Person p = null;
             string sql = "SELECT P.ID," +
                 " case " +
                 "when((SELECT 1 from TRAINER T where T.PERSON_ID = P.id) is not null) then 'Trainer' " +
@@ -236,7 +236,7 @@ namespace Tournament_Management.ControllerNS
                     if (p != null)
                     {
                         p.Get((int)reader.GetInt64("ID"));
-                        Participants.Add(p);
+                        Players.Add(p);
                     }
                     p = null;
                 }

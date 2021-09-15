@@ -24,22 +24,94 @@ namespace Tournament_Management.View
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl rdbtnList1_container;
 
         /// <summary>
-        /// rdbtnList1 control.
+        /// ddlistPpl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList rdbtnList1;
+        protected global::System.Web.UI.WebControls.DropDownList ddlistPpl;
 
         /// <summary>
-        /// btnShow control.
+        /// ddlistPplBn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl btnShow;
+        protected global::System.Web.UI.WebControls.Button ddlistPplBn;
+
+        /// <summary>
+        /// tblPpl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView tblPpl;
+
+        /// <summary>
+        /// editTourn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl editTourn;
+
+        /// <summary>
+        /// addNewGame control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl addNewGame;
+
+        /// <summary>
+        /// newPrsnTypeListDD control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList newPrsnTypeListDD;
+
+        /// <summary>
+        /// nameU control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox nameU;
+
+        /// <summary>
+        /// surnameU control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox surnameU;
+
+        /// <summary>
+        /// activeU control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox activeU;
+
+        /// <summary>
+        /// ageU control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ageU;
 
         /// <summary>
         /// btnAdd control.
@@ -51,30 +123,30 @@ namespace Tournament_Management.View
         protected global::System.Web.UI.WebControls.Button btnAdd;
 
         /// <summary>
-        /// form1 control.
+        /// exportButtons control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl form1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl exportButtons;
 
         /// <summary>
-        /// btnSubmit control.
+        /// exportTeamXML control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSubmit;
+        protected global::System.Web.UI.WebControls.Button exportTeamXML;
 
         /// <summary>
-        /// tblPeople control.
+        /// exportTeamJSON control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Table tblPeople;
+        protected global::System.Web.UI.WebControls.Button exportTeamJSON;
     }
 }
