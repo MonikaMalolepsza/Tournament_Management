@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Http;
 using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
@@ -26,9 +27,13 @@ namespace Tournament_Management
             // Code, der beim Anwendungsstart ausgeführt wird
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
             DatabaseCreator.GenerateDatabase();
 
+            RouteTable.Routes.MapHttpRoute(
+                name: "WebApi",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = System.Web.Http.RouteParameter.Optional }
+            );
             Controller = new Controller();
             UserController = new UserController();
         }
